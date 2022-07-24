@@ -28,6 +28,8 @@ This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https:/
 
 ### Lecture 4: HTTP server
 
+**Frist for innlevering 1**
+
 This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser
 
 ### Lecture 5: Java Servlet API and Jetty
@@ -36,11 +38,15 @@ This lecture covers `java.net.ServerSocket` and how to respond with a file to a 
 
 ### Lecture 7: Controllers
 
+**Frist for innlevering 2**
+
 ### Lecture 8: Database Access with JDBC
 
 ### Lecture 9: Database Access with JPA (and fluent-jdbc)
 
 ### Lecture 10: Deployment to Azure App Services
+
+**Frist for innlevering 3**
 
 ### Lecture 11: Programmer productivity
 
@@ -52,6 +58,8 @@ This lecture covers `java.net.ServerSocket` and how to respond with a file to a 
 The course includes three mandatory assigments. The purpose of these assignments is to prepare you for the practical exam at the end of the course.
 
 ### Assignment 1: Programming skills
+
+[Assignment text](https://github.com/kristiania-pgr209-2022/pgr203-assignment-1-template)
 
 ### Assignment 2: HTTP
 
