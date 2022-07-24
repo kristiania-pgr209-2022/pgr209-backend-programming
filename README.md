@@ -1,2 +1,58 @@
-# pgr209-backend-programming
-Backend Programming at Kristiania University College (PG209)
+# PGR209 Backend programming
+
+Welcome to [this course in Backend Programming at Høyskolen Kristiania](https://www.kristiania.no/studieportal/school-of-economics-innovation-and-technology/bachelorniva/pgr209/backendprogrammering/). In this course, you will take the step from having learned the syntax and structure of programming into learning how to think and work effectively with code together with others. Through the couse, we will be developing and deploying a web application in Java EE using the Servlets API.
+
+## Understanding the course
+
+*I hear and I forget. I see and I remember. I do and I understand* - Confucius
+
+This is a course that may take you by surprise as you first encounter it. I will spend very little time in the beginning explaining technologies and concepts. Instead, I will show you how to do it and give you exercises on using the technologies together with other students. In the beginning you will feel like you're copying without understanding. Only after you have felt how things work, will they be thoroughly explained. Doing something before you fully understand it feels disorienting to many, but ultimately to learn technology, you have to use it.
+
+In the course, you will get to practice building a realistic application using effective development techniques.
+
+## Lectures
+
+Each lecture will consist of 2 hours teaching/demonstration, 2 hours self-practice and 2 hours repetition.
+
+### Lecture 1: Programming skills
+
+This lecture covers pair programming, test-driven development and basic IntelliJ and Git usage.
+
+### Lecture 2: Programming tools
+
+This lecture covers Maven, Github Actions and Github Issues
+
+### Lecture 3: Network programming and introduction to HTTP
+
+This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html) and repeats GitHub Actions
+
+### Lecture 4: HTTP server
+
+This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser
+
+### Lecture 5: Java Servlet API and Jetty
+
+### Lecture 6: Refactoring
+
+### Lecture 7: Controllers
+
+### Lecture 8: Database Access with JDBC
+
+### Lecture 9: Database Access with JPA (and fluent-jdbc)
+
+### Lecture 10: Deployment to Azure App Services
+
+### Lecture 11: Programmer productivity
+
+### Lecture 12: TBD
+
+
+## Assignments
+
+The course includes three mandatory assigments. The purpose of these assignments is to prepare you for the practical exam at the end of the course.
+
+### Assignment 1: Programming skills
+
+### Assignment 2: HTTP
+
+### Assignment 3: Deployment
