@@ -2,6 +2,8 @@
 
 Welcome to [this course in Backend Programming at Høyskolen Kristiania](https://www.kristiania.no/studieportal/school-of-economics-innovation-and-technology/bachelorniva/pgr209/backendprogrammering/). In this course, you will take the step from having learned the syntax and structure of programming into learning how to think and work effectively with code together with others. Through the couse, we will be developing and deploying a web application in Java EE using the Servlets API.
 
+The correct times and locations for all lectures is in [Timeedit](https://cloud.timeedit.net/kristiania/web/student/)
+
 ## Understanding the course
 
 *I hear and I forget. I see and I remember. I do and I understand* - Confucius
@@ -14,53 +16,57 @@ In the course, you will get to practice building a realistic application using e
 
 Each lecture will consist of 2 hours teaching/demonstration, 2 hours self-practice and 2 hours repetition.
 
-### Lecture 1: Programming skills
+### Lecture 1: Programming skills (30.08 9:15 UUN-706)
 
 This lecture covers pair programming, test-driven development and basic IntelliJ and Git usage.
 
-### Lecture 2: Programming tools
+### Lecture 2: Programming tools (06/09 9:15 UUN-706)
 
 This lecture covers Maven, Github Actions and Github Issues
 
-### Lecture 3: Network programming and introduction to HTTP
+### Lecture 3: Network programming and introduction to HTTP (13/09 9:15 UUN-706)
 
 This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html) and repeats GitHub Actions
 
-### Lecture 4: HTTP server
+### Lecture 4: HTTP server (20/09 9:15 UUN-706)
 
-**Frist for innlevering 1**
+**Assignment 1 is due**
 
 This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser
 
-### Lecture 5: Java Servlet API and Jetty
+### Lecture 5: Java Servlet API and Jetty (27/09 9:15 UUN-706)
 
-### Lecture 6: Refactoring
+### Lecture 6: Refactoring (04/10 9:15 UUN-706)
 
-### Lecture 7: Controllers
+### Lecture 7: Controllers (11/10 9:15 UUN-706)
 
-**Frist for innlevering 2**
+**Assignment 2 is due**
 
-### Lecture 8: Database Access with JDBC
+### Lecture 8: Database Access with JDBC (18/10 9:15 UUN-706)
 
-### Lecture 9: Database Access with JPA (and fluent-jdbc)
+### Lecture 9: Database Access with JPA (and fluent-jdbc) (25/10 9:15 UUN-706)
 
-### Lecture 10: Deployment to Azure App Services
+### Lecture 10: Deployment to Azure App Services (01/11 9:15 UUN-706)
 
-**Frist for innlevering 3**
+**Assignment 3 is due**
 
-### Lecture 11: Programmer productivity
+**Exam text is published**
 
-### Lecture 12: TBD
+### Lecture 11: Programmer productivity (11/11 9:15 UUN-706)
 
+### Lecture 12: TBD (18.11 9:15 UUN-706)
+
+### Exam project due: 21.11 kl 09:00
 
 ## Assignments
 
 The course includes three mandatory assigments. The purpose of these assignments is to prepare you for the practical exam at the end of the course.
 
-### Assignment 1: Programming skills
+### Assignment 1: Programming skills (20/09 kl 20:00)
 
 [Assignment text](https://github.com/kristiania-pgr209-2022/pgr203-assignment-1-template)
 
-### Assignment 2: HTTP
+### Assignment 2: HTTP (11/10 kl 20:00)
 
-### Assignment 3: Deployment
+### Assignment 3: Deployment (01/11 20:00)
+
