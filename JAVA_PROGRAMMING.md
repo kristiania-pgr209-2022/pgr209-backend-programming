@@ -1,4 +1,4 @@
-# Advanced Java
+# Backend programming
 
 The course stands on three important pillars:
 
@@ -8,10 +8,23 @@ The course stands on three important pillars:
 
 This summary shows all the essential knowledge you should master at the end of the course.
 
-## Table of contents
+## Some words I assume you know
 
+If you are not comfortable with any of the following words, please ask in class or during the exercise working lessons:
 
-## Programmer skills
+* variable
+* method
+* parameter
+* argument
+* parse
+* protocol
+* inheritance, superclass, subclass
+* override
+* overload
+
+## Programming skills
+
+These are the programming skills you should have mastered at the end of the semester:
 
 * Test-driven development
   * See the test fail before implementing it
@@ -792,15 +805,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-
-## Some words I assume you know:
-
-* variable
-* method
-* parameter
-* argument
-* parse
-* protocol
-* inheritance, superclass, subclass
-* override
-* overload
