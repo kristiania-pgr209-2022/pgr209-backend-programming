@@ -1,0 +1,19 @@
+@startuml
+
+actor one as "Programmer 1"
+actor two as "Programmer 2"
+
+one [#red]-> one: Writes test
+one -> two: Passes keyboard
+
+two [#green]-> two: Writes code to make the test pass
+two [#blue]-> two: Improve code
+two [#red]-> two: Write another test
+two -> one: Passes keyboard
+
+one [#green]-> one: Makes test pass
+one [#blue]-> one: Improve code
+one [#red]-> one: Write another test
+one -> two: Passes keyboard
+
+@enduml
