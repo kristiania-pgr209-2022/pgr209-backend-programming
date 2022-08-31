@@ -22,4 +22,10 @@ public class MinefieldTest {
                 new Minefield(new String[]{"..."}).getHints());
     }
 
+    @Test
+    void shouldDisplayMines() {
+        assertArrayEquals(new String[] {"***", "***"},
+                new Minefield(new String[]{"***", "***"}).getHints());
+    }
+
 }

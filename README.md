@@ -62,9 +62,9 @@ Then the following output should be created:
 
 ## Test progression
 
-* [ ] 1x1 empty minefiedl
-* [ ] 1x3 empty minefield
-* [ ] 3x4 empty minefield
+* [x] 1x1 empty minefiedl
+* [x] 1x3 empty minefield
+* [x] 3x4 empty minefield
 * [ ] 3x3 minefield with all mines
 * [ ] 2x1 minefield with a mine
 * [ ] 5x1 minefield with a mine in the middle
