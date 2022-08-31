@@ -7,7 +7,13 @@ public class MinefieldTest {
     @Test
     void shouldShowEmptyMinefield() {
         assertArrayEquals(new String[]{"0"},
-                new Minefield(new String[]{" "}).getHints());
+                new Minefield(new String[]{"."}).getHints());
+    }
+
+    @Test
+    void shouldHaveCorrectNumberOfRows() {
+        assertArrayEquals(new String[]{"0", "0"},
+                new Minefield(new String[]{".", "."}).getHints());
     }
 
 }
