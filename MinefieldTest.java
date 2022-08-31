@@ -29,9 +29,9 @@ public class MinefieldTest {
     }
 
     @Test
-    void shouldShowHintRightOfMine() {
-        assertArrayEquals(new String[] { "*1" },
-                new Minefield(new String[] {"*."}).getHints());
+    void shouldShowHintsOnSameRowAsMine() {
+        assertArrayEquals(new String[] { "01*10" },
+                new Minefield(new String[] {"..*.."}).getHints());
     }
 
 }
