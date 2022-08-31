@@ -9,11 +9,15 @@ public class Minefield {
         String[] hints = new String[input.length];
         for (int row = 0; row < input.length; row++) {
             String currentRow = "";
-            for (int j = 0; j < input[row].length(); j++) {
-                currentRow += "0";
+            for (int column = 0; column < input[row].length(); column++) {
+                currentRow += getHint(row, column);
             }
             hints[row] = currentRow;
         }
         return hints;
+    }
+
+    private static String getHint(int row, int column) {
+        return "0";
     }
 }
