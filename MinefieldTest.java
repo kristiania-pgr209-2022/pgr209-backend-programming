@@ -46,4 +46,9 @@ public class MinefieldTest {
                 new Minefield(new String[] {"...",".*.","..."}).getHints());
     }
 
+    @Test
+    void shouldCountMinesAroundCell() {
+        assertArrayEquals(new String[] {"***", "*8*", "***"},
+                new Minefield(new String[] {"***", "*.*", "***"}).getHints());
+    }
 }

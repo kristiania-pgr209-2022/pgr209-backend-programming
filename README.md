@@ -69,7 +69,7 @@ Then the following output should be created:
 * [x] 2x1 minefield with a mine
 * [x] 5x1 minefield with a mine in the middle
 * [x] 1x5 minefield with a mine in the middle
-* [ ] 3x3 minefield with a mine in the middle
+* [x] 3x3 minefield with a mine in the middle
 * [ ] 3x3 minefield with some mines
 * [ ] Example from above
 
