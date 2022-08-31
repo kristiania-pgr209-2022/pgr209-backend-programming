@@ -16,4 +16,10 @@ public class MinefieldTest {
                 new Minefield(new String[]{".", "."}).getHints());
     }
 
+    @Test
+    void shouldHaveCorrectNumberOfColumns() {
+        assertArrayEquals(new String[]{"000"},
+                new Minefield(new String[]{"..."}).getHints());
+    }
+
 }
