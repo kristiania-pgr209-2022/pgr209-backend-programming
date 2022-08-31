@@ -8,7 +8,11 @@ public class Minefield {
     public String[] getHints() {
         String[] hints = new String[input.length];
         for (int row = 0; row < input.length; row++) {
-            hints[row] = "0";
+            String currentRow = "";
+            for (int j = 0; j < input[row].length(); j++) {
+                currentRow += "0";
+            }
+            hints[row] = currentRow;
         }
         return hints;
     }
