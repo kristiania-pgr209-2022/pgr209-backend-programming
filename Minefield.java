@@ -32,7 +32,7 @@ public class Minefield {
     }
 
     private boolean hasMine(int row, int column) {
-        if (column < 0 || column >= input[row].length()) return false;
+        if (column < 0 || input[row].length() <= column) return false;
         return input[row].charAt(column) == '*';
     }
 }
