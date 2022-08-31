@@ -21,10 +21,11 @@ public class Minefield {
         if (hasMine(row, column)) {
             return "*";
         }
+        int mineCount = 0;
         if (hasMine(row, column-1)) {
-            return "1";
+            mineCount = 1;
         }
-        return "0";
+        return String.valueOf(mineCount);
     }
 
     private boolean hasMine(int row, int column) {
