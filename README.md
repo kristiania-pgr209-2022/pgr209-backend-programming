@@ -20,6 +20,9 @@ Each lecture will consist of 2 hours teaching/demonstration, 2 hours self-practi
 
 This lecture covers pair programming, test-driven development and basic IntelliJ and Git usage.
 
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/01)
+* [Commit log from live coding](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/01)
+
 ### Lecture 2: Programming tools (06/09 9:15 UUN-706)
 
 This lecture covers Maven, Github Actions and Github Issues
