@@ -65,10 +65,10 @@ Then the following output should be created:
 * [x] 1x1 empty minefiedl
 * [x] 1x3 empty minefield
 * [x] 3x4 empty minefield
-* [ ] 3x3 minefield with all mines
-* [ ] 2x1 minefield with a mine
-* [ ] 5x1 minefield with a mine in the middle
-* [ ] 1x5 minefield with a mine in the middle
+* [x] 3x3 minefield with all mines
+* [x] 2x1 minefield with a mine
+* [x] 5x1 minefield with a mine in the middle
+* [x] 1x5 minefield with a mine in the middle
 * [ ] 3x3 minefield with a mine in the middle
 * [ ] 3x3 minefield with some mines
 * [ ] Example from above
