@@ -29,18 +29,6 @@ public class Minefield {
                 }
             }
         }
-        if (hasMine(row, column-1)) {
-            mineCount = 1;
-        }
-        if (hasMine(row, column+1)) {
-            mineCount = 1;
-        }
-        if (hasMine(row-1, column)) {
-            mineCount = 1;
-        }
-        if (hasMine(row+1, column)) {
-            mineCount = 1;
-        }
         return String.valueOf(mineCount);
     }
 
