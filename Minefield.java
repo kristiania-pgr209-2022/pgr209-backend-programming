@@ -22,6 +22,13 @@ public class Minefield {
             return "*";
         }
         int mineCount = 0;
+        for (int r = row-1; r <= row+1; r++) {
+            for (int c = column-1; c <= column+1; c++) {
+                if (hasMine(r, c)) {
+                    mineCount = 1;
+                }
+            }
+        }
         if (hasMine(row, column-1)) {
             mineCount = 1;
         }
