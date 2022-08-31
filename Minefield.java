@@ -25,11 +25,14 @@ public class Minefield {
         if (hasMine(row, column-1)) {
             mineCount = 1;
         }
+        if (hasMine(row, column+1)) {
+            mineCount = 1;
+        }
         return String.valueOf(mineCount);
     }
 
     private boolean hasMine(int row, int column) {
-        if (column < 0) return false;
+        if (column < 0 || column >= input[row].length()) return false;
         return input[row].charAt(column) == '*';
     }
 }
