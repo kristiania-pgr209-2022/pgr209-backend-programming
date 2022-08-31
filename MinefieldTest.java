@@ -28,4 +28,10 @@ public class MinefieldTest {
                 new Minefield(new String[]{"***", "***"}).getHints());
     }
 
+    @Test
+    void shouldShowHintRightOfMine() {
+        assertArrayEquals(new String[] { "*1" },
+                new Minefield(new String[] {"*."}).getHints());
+    }
+
 }
