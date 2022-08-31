@@ -21,10 +21,14 @@ public class Minefield {
         if (hasMine(row, column)) {
             return "*";
         }
+        if (hasMine(row, column-1)) {
+            return "1";
+        }
         return "0";
     }
 
     private boolean hasMine(int row, int column) {
+        if (column < 0) return false;
         return input[row].charAt(column) == '*';
     }
 }
