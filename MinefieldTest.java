@@ -24,31 +24,58 @@ public class MinefieldTest {
 
     @Test
     void shouldDisplayMines() {
-        assertArrayEquals(new String[] {"***", "***"},
+        assertArrayEquals(new String[]{"***", "***"},
                 new Minefield(new String[]{"***", "***"}).getHints());
     }
 
     @Test
     void shouldShowHintsOnSameRowAsMine() {
-        assertArrayEquals(new String[] { "01*10" },
-                new Minefield(new String[] {"..*.."}).getHints());
+        assertArrayEquals(new String[]{"01*10"},
+                new Minefield(new String[]{"..*.."}).getHints());
     }
 
     @Test
     void shouldShowHintsOnSameColumnAsMine() {
-        assertArrayEquals(new String[] { "0","1","*","1","0" },
-                new Minefield(new String[] {".",".","*",".","."}).getHints());
+        assertArrayEquals(new String[]{"0", "1", "*", "1", "0"},
+                new Minefield(new String[]{".", ".", "*", ".", "."}).getHints());
     }
 
     @Test
     void shouldShowHintsAroundMine() {
-        assertArrayEquals(new String[] { "111","1*1","111" },
-                new Minefield(new String[] {"...",".*.","..."}).getHints());
+        assertArrayEquals(new String[]{"111", "1*1", "111"},
+                new Minefield(new String[]{"...", ".*.", "..."}).getHints());
     }
 
     @Test
     void shouldCountMinesAroundCell() {
-        assertArrayEquals(new String[] {"***", "*8*", "***"},
-                new Minefield(new String[] {"***", "*.*", "***"}).getHints());
+        assertArrayEquals(new String[]{"***", "*8*", "***"},
+                new Minefield(new String[]{"***", "*.*", "***"}).getHints());
+    }
+
+    @Test
+    void shouldDisplayMinefield() {
+        assertArrayEquals(new String[]{
+                        "02**2*100",
+                        "02*432100",
+                        "0112*1000",
+                        "000222000",
+                        "0001*1000",
+                        "000123210",
+                        "00001**20",
+                        "111013*20",
+                        "1*1001110"
+                },
+                new Minefield(new String[]{
+                        "..**.*...",
+                        "..*......",
+                        "....*....",
+                        ".........",
+                        "....*....",
+                        ".........",
+                        ".....**..",
+                        "......*..",
+                        ".*......."
+                }).getHints());
+
     }
 }
