@@ -1,6 +1,6 @@
 # PGR209 Backend programming
 
-Welcome to [this course in Backend Programming at Høyskolen Kristiania](https://www.kristiania.no/studieportal/school-of-economics-innovation-and-technology/bachelorniva/pgr209/backendprogrammering/). In this course, you will take the step from having learned the syntax and structure of programming into learning how to think and work effectively with code together with others. Through the couse, we will be developing and deploying a web application in Java EE using the Servlets API.
+Welcome to [this course in Backend Programming at Høyskolen Kristiania](https://www.kristiania.no/studieportal/school-of-economics-innovation-and-technology/bachelorniva/pgr209/backendprogrammering/). In this course, you will take the step from having learned the syntax and structure of programming into learning how to think and work effectively with code together with others. Through the course, we will be developing and deploying a web application in Java EE using the Servlets API.
 
 The correct times and locations for all lectures is in [Timeedit](https://cloud.timeedit.net/kristiania/web/student/)
 
@@ -60,7 +60,7 @@ This lecture covers `java.net.ServerSocket` and how to respond with a file to a 
 
 ## Assignments
 
-The course includes three mandatory assigments. The purpose of these assignments is to prepare you for the practical exam at the end of the course.
+The course includes three mandatory assignments. The purpose of these assignments is to prepare you for the practical exam at the end of the course.
 
 ### Assignment 1: Programming skills (20/09 kl 20:00)
 
