@@ -8,19 +8,23 @@ public class Minefield {
     public String[] getHints() {
         String[] hints = new String[input.length];
         for (int row = 0; row < input.length; row++) {
-            String currentRow = "";
+            StringBuilder currentRow = new StringBuilder();
             for (int column = 0; column < input[row].length(); column++) {
-                currentRow += getHint(row, column);
+                currentRow.append(getHint(row, column));
             }
-            hints[row] = currentRow;
+            hints[row] = currentRow.toString();
         }
         return hints;
     }
 
     private String getHint(int row, int column) {
-        if (input[row].charAt(column) == '*') {
+        if (hasMine(row, column)) {
             return "*";
         }
         return "0";
+    }
+
+    private boolean hasMine(int row, int column) {
+        return input[row].charAt(column) == '*';
     }
 }
