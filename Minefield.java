@@ -17,7 +17,10 @@ public class Minefield {
         return hints;
     }
 
-    private static String getHint(int row, int column) {
+    private String getHint(int row, int column) {
+        if (input[row].charAt(column) == '*') {
+            return "*";
+        }
         return "0";
     }
 }
