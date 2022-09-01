@@ -16,7 +16,12 @@ class TestLeapYear {
     }
 
     private boolean isLeapYear(int year) {
-        return true;
+        if(year % 4 == 0){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }
