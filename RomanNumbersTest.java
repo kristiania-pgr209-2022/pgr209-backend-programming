@@ -9,6 +9,6 @@ public class RomanNumbersTest {
     }
 
     private String toRomanNumber(int i) {
-        return null;
+        return "I";
     }
 }
