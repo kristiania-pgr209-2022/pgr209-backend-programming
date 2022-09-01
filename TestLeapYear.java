@@ -19,6 +19,11 @@ class TestLeapYear {
         assertFalse(isLeapYear(2100));
     }
 
+    @Test
+    void everyFourHundredYearIsLeapYear(){
+        assertTrue(isLeapYear(2000));
+    }
+
     private boolean isLeapYear(int year) {
         if (year % 4 != 0) return false;
         if (year % 100 == 0) return false;
