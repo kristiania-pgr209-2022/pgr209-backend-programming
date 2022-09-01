@@ -8,7 +8,8 @@ public class RomanNumbersTest {
         assertEquals("I", toRomanNumber(1));
     }
 
-    private String toRomanNumber(int i) {
-        return "I";
+    private String toRomanNumber(int number) {
+        String result = "I";
+        return result;
     }
 }
