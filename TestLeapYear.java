@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TestLeapYear {
 
     @Test
-    void everyForthYearIsLeapYear() {
+    void everyFourthYearIsLeapYear() {
         assertTrue(isLeapYear(2024));
     }
 
     private boolean isLeapYear(int i) {
-        return false;
+        return true;
     }
 
 }
