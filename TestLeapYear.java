@@ -9,7 +9,7 @@ class TestLeapYear {
         assertTrue(isLeapYear(2024));
     }
 
-    private boolean isLeapYear(int i) {
+    private boolean isLeapYear(int year) {
         return true;
     }
 
