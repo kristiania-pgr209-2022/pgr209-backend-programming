@@ -16,7 +16,7 @@ In the course, you will get to practice building a realistic application using e
 
 Each lecture will consist of 2 hours teaching/demonstration, 2 hours self-practice and 2 hours repetition.
 
-### Lecture 1: Programming skills (30.08 9:15 UUN-706)
+### Lecture 1: Programming skills (01.09 8:15 KUN-C4-02)
 
 This lecture covers pair programming, test-driven development and basic IntelliJ and Git usage.
 
@@ -25,41 +25,41 @@ This lecture covers pair programming, test-driven development and basic IntelliJ
 * [Commit log from live Roman Numbers](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/01-b)
 * [Final code from live Minesweeper](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/tree/lectures/01-c)
 
-### Lecture 2: Programming tools (06/09 9:15 UUN-706)
+### Lecture 2: Programming tools (06/09 9:15 FAU-310)
 
 This lecture covers Maven, Github Actions and Github Issues
 
-### Lecture 3: Network programming and introduction to HTTP (13/09 9:15 UUN-706)
+### Lecture 3: Network programming and introduction to HTTP (13/09 9:15 FAU-310)
 
 This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html) and repeats GitHub Actions
 
-### Lecture 4: HTTP server (20/09 9:15 UUN-706)
+### Lecture 4: HTTP server (22/09 9:15 FAU-310)
 
 **Assignment 1 is due**
 
 This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser
 
-### Lecture 5: Java Servlet API and Jetty (27/09 9:15 UUN-706)
+### Lecture 5: Java Servlet API and Jetty (27/09 9:15 FAU-310)
 
-### Lecture 6: Refactoring (04/10 9:15 UUN-706)
+### Lecture 6: Refactoring (04/10 9:15 FAU-310)
 
-### Lecture 7: Controllers (11/10 9:15 UUN-706)
+### Lecture 7: Controllers (11/10 9:15 FAU-310)
 
 **Assignment 2 is due**
 
-### Lecture 8: Database Access with JDBC (18/10 9:15 UUN-706)
+### Lecture 8: Database Access with JDBC (18/10 9:15 FAU-310)
 
-### Lecture 9: Database Access with JPA (and fluent-jdbc) (25/10 9:15 UUN-706)
+### Lecture 9: Database Access with JPA (and fluent-jdbc) (25/10 9:15 FAU-310)
 
-### Lecture 10: Deployment to Azure App Services (01/11 9:15 UUN-706)
+### Lecture 10: Deployment to Azure App Services (01/11 9:15 FAU-310)
 
 **Assignment 3 is due**
 
-**Exam text is published**
+**Exam text is published 31/10**
 
-### Lecture 11: Programmer productivity (11/11 9:15 UUN-706)
+### Lecture 11: Programmer productivity (11/11 9:15 FAU-310)
 
-### Lecture 12: TBD (18.11 9:15 UUN-706)
+### Lecture 12: Delivering software (18.11 9:15 FAU-310)
 
 ### Exam project due: 21.11 kl 09:00
 
