@@ -29,6 +29,9 @@ This lecture covers pair programming, test-driven development and basic IntelliJ
 
 This lecture covers Maven, Github Actions and Github Issues
 
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-lecture-2-reference)
+* [Commit log from live pair programming](https://github.com/kristiania-pgr209-2022/pgr209-lecture-2-lecture/commits/main)
+
 ### Lecture 3: Network programming and introduction to HTTP (13/09 9:15 FAU-310)
 
 This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html) and repeats GitHub Actions
