@@ -167,7 +167,7 @@ class HttpClientTest {
     @Test
     void shouldReturnStatusCode() {
         // Executes some production code
-        HttpClient httpClient = new HttpClient("urlecho.appspot.com", 80, "/echo");
+        HttpClient httpClient = new HttpClient("httpbin.org", 80, "/html");
         HttpResponse httpResponse = httpClient.getResponse();
         
         // "assertions" verify the result of the production code
