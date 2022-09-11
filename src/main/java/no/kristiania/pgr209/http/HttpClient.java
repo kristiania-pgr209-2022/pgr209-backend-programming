@@ -23,7 +23,6 @@ public class HttpClient {
         status = Integer.parseInt(responseLine[1]);
         reasonPhrase = responseLine[2];
 
-        responseMessage.headers = HttpMessage.readHeaders(socket.getInputStream());
 
 
         StringBuilder body = new StringBuilder();

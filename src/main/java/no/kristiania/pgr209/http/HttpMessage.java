@@ -11,6 +11,7 @@ public class HttpMessage {
 
     public HttpMessage(InputStream inputStream) throws IOException {
         startLine = HttpMessage.readLine(inputStream);
+        headers = HttpMessage.readHeaders(inputStream);
     }
 
     public String getStartLine() {
