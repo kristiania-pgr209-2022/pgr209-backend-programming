@@ -9,6 +9,7 @@ public class HttpClient {
 
     private final Map<String, String> headers = new HashMap<>();
     private final int status;
+    private String body;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -26,6 +27,9 @@ public class HttpClient {
         }
 
         status = Integer.parseInt(responseLine[1]);
+
+
+
     }
 
     private String readLine(Socket socket) throws IOException {
@@ -60,5 +64,9 @@ public class HttpClient {
 
     public int getContentLength() {
         return Integer.parseInt(headers.get("Content-Length"));
+    }
+
+    public String getBody() {
+        return body;
     }
 }

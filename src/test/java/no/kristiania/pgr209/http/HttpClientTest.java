@@ -28,4 +28,10 @@ class HttpClientTest {
         assertEquals(3741, client.getContentLength());
     }
 
+    @Test
+    void shouldReadResponseBody() throws IOException {
+        var client = new HttpClient("httpbin.org", 80, "/html");
+        assertTrue(client.getBody().contains("<h1>Herman Melville - Moby-Dick</h1>"));
+    }
+
 }
