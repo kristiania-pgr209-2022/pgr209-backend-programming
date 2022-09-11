@@ -23,6 +23,13 @@ class HttpClientTest {
     }
 
     @Test
+    void shouldGetNotFoundHttpResponse() throws IOException {
+        var client = new HttpClient("httpbin.org", 80, "/non/existing/url");
+        assertEquals(404, client.getStatus());
+        assertEquals("NOT FOUND", client.getReasonPhrase());
+    }
+
+    @Test
     void shouldReadResponseHeader() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
         assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
