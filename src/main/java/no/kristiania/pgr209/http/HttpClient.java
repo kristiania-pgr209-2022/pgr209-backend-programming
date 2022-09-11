@@ -9,17 +9,21 @@ public class HttpClient {
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket("httpbin.org", 80);
-        String request = "GET /html HTTP/1.1\r\n" +
+        String request = "GET " + requestTarget + " HTTP/1.1\r\n" +
                          "Host: httpbin.org\r\n" +
                          "\r\n";
         socket.getOutputStream().write(request.getBytes());
+
+        StringBuilder line = new StringBuilder();
+
         int c;
         while ((c = socket.getInputStream().read()) != '\r') {
-            System.out.print((char)c);
+            line.append((char)c);
         }
 
+        String[] responseLine = line.toString().split(" ");
 
-        status = 200;
+        status = Integer.parseInt(responseLine[1]);
     }
 
     public static void main(String[] args) throws IOException {
