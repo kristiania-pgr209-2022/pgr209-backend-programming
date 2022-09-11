@@ -25,6 +25,7 @@ class HttpClientTest {
         var client = new HttpClient("httpbin.org", 80, "/html");
         assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
         assertEquals("keep-alive", client.getHeader("Connection"));
+        assertEquals(3741, client.getContentLength());
     }
 
 }

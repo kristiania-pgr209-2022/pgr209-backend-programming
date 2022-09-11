@@ -57,4 +57,8 @@ public class HttpClient {
     public String getHeader(String name) {
         return headers.get(name);
     }
+
+    public int getContentLength() {
+        return Integer.parseInt(headers.get("Content-Length"));
+    }
 }
