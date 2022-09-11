@@ -9,7 +9,7 @@ public class HttpClient {
 
     private final Map<String, String> headers = new HashMap<>();
     private final int status;
-    private String body;
+    private String body = "";
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -28,7 +28,9 @@ public class HttpClient {
 
         status = Integer.parseInt(responseLine[1]);
 
-
+        for (int i = 0; i < getContentLength(); i++) {
+            body += (char)socket.getInputStream().read();
+        }
 
     }
 
