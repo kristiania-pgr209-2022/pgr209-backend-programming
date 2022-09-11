@@ -15,11 +15,16 @@ public class HttpMessage {
         headers = HttpMessage.readHeaders(inputStream);
 
         StringBuilder body = new StringBuilder();
-        var contentLength = Integer.parseInt(getHeader("Content-Length"));
-        for (int i = 0; i < contentLength; i++) {
-            body.append((char) inputStream.read());
+        var header = getHeader("Content-Length");
+        if (header != null) {
+            var contentLength = Integer.parseInt(header);
+            for (int i = 0; i < contentLength; i++) {
+                body.append((char) inputStream.read());
+            }
+            this.body = body.toString();
+        } else {
+            this.body = null;
         }
-        this.body = body.toString();
     }
 
     public String getHeader(String name) {

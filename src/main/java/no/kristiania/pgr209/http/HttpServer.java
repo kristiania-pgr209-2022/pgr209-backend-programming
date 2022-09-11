@@ -21,7 +21,7 @@ public class HttpServer {
     private void handleClients() {
         try {
             var clientSocket = serverSocket.accept();
-            clientSocket.close();
+            clientSocket.getOutputStream().write("HTTP/1.1 404 NOT FOUND\r\n\r\n".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
