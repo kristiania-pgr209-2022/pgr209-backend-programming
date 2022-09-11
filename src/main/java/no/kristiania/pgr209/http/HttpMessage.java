@@ -1,12 +1,17 @@
 package no.kristiania.pgr209.http;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HttpMessage {
     public Map<String, String> headers;
+
+    public HttpMessage(InputStream inputStream) {
+
+    }
 
     public static String readLine(Socket socket) throws IOException {
         StringBuilder line = new StringBuilder();

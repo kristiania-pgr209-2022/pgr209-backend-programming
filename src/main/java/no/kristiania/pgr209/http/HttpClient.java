@@ -5,10 +5,11 @@ import java.net.Socket;
 
 public class HttpClient {
 
-    private final HttpMessage responseMessage = new HttpMessage();
+    private final HttpMessage responseMessage;
     private final int status;
     private final String body;
     private final String reasonPhrase;
+    private String startLine;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -17,7 +18,10 @@ public class HttpClient {
                          "\r\n";
         socket.getOutputStream().write(request.getBytes());
 
-        String[] responseLine = HttpMessage.readLine(socket).split(" ", 3);
+        responseMessage = new HttpMessage(socket.getInputStream());
+
+        startLine = HttpMessage.readLine(socket);
+        String[] responseLine = startLine.split(" ", 3);
         status = Integer.parseInt(responseLine[1]);
         reasonPhrase = responseLine[2];
 
