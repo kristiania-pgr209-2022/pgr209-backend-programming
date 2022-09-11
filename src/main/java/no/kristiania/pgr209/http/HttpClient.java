@@ -10,7 +10,7 @@ public class HttpClient {
     private final Map<String, String> headers = new HashMap<>();
     private final int status;
     private final String body;
-    private String reasonPhrase;
+    private final String reasonPhrase;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -43,7 +43,10 @@ public class HttpClient {
         while ((c = socket.getInputStream().read()) != '\r') {
             line.append((char)c);
         }
-        socket.getInputStream().read(); // read next \n character
+        c = socket.getInputStream().read(); // read next \n character
+        if (c != '\n') {
+            throw new IllegalStateException("Invalid http header - \\r not followed by \\n");
+        }
         return line.toString();
     }
 
