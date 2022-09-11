@@ -28,7 +28,7 @@ public class HttpClient {
     }
 
     public String getHeader(String name) {
-        return responseMessage.headers.get(name);
+        return responseMessage.getHeader(name);
     }
 
     public String getBody() {
