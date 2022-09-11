@@ -34,4 +34,11 @@ class HttpClientTest {
         assertTrue(client.getBody().contains("<h1>Herman Melville - Moby-Dick</h1>"));
     }
 
+    @Test
+    void shouldReadRedirect() throws IOException {
+        var client = new HttpClient("httpbin.org", 80, "/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fjson");
+        assertEquals(302, client.getStatus());
+        assertEquals("http://httpbin.org/json", client.getHeader("Location"));
+    }
+
 }
