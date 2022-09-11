@@ -2,13 +2,10 @@ package no.kristiania.pgr209.http;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 
 public class HttpClient {
 
     private final HttpMessage responseMessage = new HttpMessage();
-    private final Map<String, String> headers;
     private final int status;
     private final String body;
     private final String reasonPhrase;
@@ -24,7 +21,7 @@ public class HttpClient {
         status = Integer.parseInt(responseLine[1]);
         reasonPhrase = responseLine[2];
 
-        this.headers = readHeaders(socket);
+        responseMessage.headers = HttpMessage.readHeaders(socket);
 
 
         StringBuilder body = new StringBuilder();
@@ -34,26 +31,16 @@ public class HttpClient {
         this.body = body.toString();
     }
 
-    public static Map<String, String> readHeaders(Socket socket) throws IOException {
-        final Map<String, String> headers = new HashMap<>();
-        String headerLine;
-        while(!(headerLine = HttpMessage.readLine(socket)).isEmpty()) {
-            String[] headerParts = headerLine.split("\s*:\s*", 2);
-            headers.put(headerParts[0], headerParts[1]);
-        }
-        return headers;
-    }
-
     public int getStatus() {
         return status;
     }
 
     public String getHeader(String name) {
-        return headers.get(name);
+        return responseMessage.headers.get(name);
     }
 
     public int getContentLength() {
-        return Integer.parseInt(headers.get("Content-Length"));
+        return Integer.parseInt(getHeader("Content-Length"));
     }
 
     public String getBody() {
