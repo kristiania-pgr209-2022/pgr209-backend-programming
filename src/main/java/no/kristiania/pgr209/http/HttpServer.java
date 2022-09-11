@@ -21,7 +21,13 @@ public class HttpServer {
     private void handleClients() {
         try {
             var clientSocket = serverSocket.accept();
-            clientSocket.getOutputStream().write("HTTP/1.1 404 NOT FOUND\r\n\r\n".getBytes());
+            var request = new HttpMessage(clientSocket.getInputStream());
+            String requestTarget = request.getStartLine().split(" ")[1];
+            String body = "File not found " + requestTarget;
+            clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
+                                                  "Content-Length: " + body.length() + "\r\n" +
+                                                  "\r\n" +
+                                                  body).getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
