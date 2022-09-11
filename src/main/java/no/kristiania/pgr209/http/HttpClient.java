@@ -21,7 +21,7 @@ public class HttpClient {
 
         String headerLine;
         while(!(headerLine = readLine(socket)).isEmpty()) {
-            String[] headerParts = headerLine.split(":");
+            String[] headerParts = headerLine.split("\s*:\s*");
             headers.put(headerParts[0], headerParts[1]);
         }
 
