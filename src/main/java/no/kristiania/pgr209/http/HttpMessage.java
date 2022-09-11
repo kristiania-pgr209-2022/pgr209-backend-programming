@@ -8,11 +8,27 @@ import java.util.Map;
 public class HttpMessage {
     private final String startLine;
     public Map<String, String> headers;
+    private final String body;
 
     public HttpMessage(InputStream inputStream) throws IOException {
         startLine = HttpMessage.readLine(inputStream);
         headers = HttpMessage.readHeaders(inputStream);
+
+        StringBuilder body = new StringBuilder();
+        for (int i = 0; i < getContentLength(); i++) {
+            body.append((char) inputStream.read());
+        }
+        this.body = body.toString();
     }
+
+    public int getContentLength() {
+        return Integer.parseInt(getHeader("Content-Length"));
+    }
+
+    private String getHeader(String name) {
+        return headers.get(name);
+    }
+
 
     public String getStartLine() {
         return startLine;
@@ -39,5 +55,9 @@ public class HttpMessage {
             headers.put(headerParts[0], headerParts[1]);
         }
         return headers;
+    }
+
+    public String getBody() {
+        return body;
     }
 }

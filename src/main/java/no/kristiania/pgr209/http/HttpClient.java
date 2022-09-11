@@ -7,7 +7,6 @@ public class HttpClient {
 
     private final HttpMessage responseMessage;
     private final int status;
-    private final String body;
     private final String reasonPhrase;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
@@ -22,14 +21,6 @@ public class HttpClient {
         String[] responseLine = responseMessage.getStartLine().split(" ", 3);
         status = Integer.parseInt(responseLine[1]);
         reasonPhrase = responseLine[2];
-
-
-
-        StringBuilder body = new StringBuilder();
-        for (int i = 0; i < getContentLength(); i++) {
-            body.append((char) socket.getInputStream().read());
-        }
-        this.body = body.toString();
     }
 
     public int getStatus() {
@@ -40,12 +31,8 @@ public class HttpClient {
         return responseMessage.headers.get(name);
     }
 
-    public int getContentLength() {
-        return Integer.parseInt(getHeader("Content-Length"));
-    }
-
     public String getBody() {
-        return body;
+        return responseMessage.getBody();
     }
 
     public static void main(String[] args) throws IOException {
