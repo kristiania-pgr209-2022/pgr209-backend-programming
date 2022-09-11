@@ -5,12 +5,12 @@ import java.net.Socket;
 
 public class HttpClient {
 
-    private int status;
+    private final int status;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
-        var socket = new Socket("httpbin.org", 80);
+        var socket = new Socket(host, port);
         String request = "GET " + requestTarget + " HTTP/1.1\r\n" +
-                         "Host: httpbin.org\r\n" +
+                         "Host: " + host + "\r\n" +
                          "\r\n";
         socket.getOutputStream().write(request.getBytes());
 
