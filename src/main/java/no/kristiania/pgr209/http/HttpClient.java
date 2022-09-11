@@ -24,13 +24,7 @@ public class HttpClient {
         status = Integer.parseInt(responseLine[1]);
         reasonPhrase = responseLine[2];
 
-        final Map<String, String> headers = new HashMap<>();
-        String headerLine;
-        while(!(headerLine = HttpMessage.readLine(socket)).isEmpty()) {
-            String[] headerParts = headerLine.split("\s*:\s*", 2);
-            headers.put(headerParts[0], headerParts[1]);
-        }
-        this.headers = headers;
+        this.headers = readHeaders(socket);
 
 
         StringBuilder body = new StringBuilder();
@@ -38,6 +32,16 @@ public class HttpClient {
             body.append((char) socket.getInputStream().read());
         }
         this.body = body.toString();
+    }
+
+    public static Map<String, String> readHeaders(Socket socket) throws IOException {
+        final Map<String, String> headers = new HashMap<>();
+        String headerLine;
+        while(!(headerLine = HttpMessage.readLine(socket)).isEmpty()) {
+            String[] headerParts = headerLine.split("\s*:\s*", 2);
+            headers.put(headerParts[0], headerParts[1]);
+        }
+        return headers;
     }
 
     public int getStatus() {
