@@ -22,7 +22,7 @@ public class HttpClient {
 
         String headerLine;
         while(!(headerLine = readLine(socket)).isEmpty()) {
-            String[] headerParts = headerLine.split("\s*:\s*");
+            String[] headerParts = headerLine.split("\s*:\s*", 2);
             headers.put(headerParts[0], headerParts[1]);
         }
 
