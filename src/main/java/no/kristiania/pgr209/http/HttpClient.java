@@ -19,7 +19,7 @@ public class HttpClient {
                          "\r\n";
         socket.getOutputStream().write(request.getBytes());
 
-        String[] responseLine = readLine(socket).split(" ");
+        String[] responseLine = readLine(socket).split(" ", 3);
         status = Integer.parseInt(responseLine[1]);
         reasonPhrase = responseLine[2];
 
