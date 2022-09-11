@@ -44,4 +44,7 @@ public class HttpClient {
         return status;
     }
 
+    public String getHeader(String name) {
+        return null;
+    }
 }
