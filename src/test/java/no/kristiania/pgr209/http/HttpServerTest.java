@@ -14,6 +14,7 @@ public class HttpServerTest {
         httpServer.start();
         var client = new HttpClient("localhost", httpServer.getPort(), "/nothing/here");
         assertEquals(404, client.getStatus());
+        assertEquals("File not found /nothing/here", client.getBody());
     }
 
 }
