@@ -47,4 +47,9 @@ public class HttpServer {
     public void setRoot(Path root) {
         this.root = root;
     }
+
+    public static void main(String[] args) throws IOException {
+        new HttpServer(9080).start();
+    }
+
 }
