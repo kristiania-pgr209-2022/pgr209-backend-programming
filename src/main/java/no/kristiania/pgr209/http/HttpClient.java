@@ -2,9 +2,12 @@ package no.kristiania.pgr209.http;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpClient {
 
+    private Map<String, String> headers = new HashMap<>();
     private final int status;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
@@ -14,18 +17,25 @@ public class HttpClient {
                          "\r\n";
         socket.getOutputStream().write(request.getBytes());
 
-        String[] responseLine = readLine(socket).toString().split(" ");
+        String[] responseLine = readLine(socket).split(" ");
+
+        String headerLine;
+        while(!(headerLine = readLine(socket)).isEmpty()) {
+            String[] headerParts = headerLine.split(":");
+            headers.put(headerParts[0], headerParts[1]);
+        }
 
         status = Integer.parseInt(responseLine[1]);
     }
 
-    private StringBuilder readLine(Socket socket) throws IOException {
+    private String readLine(Socket socket) throws IOException {
         StringBuilder line = new StringBuilder();
         int c;
         while ((c = socket.getInputStream().read()) != '\r') {
             line.append((char)c);
         }
-        return line;
+        socket.getInputStream().read(); // read next \n character
+        return line.toString();
     }
 
     public static void main(String[] args) throws IOException {
@@ -45,6 +55,6 @@ public class HttpClient {
     }
 
     public String getHeader(String name) {
-        return "text/html; charset=utf-8";
+        return headers.get(name);
     }
 }
