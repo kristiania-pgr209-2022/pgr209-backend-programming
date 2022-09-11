@@ -7,7 +7,8 @@ import java.util.Map;
 
 public class HttpClient {
 
-    private final Map<String, String> headers = new HashMap<>();
+    private final HttpMessage responseMessage = new HttpMessage();
+    private final Map<String, String> headers;
     private final int status;
     private final String body;
     private final String reasonPhrase;
@@ -19,15 +20,17 @@ public class HttpClient {
                          "\r\n";
         socket.getOutputStream().write(request.getBytes());
 
-        String[] responseLine = readLine(socket).split(" ", 3);
+        String[] responseLine = HttpMessage.readLine(socket).split(" ", 3);
         status = Integer.parseInt(responseLine[1]);
         reasonPhrase = responseLine[2];
 
+        final Map<String, String> headers = new HashMap<>();
         String headerLine;
-        while(!(headerLine = readLine(socket)).isEmpty()) {
+        while(!(headerLine = HttpMessage.readLine(socket)).isEmpty()) {
             String[] headerParts = headerLine.split("\s*:\s*", 2);
             headers.put(headerParts[0], headerParts[1]);
         }
+        this.headers = headers;
 
 
         StringBuilder body = new StringBuilder();
@@ -35,19 +38,6 @@ public class HttpClient {
             body.append((char) socket.getInputStream().read());
         }
         this.body = body.toString();
-    }
-
-    private String readLine(Socket socket) throws IOException {
-        StringBuilder line = new StringBuilder();
-        int c;
-        while ((c = socket.getInputStream().read()) != '\r') {
-            line.append((char)c);
-        }
-        c = socket.getInputStream().read(); // read next \n character
-        if (c != '\n') {
-            throw new IllegalStateException("Invalid http header - \\r not followed by \\n");
-        }
-        return line.toString();
     }
 
     public int getStatus() {
