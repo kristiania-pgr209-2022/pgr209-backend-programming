@@ -8,7 +8,7 @@ public class HttpClient {
     private int status;
 
     public HttpClient(String host, int port, String requestTarget) {
-
+        status = 200;
     }
 
     public static void main(String[] args) throws IOException {
