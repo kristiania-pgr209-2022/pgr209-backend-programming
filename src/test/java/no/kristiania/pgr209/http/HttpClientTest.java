@@ -12,12 +12,14 @@ class HttpClientTest {
     void shouldGetSuccessfulHttpResponse() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
         assertEquals(200, client.getStatus());
+        assertEquals("OK", client.getReasonPhrase());
     }
 
     @Test
     void shouldGetFailureHttpResponse() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/status/403");
         assertEquals(403, client.getStatus());
+        assertEquals("FORBIDDEN", client.getReasonPhrase());
     }
 
     @Test

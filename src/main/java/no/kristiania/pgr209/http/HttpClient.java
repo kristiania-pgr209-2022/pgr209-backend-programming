@@ -10,6 +10,7 @@ public class HttpClient {
     private final Map<String, String> headers = new HashMap<>();
     private final int status;
     private final String body;
+    private String reasonPhrase;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -19,6 +20,8 @@ public class HttpClient {
         socket.getOutputStream().write(request.getBytes());
 
         String[] responseLine = readLine(socket).split(" ");
+        status = Integer.parseInt(responseLine[1]);
+        reasonPhrase = responseLine[2];
 
         String headerLine;
         while(!(headerLine = readLine(socket)).isEmpty()) {
@@ -26,7 +29,6 @@ public class HttpClient {
             headers.put(headerParts[0], headerParts[1]);
         }
 
-        status = Integer.parseInt(responseLine[1]);
 
         StringBuilder body = new StringBuilder();
         for (int i = 0; i < getContentLength(); i++) {
@@ -64,5 +66,9 @@ public class HttpClient {
     public static void main(String[] args) throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
         System.out.println(client.getBody());
+    }
+
+    public String getReasonPhrase() {
+        return reasonPhrase;
     }
 }
