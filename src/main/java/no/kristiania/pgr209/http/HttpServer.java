@@ -2,9 +2,11 @@ package no.kristiania.pgr209.http;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.nio.file.Path;
 
 public class HttpServer {
     private final ServerSocket serverSocket;
+    private Path root;
 
     public HttpServer(int serverPort) throws IOException {
         this.serverSocket = new ServerSocket(serverPort);
@@ -31,5 +33,9 @@ public class HttpServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setRoot(Path root) {
+        this.root = root;
     }
 }
