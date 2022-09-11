@@ -14,16 +14,18 @@ public class HttpClient {
                          "\r\n";
         socket.getOutputStream().write(request.getBytes());
 
-        StringBuilder line = new StringBuilder();
+        String[] responseLine = readLine(socket).toString().split(" ");
 
+        status = Integer.parseInt(responseLine[1]);
+    }
+
+    private StringBuilder readLine(Socket socket) throws IOException {
+        StringBuilder line = new StringBuilder();
         int c;
         while ((c = socket.getInputStream().read()) != '\r') {
             line.append((char)c);
         }
-
-        String[] responseLine = line.toString().split(" ");
-
-        status = Integer.parseInt(responseLine[1]);
+        return line;
     }
 
     public static void main(String[] args) throws IOException {
