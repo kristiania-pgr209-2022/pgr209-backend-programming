@@ -2,12 +2,12 @@ package no.kristiania.http;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class HttpClient {
 
-    private Map<String, String> headers = new HashMap<>();
+    private final Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final int statusCode;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
