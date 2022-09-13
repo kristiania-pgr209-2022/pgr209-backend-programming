@@ -10,7 +10,7 @@ public class HttpClient {
     private final Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final int statusCode;
     private int contentLength;
-    private final String body;
+    private String body;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -33,7 +33,10 @@ public class HttpClient {
 
         contentLength = Integer.parseInt(getHeader("Content-Length"));
 
-        body = null;
+        body = "";
+        for (int i = 0; i < contentLength; i++) {
+            body += (char)socket.getInputStream().read();
+        }
     }
 
     private String readLine(Socket socket) throws IOException {
