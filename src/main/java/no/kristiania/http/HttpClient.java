@@ -2,10 +2,13 @@ package no.kristiania.http;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpClient {
 
-    private int statusCode;
+    private Map<String, String> headers = new HashMap<>();
+    private final int statusCode;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -17,18 +20,25 @@ public class HttpClient {
                  "\r\n").getBytes()
         );
 
-        StringBuilder line = readLine(socket);
-        statusCode = Integer.parseInt(line.toString().split(" ")[1]);
+        String line = readLine(socket);
+        statusCode = Integer.parseInt(line.split(" ")[1]);
+
+        String headerLine;
+        while(!(headerLine = readLine(socket)).isEmpty()) {
+            String[] parts = headerLine.split(":\\s*");
+            headers.put(parts[0], parts[1]);
+        }
     }
 
-    private StringBuilder readLine(Socket socket) throws IOException {
+    private String readLine(Socket socket) throws IOException {
         StringBuilder line = new StringBuilder();
         int c;
         while ((c = socket.getInputStream().read()) != '\r') {
             line.append((char)c);
         }
+        c = socket.getInputStream().read(); // read the next \n
         System.out.println(line);
-        return line;
+        return line.toString();
     }
 
 
@@ -36,6 +46,9 @@ public class HttpClient {
         return statusCode;
     }
 
+    public String getHeader(String fieldName) {
+        return headers.get(fieldName);
+    }
 
     public static void main(String[] args) throws IOException {
         var socket = new Socket("httpbin.org", 80);
@@ -54,7 +67,4 @@ public class HttpClient {
 
     }
 
-    public String getHeader(String fieldName) {
-        return "text/html";
-    }
 }
