@@ -9,8 +9,8 @@ public class HttpClient {
 
     private final Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final int statusCode;
-    private int contentLength;
-    private String body;
+    private final int contentLength;
+    private final String body;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -47,10 +47,8 @@ public class HttpClient {
             line.append((char)c);
         }
         c = socket.getInputStream().read(); // read the next \n
-        System.out.println(line);
         return line.toString();
     }
-
 
     public int getStatusCode() {
         return statusCode;
@@ -60,23 +58,6 @@ public class HttpClient {
         return headers.get(fieldName);
     }
 
-    public static void main(String[] args) throws IOException {
-        var socket = new Socket("httpbin.org", 80);
-
-        socket.getOutputStream().write(
-                ("GET /html HTTP/1.1\r\n" +
-                 "Connection: close\r\n" +
-                 "Host: httpbin.org\r\n" +
-                 "\r\n").getBytes()
-        );
-
-        int c;
-        while ((c = socket.getInputStream().read()) != -1) {
-            System.out.print((char)c);
-        }
-
-    }
-
     public int getContentLength() {
         return contentLength;
     }
@@ -84,4 +65,10 @@ public class HttpClient {
     public String getBody() {
         return body;
     }
+
+    public static void main(String[] args) throws IOException {
+        var client = new HttpClient("httpbin.org", 80, "/html");
+        System.out.println(client.getBody());
+    }
+
 }
