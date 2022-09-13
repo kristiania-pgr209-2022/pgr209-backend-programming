@@ -5,6 +5,10 @@ import java.net.Socket;
 
 public class HttpClient {
 
+    public HttpClient(String host, int port, String requestTarget) {
+
+    }
+
     public static void main(String[] args) throws IOException {
         var socket = new Socket("httpbin.org", 80);
 
@@ -20,5 +24,9 @@ public class HttpClient {
             System.out.print((char)c);
         }
 
+    }
+
+    public int getStatusCode() {
+        return 0;
     }
 }
