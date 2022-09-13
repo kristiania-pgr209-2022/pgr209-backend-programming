@@ -35,11 +35,11 @@ public class HttpRequestResult {
 
         contentLength = Integer.parseInt(getHeader("Content-Length"));
 
-        StringBuilder body = new StringBuilder();
-        for (int i = 0; i < contentLength; i++) {
-            body.append((char)socket.getInputStream().read());
+        var body = new byte[contentLength];
+        for (int i = 0; i < body.length; i++) {
+            body[i] = (byte) socket.getInputStream().read();
         }
-        this.body = body.toString();
+        this.body = new String(body, StandardCharsets.UTF_8);
     }
 
     private String readLine(Socket socket) throws IOException {
