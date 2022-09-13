@@ -2,6 +2,7 @@ package no.kristiania.http;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +20,7 @@ public class HttpClient {
                 ("GET " + requestTarget + " HTTP/1.1\r\n" +
                  "Connection: close\r\n" +
                  "Host: " + host + "\r\n" +
-                 "\r\n").getBytes()
+                 "\r\n").getBytes(StandardCharsets.UTF_8)
         );
 
         String statusLine = readLine(socket);
