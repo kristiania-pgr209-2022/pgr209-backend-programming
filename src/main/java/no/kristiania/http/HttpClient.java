@@ -20,8 +20,8 @@ public class HttpClient {
                  "\r\n").getBytes()
         );
 
-        String line = readLine(socket);
-        statusCode = Integer.parseInt(line.split(" ")[1]);
+        String statusLine = readLine(socket);
+        statusCode = Integer.parseInt(statusLine.split(" ")[1]);
 
         String headerLine;
         while(!(headerLine = readLine(socket)).isEmpty()) {

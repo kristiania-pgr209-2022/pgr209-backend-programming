@@ -24,6 +24,7 @@ class HttpClientTest {
     void shouldReadHttpResponseHeader() throws IOException {
         var client = new HttpClient("httpbin.org", 80, "/html");
         assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
+        assertEquals("text/html; charset=utf-8", client.getHeader("CONTENT-TYPE"));
         assertEquals("close", client.getHeader("Connection"));
     }
 
