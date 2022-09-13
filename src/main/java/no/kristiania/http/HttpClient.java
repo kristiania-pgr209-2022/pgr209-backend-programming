@@ -33,10 +33,11 @@ public class HttpClient {
 
         contentLength = Integer.parseInt(getHeader("Content-Length"));
 
-        body = "";
+        StringBuilder body = new StringBuilder();
         for (int i = 0; i < contentLength; i++) {
-            body += (char)socket.getInputStream().read();
+            body.append((char)socket.getInputStream().read());
         }
+        this.body = body.toString();
     }
 
     private String readLine(Socket socket) throws IOException {
