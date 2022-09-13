@@ -8,15 +8,17 @@ import java.util.TreeMap;
 
 public class HttpMessage {
     private final String startLine;
-    private final Map<String, String> headers;
+    public final Map<String, String> headers;
     String body;
     int contentLength;
 
     public HttpMessage(Socket socket) throws IOException {
         startLine = readLine(socket);
         headers = readHeaders(socket);
-        contentLength = Integer.parseInt(getHeader("Content-Length"));
-        body = readBody(socket);
+        if (getHeader("Content-Length") != null) {
+            contentLength = Integer.parseInt(getHeader("Content-Length"));
+            body = readBody(socket);
+        }
     }
 
     public String getStartLine() {
