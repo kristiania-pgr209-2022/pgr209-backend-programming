@@ -6,14 +6,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class HttpClient {
+public class HttpRequestResult {
 
+    private HttpMessage response = new HttpMessage();
     private final Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final int statusCode;
     private final int contentLength;
     private final String body;
 
-    public HttpClient(String host, int port, String requestTarget) throws IOException {
+    public HttpRequestResult(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
 
         socket.getOutputStream().write(
@@ -68,7 +69,7 @@ public class HttpClient {
     }
 
     public static void main(String[] args) throws IOException {
-        var client = new HttpClient("httpbin.org", 80, "/html");
+        var client = new HttpRequestResult("httpbin.org", 80, "/html");
         System.out.println(client.getBody());
     }
 
