@@ -67,4 +67,7 @@ public class HttpClient {
 
     }
 
+    public int getContentLength() {
+        return 0;
+    }
 }
