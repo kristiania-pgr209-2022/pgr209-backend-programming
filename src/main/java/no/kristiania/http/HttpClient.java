@@ -17,14 +17,18 @@ public class HttpClient {
                  "\r\n").getBytes()
         );
 
+        StringBuilder line = readLine(socket);
+        statusCode = Integer.parseInt(line.toString().split(" ")[1]);
+    }
+
+    private StringBuilder readLine(Socket socket) throws IOException {
         StringBuilder line = new StringBuilder();
         int c;
-        while ((c = socket.getInputStream().read()) != -1) {
+        while ((c = socket.getInputStream().read()) != '\r') {
             line.append((char)c);
         }
         System.out.println(line);
-
-        statusCode = Integer.parseInt(line.toString().split(" ")[1]);
+        return line;
     }
 
 
