@@ -12,4 +12,10 @@ class HttpClientTest {
         assertEquals(200, client.getStatusCode());
     }
 
+    @Test
+    void shouldReadNotFoundStatusCode() {
+        var client = new HttpClient("httpbin.org", 80, "/bullshit");
+        assertEquals(404, client.getStatusCode());
+    }
+
 }
