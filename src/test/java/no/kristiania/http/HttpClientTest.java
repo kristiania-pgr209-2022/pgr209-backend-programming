@@ -20,4 +20,15 @@ class HttpClientTest {
         assertEquals(404, client.getStatusCode());
     }
 
+    @Test
+    void shouldReadHttpResponseHeader() throws IOException {
+        var client = new HttpClient("httpbin.org", 80, "/html");
+        assertEquals("text/html", client.getHeader("Content-Type"));
+    }
+
+
+
+
+
+
 }

@@ -53,4 +53,8 @@ public class HttpClient {
         }
 
     }
+
+    public String getHeader(String fieldName) {
+        return null;
+    }
 }
