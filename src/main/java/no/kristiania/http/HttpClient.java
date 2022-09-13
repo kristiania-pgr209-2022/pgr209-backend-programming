@@ -9,6 +9,8 @@ public class HttpClient {
 
     private final Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final int statusCode;
+    private int contentLength;
+    private final String body;
 
     public HttpClient(String host, int port, String requestTarget) throws IOException {
         var socket = new Socket(host, port);
@@ -28,6 +30,10 @@ public class HttpClient {
             String[] parts = headerLine.split(":\\s*");
             headers.put(parts[0], parts[1]);
         }
+
+        contentLength = Integer.parseInt(getHeader("Content-Length"));
+
+        body = null;
     }
 
     private String readLine(Socket socket) throws IOException {
@@ -54,7 +60,7 @@ public class HttpClient {
         var socket = new Socket("httpbin.org", 80);
 
         socket.getOutputStream().write(
-                ("GET /bullshit HTTP/1.1\r\n" +
+                ("GET /html HTTP/1.1\r\n" +
                  "Connection: close\r\n" +
                  "Host: httpbin.org\r\n" +
                  "\r\n").getBytes()
@@ -68,6 +74,10 @@ public class HttpClient {
     }
 
     public int getContentLength() {
-        return 0;
+        return contentLength;
+    }
+
+    public String getBody() {
+        return body;
     }
 }
