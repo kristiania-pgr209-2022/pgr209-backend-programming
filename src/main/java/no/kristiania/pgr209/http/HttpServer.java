@@ -3,6 +3,8 @@ package no.kristiania.pgr209.http;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -58,7 +60,10 @@ public class HttpServer {
             String query = requestTarget.substring(queryPos+1);
             for (String queryParameter : query.split("&")) {
                 String[] parts = queryParameter.split("=",2);
-                queryParameters.put(parts[0], parts[1]);
+                queryParameters.put(
+                        URLDecoder.decode(parts[0], StandardCharsets.UTF_8),
+                        URLDecoder.decode(parts[1], StandardCharsets.UTF_8)
+                );
             }
 
         }
