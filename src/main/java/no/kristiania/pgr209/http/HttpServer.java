@@ -67,6 +67,7 @@ public class HttpServer {
         return switch (extension) {
             case "html" -> "text/html";
             case "txt" -> "text/plain";
+            case "css" -> "text/css";
             default -> null;
         };
     }

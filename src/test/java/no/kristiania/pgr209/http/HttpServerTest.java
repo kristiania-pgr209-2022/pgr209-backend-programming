@@ -76,6 +76,10 @@ public class HttpServerTest {
                 new HttpClient("localhost", httpServer.getPort(), "/plain.txt")
                         .getHeader("Content-Type")
         );
-
+        assertEquals(
+                "text/css",
+                new HttpClient("localhost", httpServer.getPort(), "/style.css")
+                        .getHeader("Content-Type")
+        );
     }
 }
