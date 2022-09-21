@@ -90,6 +90,7 @@ public class HttpServerTest {
         var client = makeRequest("/echo?input-string=hello");
         assertEquals(200, client.getStatus());
         assertEquals("hello", client.getBody());
+        assertEquals("hellothere", makeRequest("/echo?input-string=hellothere").getBody());
     }
 
     private HttpClient makeRequest(String requestTarget) throws IOException {
