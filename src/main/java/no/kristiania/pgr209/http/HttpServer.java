@@ -58,7 +58,17 @@ public class HttpServer {
     }
 
     private String getContentType(Path targetPath) {
-        return "text/html";
+        var filename = targetPath.getFileName().toString();
+        var lastPeriodPos = filename.lastIndexOf('.');
+        if (lastPeriodPos < 0) {
+            return null;
+        }
+        var extension = filename.substring(lastPeriodPos+1);
+        return switch (extension) {
+            case "html" -> "text/html";
+            case "txt" -> "text/plain";
+            default -> null;
+        };
     }
 
     public void setRoot(Path root) {

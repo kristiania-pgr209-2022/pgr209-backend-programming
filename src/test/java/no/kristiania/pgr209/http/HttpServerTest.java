@@ -68,7 +68,13 @@ public class HttpServerTest {
 
         assertEquals(
                 "text/html",
-                new HttpClient("localhost", httpServer.getPort(), "/").getHeader("Content-Type")
+                new HttpClient("localhost", httpServer.getPort(), "/")
+                        .getHeader("Content-Type")
+        );
+        assertEquals(
+                "text/plain",
+                new HttpClient("localhost", httpServer.getPort(), "/plain.txt")
+                        .getHeader("Content-Type")
         );
 
     }
