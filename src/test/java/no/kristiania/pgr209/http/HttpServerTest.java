@@ -91,7 +91,7 @@ public class HttpServerTest {
         assertEquals(200, client.getStatus());
         assertEquals("hello", client.getBody());
         assertEquals("text/plain", client.getHeader("Content-Type"));
-        assertEquals("hellothere", makeRequest("/echo?input-string=hellothere").getBody());
+        assertEquals("hello world", makeRequest("/echo?input-string=hello+world").getBody());
     }
 
     @Test
