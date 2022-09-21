@@ -77,8 +77,8 @@ public class HttpServer {
             String body = Files.readString(targetPath);
             String contentType = getContentType(targetPath);
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
-                                                  "Content-Length: " + body.length() + "\r\n" +
-                                                  "Content-Type: " + contentType + "\r\n" +
+                                                  "Content-Length: " + body.getBytes().length + "\r\n" +
+                                                  "Content-Type: " + contentType + "; charset=utf-8\r\n" +
                                                   "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());
@@ -87,8 +87,8 @@ public class HttpServer {
             String body = queryParameters.getOrDefault("input-string", "hello");
             String contentType = queryParameters.getOrDefault("content-type", "text/plain");
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
-                                                  "Content-Length: " + body.length() + "\r\n" +
-                                                  "Content-Type: " + contentType + "\r\n" +
+                                                  "Content-Length: " + body.getBytes().length + "\r\n" +
+                                                  "Content-Type: " + contentType + "; charset=utf-8\r\n" +
                                                   "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());
@@ -96,7 +96,7 @@ public class HttpServer {
         } else {
             String body = "File not found " + requestFile;
             clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
-                                                  "Content-Length: " + body.length() + "\r\n" +
+                                                  "Content-Length: " + body.getBytes().length + "\r\n" +
                                                   "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());

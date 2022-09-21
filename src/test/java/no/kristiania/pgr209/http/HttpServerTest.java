@@ -67,15 +67,15 @@ public class HttpServerTest {
         Files.writeString(root.resolve("style.css"), "body { background: red }");
 
         assertEquals(
-                "text/html",
+                "text/html; charset=utf-8",
                 makeRequest("/").getHeader("Content-Type")
         );
         assertEquals(
-                "text/plain",
+                "text/plain; charset=utf-8",
                 makeRequest("/plain.txt").getHeader("Content-Type")
         );
         assertEquals(
-                "text/css",
+                "text/css; charset=utf-8",
                 makeRequest("/style.css").getHeader("Content-Type")
         );
     }
@@ -90,7 +90,7 @@ public class HttpServerTest {
         var client = makeRequest("/echo?input-string=hello");
         assertEquals(200, client.getStatus());
         assertEquals("hello", client.getBody());
-        assertEquals("text/plain", client.getHeader("Content-Type"));
+        assertEquals("text/plain; charset=utf-8", client.getHeader("Content-Type"));
         assertEquals("hello world", makeRequest("/echo?input-string=hello+world").getBody());
     }
 
@@ -99,7 +99,7 @@ public class HttpServerTest {
         var client = makeRequest("/echo?content-type=text/html&input-string=<h1>hello</h1>");
         assertEquals(200, client.getStatus());
         assertEquals("<h1>hello</h1>", client.getBody());
-        assertEquals("text/html", client.getHeader("Content-Type"));
+        assertEquals("text/html; charset=utf-8", client.getHeader("Content-Type"));
     }
 
     private HttpClient makeRequest(String requestTarget) throws IOException {
