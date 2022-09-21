@@ -26,49 +26,49 @@ public class HttpServer {
         while (!Thread.interrupted()) {
             try {
                 var clientSocket = serverSocket.accept();
-                handleRequest(clientSocket);
+                try {
+                    handleClientRequest(clientSocket);
+                } catch (Exception e) {
+                    String body = "Server error " + e;
+                    clientSocket.getOutputStream().write(("HTTP/1.1 500 SERVER ERROR\r\n" +
+                                                          "Content-Length: " + body.length() + "\r\n" +
+                                                          "Connection: close\r\n" +
+                                                          "\r\n" +
+                                                          body).getBytes());
+                    System.out.println("500 SERVER ERROR");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void handleRequest(Socket clientSocket) throws IOException {
-        try {
-            var request = new HttpMessage(clientSocket.getInputStream());
-            String requestTarget = request.getStartLine().split(" ")[1];
-            var targetPath = root.resolve(requestTarget.substring(1));
-            if (Files.isDirectory(targetPath)) {
-                targetPath = targetPath.resolve("index.html");
-            }
-            System.out.println("Requesting " + targetPath);
-            if (Files.exists(targetPath)) {
-                String body = Files.readString(targetPath);
-                String contentType = getContentType(targetPath);
-                clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
-                                                      "Content-Length: " + body.length() + "\r\n" +
-                                                      "Content-Type: " + contentType + "\r\n" +
-                                                      "Connection: close\r\n" +
-                                                      "\r\n" +
-                                                      body).getBytes());
-                System.out.println(targetPath + " 200 OK");
-            } else {
-                String body = "File not found " + requestTarget;
-                clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
-                                                      "Content-Length: " + body.length() + "\r\n" +
-                                                      "Connection: close\r\n" +
-                                                      "\r\n" +
-                                                      body).getBytes());
-                System.out.println(targetPath + " 404 NOT FOUND");
-            }
-        } catch (Exception e) {
-            String body = "Server error " + e;
-            clientSocket.getOutputStream().write(("HTTP/1.1 500 SERVER ERROR\r\n" +
+    private void handleClientRequest(Socket clientSocket) throws IOException {
+        var request = new HttpMessage(clientSocket.getInputStream());
+        String requestTarget = request.getStartLine().split(" ")[1];
+        var targetPath = root.resolve(requestTarget.substring(1));
+        if (Files.isDirectory(targetPath)) {
+            targetPath = targetPath.resolve("index.html");
+        }
+        System.out.println("Requesting " + targetPath);
+        if (Files.exists(targetPath)) {
+            String body = Files.readString(targetPath);
+            String contentType = getContentType(targetPath);
+            clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                                                  "Content-Length: " + body.length() + "\r\n" +
+                                                  "Content-Type: " + contentType + "\r\n" +
+                                                  "Connection: close\r\n" +
+                                                  "\r\n" +
+                                                  body).getBytes());
+            System.out.println(targetPath + " 200 OK");
+        } else {
+            String body = "File not found " + requestTarget;
+            clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
                                                   "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());
-            System.out.println("500 SERVER ERROR");
+            System.out.println(targetPath + " 404 NOT FOUND");
         }
     }
 
