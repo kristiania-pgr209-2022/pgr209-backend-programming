@@ -59,4 +59,17 @@ public class HttpServerTest {
         var client = new HttpClient("localhost", httpServer.getPort(), "/");
         assertEquals(fileContent, client.getBody());
     }
+
+    @Test
+    void shouldReturnContentType() throws IOException {
+        Files.writeString(root.resolve("index.html"), "<h1>Hello world</h1>");
+        Files.writeString(root.resolve("plain.txt"), "Hello world");
+        Files.writeString(root.resolve("style.css"), "body { background: red }");
+
+        assertEquals(
+                "text/html",
+                new HttpClient("localhost", httpServer.getPort(), "/").getHeader("Content-Type")
+        );
+
+    }
 }
