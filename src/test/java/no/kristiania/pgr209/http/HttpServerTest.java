@@ -23,7 +23,7 @@ public class HttpServerTest {
 
     @Test
     void shouldShowNotFoundPage() throws IOException {
-        var client = new HttpClient("localhost", httpServer.getPort(), "/nothing/here");
+        var client = makeRequest("/nothing/here");
         assertEquals(404, client.getStatus());
         assertEquals("File not found /nothing/here", client.getBody());
     }
@@ -33,7 +33,7 @@ public class HttpServerTest {
         String fileContent = "A file create at " + LocalDateTime.now();
         Files.writeString(root.resolve("example-file.txt"), fileContent);
 
-        var client = new HttpClient("localhost", httpServer.getPort(), "/example-file.txt");
+        var client = makeRequest("/example-file.txt");
         assertEquals(200, client.getStatus());
         assertEquals(fileContent, client.getBody());
     }
@@ -44,10 +44,10 @@ public class HttpServerTest {
         Files.writeString(root.resolve("other-file.txt"), fileContent);
 
         assertEquals(200,
-                new HttpClient("localhost", httpServer.getPort(), "/other-file.txt").getStatus()
+                makeRequest("/other-file.txt").getStatus()
         );
         assertEquals(200,
-                new HttpClient("localhost", httpServer.getPort(), "/other-file.txt").getStatus()
+                makeRequest("/other-file.txt").getStatus()
         );
     }
 
@@ -56,7 +56,7 @@ public class HttpServerTest {
         String fileContent = "A file create at " + LocalDateTime.now();
         Files.writeString(root.resolve("index.html"), fileContent);
 
-        var client = new HttpClient("localhost", httpServer.getPort(), "/");
+        var client = makeRequest("/");
         assertEquals(fileContent, client.getBody());
     }
 
@@ -68,18 +68,19 @@ public class HttpServerTest {
 
         assertEquals(
                 "text/html",
-                new HttpClient("localhost", httpServer.getPort(), "/")
-                        .getHeader("Content-Type")
+                makeRequest("/").getHeader("Content-Type")
         );
         assertEquals(
                 "text/plain",
-                new HttpClient("localhost", httpServer.getPort(), "/plain.txt")
-                        .getHeader("Content-Type")
+                makeRequest("/plain.txt").getHeader("Content-Type")
         );
         assertEquals(
                 "text/css",
-                new HttpClient("localhost", httpServer.getPort(), "/style.css")
-                        .getHeader("Content-Type")
+                makeRequest("/style.css").getHeader("Content-Type")
         );
+    }
+
+    private HttpClient makeRequest(String requestTarget) throws IOException {
+        return new HttpClient("localhost", httpServer.getPort(), requestTarget);
     }
 }
