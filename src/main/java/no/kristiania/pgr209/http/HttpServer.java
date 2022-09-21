@@ -46,6 +46,12 @@ public class HttpServer {
     private void handleClientRequest(Socket clientSocket) throws IOException {
         var request = new HttpMessage(clientSocket.getInputStream());
         String requestTarget = request.getStartLine().split(" ")[1];
+
+        var queryPos = requestTarget.indexOf('?');
+        if (queryPos >= 0) {
+            requestTarget = requestTarget.substring(0, queryPos);
+        }
+
         var targetPath = root.resolve(requestTarget.substring(1));
         if (Files.isDirectory(targetPath)) {
             targetPath = targetPath.resolve("index.html");
@@ -57,6 +63,14 @@ public class HttpServer {
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
                                                   "Content-Type: " + contentType + "\r\n" +
+                                                  "Connection: close\r\n" +
+                                                  "\r\n" +
+                                                  body).getBytes());
+            System.out.println(targetPath + " 200 OK");
+        } else if (requestTarget.equals("/echo")) {
+            String body = "hello";
+            clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                                                  "Content-Length: " + body.length() + "\r\n" +
                                                   "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());

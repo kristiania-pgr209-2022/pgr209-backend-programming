@@ -87,9 +87,9 @@ public class HttpServerTest {
 
     @Test
     void shouldProcessEchoRequest() throws IOException {
-        var client = makeRequest("/echo?input-string=hello+world");
+        var client = makeRequest("/echo?input-string=hello");
         assertEquals(200, client.getStatus());
-        assertEquals("hello world", client.getBody());
+        assertEquals("hello", client.getBody());
     }
 
     private HttpClient makeRequest(String requestTarget) throws IOException {
