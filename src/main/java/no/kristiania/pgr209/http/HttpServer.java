@@ -42,8 +42,10 @@ public class HttpServer {
         }
         if (Files.exists(targetPath)) {
             String body = Files.readString(targetPath);
+            String contentType = "text/html";
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
+                                                  "Content-Type: " + contentType + "\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());
         } else {
