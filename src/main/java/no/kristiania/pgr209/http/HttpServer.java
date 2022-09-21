@@ -48,11 +48,12 @@ public class HttpServer {
         String requestTarget = request.getStartLine().split(" ")[1];
 
         var queryPos = requestTarget.indexOf('?');
+        String requestFile = requestTarget;
         if (queryPos >= 0) {
-            requestTarget = requestTarget.substring(0, queryPos);
+            requestFile = requestFile.substring(0, queryPos);
         }
 
-        var targetPath = root.resolve(requestTarget.substring(1));
+        var targetPath = root.resolve(requestFile.substring(1));
         if (Files.isDirectory(targetPath)) {
             targetPath = targetPath.resolve("index.html");
         }
@@ -67,8 +68,11 @@ public class HttpServer {
                                                   "\r\n" +
                                                   body).getBytes());
             System.out.println(targetPath + " 200 OK");
-        } else if (requestTarget.equals("/echo")) {
+        } else if (requestFile.equals("/echo")) {
             String body = "hello";
+            if (queryPos >= 0) {
+                body = requestTarget.substring(queryPos + "?input-string=".length());
+            }
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
                                                   "Connection: close\r\n" +
@@ -76,7 +80,7 @@ public class HttpServer {
                                                   body).getBytes());
             System.out.println(targetPath + " 200 OK");
         } else {
-            String body = "File not found " + requestTarget;
+            String body = "File not found " + requestFile;
             clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
                                                   "Connection: close\r\n" +
