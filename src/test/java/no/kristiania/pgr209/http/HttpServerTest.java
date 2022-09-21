@@ -48,4 +48,12 @@ public class HttpServerTest {
         );
     }
 
+    @Test
+    void shouldServeIndexFile() throws IOException {
+        String fileContent = "A file create at " + LocalDateTime.now();
+        Files.writeString(Path.of("target/test-classes/index.html"), fileContent);
+
+        var client = new HttpClient("localhost", httpServer.getPort(), "/");
+        assertEquals(fileContent, client.getBody());
+    }
 }
