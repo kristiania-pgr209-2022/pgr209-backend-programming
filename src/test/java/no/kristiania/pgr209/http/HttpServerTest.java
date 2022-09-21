@@ -90,7 +90,16 @@ public class HttpServerTest {
         var client = makeRequest("/echo?input-string=hello");
         assertEquals(200, client.getStatus());
         assertEquals("hello", client.getBody());
+        assertEquals("text/plain", client.getHeader("Content-Type"));
         assertEquals("hellothere", makeRequest("/echo?input-string=hellothere").getBody());
+    }
+
+    @Test
+    void shouldEchoContentType() throws IOException {
+        var client = makeRequest("/echo?content-type=text/html&input-string=<h1>hello</h1>");
+        assertEquals(200, client.getStatus());
+        assertEquals("<h1>hello</h1>", client.getBody());
+        assertEquals("text/html", client.getHeader("Content-Type"));
     }
 
     private HttpClient makeRequest(String requestTarget) throws IOException {
