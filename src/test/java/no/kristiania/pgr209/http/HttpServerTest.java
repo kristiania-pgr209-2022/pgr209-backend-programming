@@ -85,6 +85,13 @@ public class HttpServerTest {
         assertEquals(500, makeRequest("hello*world").getStatus());
     }
 
+    @Test
+    void shouldProcessEchoRequest() throws IOException {
+        var client = makeRequest("/echo?input-string=hello+world");
+        assertEquals(200, client.getStatus());
+        assertEquals("hello world", client.getBody());
+    }
+
     private HttpClient makeRequest(String requestTarget) throws IOException {
         return new HttpClient("localhost", httpServer.getPort(), requestTarget);
     }
