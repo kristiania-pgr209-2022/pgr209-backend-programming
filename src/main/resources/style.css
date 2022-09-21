@@ -1,0 +1,12 @@
+body {
+    background-color: aliceblue;
+    padding-inline: 5em;
+    margin-inline: auto;
+}
+
+main {
+    max-width: 50em;
+    min-height: 20em;
+    padding-inline: 0.4em;
+    background-color: white;
+}

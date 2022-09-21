@@ -40,20 +40,25 @@ public class HttpServer {
         if (Files.isDirectory(targetPath)) {
             targetPath = targetPath.resolve("index.html");
         }
+        System.out.println("Requesting " + targetPath);
         if (Files.exists(targetPath)) {
             String body = Files.readString(targetPath);
             String contentType = getContentType(targetPath);
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
                                                   "Content-Type: " + contentType + "\r\n" +
+                                                  "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());
+            System.out.println(targetPath + " 200 OK");
         } else {
             String body = "File not found " + requestTarget;
             clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
+                                                  "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());
+            System.out.println(targetPath + " 404 NOT FOUND");
         }
     }
 
