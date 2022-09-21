@@ -36,8 +36,12 @@ public class HttpServer {
     private void handleRequest(Socket clientSocket) throws IOException {
         var request = new HttpMessage(clientSocket.getInputStream());
         String requestTarget = request.getStartLine().split(" ")[1];
-        if (Files.exists(root.resolve(requestTarget.substring(1)))) {
-            String body = Files.readString(root.resolve(requestTarget.substring(1)));
+        var targetPath = root.resolve(requestTarget.substring(1));
+        if (Files.isDirectory(targetPath)) {
+            targetPath = targetPath.resolve("index.html");
+        }
+        if (Files.exists(targetPath)) {
+            String body = Files.readString(targetPath);
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
                                                   "\r\n" +
