@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpServer {
     private final ServerSocket serverSocket;
@@ -36,6 +38,7 @@ public class HttpServer {
                                                           "\r\n" +
                                                           body).getBytes());
                     System.out.println("500 SERVER ERROR");
+                    e.printStackTrace();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -49,8 +52,15 @@ public class HttpServer {
 
         var queryPos = requestTarget.indexOf('?');
         String requestFile = requestTarget;
+        Map<String, String> queryParameters = new HashMap<>();
         if (queryPos >= 0) {
-            requestFile = requestFile.substring(0, queryPos);
+            requestFile = requestTarget.substring(0, queryPos);
+            String query = requestTarget.substring(queryPos+1);
+            for (String queryParameter : query.split("&")) {
+                String[] parts = queryParameter.split("=",2);
+                queryParameters.put(parts[0], parts[1]);
+            }
+
         }
 
         var targetPath = root.resolve(requestFile.substring(1));
@@ -69,12 +79,11 @@ public class HttpServer {
                                                   body).getBytes());
             System.out.println(targetPath + " 200 OK");
         } else if (requestFile.equals("/echo")) {
-            String body = "hello";
-            if (queryPos >= 0) {
-                body = requestTarget.substring(queryPos + "?input-string=".length());
-            }
+            String body = queryParameters.getOrDefault("input-string", "hello");
+            String contentType = queryParameters.getOrDefault("content-type", "text/plain");
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
+                                                  "Content-Type: " + contentType + "\r\n" +
                                                   "Connection: close\r\n" +
                                                   "\r\n" +
                                                   body).getBytes());
