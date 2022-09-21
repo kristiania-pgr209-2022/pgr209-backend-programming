@@ -80,6 +80,11 @@ public class HttpServerTest {
         );
     }
 
+    @Test
+    void shouldReturn500ForIllegalCharactersInFilename() throws IOException {
+        assertEquals(500, makeRequest("hello*world").getStatus());
+    }
+
     private HttpClient makeRequest(String requestTarget) throws IOException {
         return new HttpClient("localhost", httpServer.getPort(), requestTarget);
     }
