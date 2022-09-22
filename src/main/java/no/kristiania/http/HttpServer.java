@@ -64,6 +64,17 @@ public class HttpServer {
                                                       "\r\n" + body).getBytes(StandardCharsets.UTF_8));
                 return;
             }
+            if (requestTarget.equals("/api/login")) {
+                var username = queryParameters.get("username");
+                var body = "Ok";
+                clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                                                      "Connection: close\r\n" +
+                                                      "Set-Cookie: authenticatedUserName=" + username + "; HttpOnly\r\n" +
+                                                      "Content-type: text/plain; charset=utf-8\r\n" +
+                                                      "Content-Length: " + body.getBytes(StandardCharsets.UTF_8).length + "\r\n" +
+                                                      "\r\n" + body).getBytes(StandardCharsets.UTF_8));
+                return;
+            }
 
             var requestPath = serverRoot.resolve(requestTarget.substring(1));
             if (Files.isDirectory(requestPath)) {
