@@ -1,3 +1,14 @@
 body {
-    background-color: magenta;()
+    background-color: magenta;
+    padding-inline: 1em;
+}
+
+main {
+    margin-inline: auto;
+    padding: 0.25em;
+    max-width: 20em;
+    min-height: 20em;
+    background-color: white;
+    text-align: center;
+    border-radius: 0.1em;
 }
