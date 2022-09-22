@@ -77,6 +77,13 @@ class HttpServerTest {
         var server = new HttpServer(0, serverRoot);
         var client = new HttpRequestResult("localhost", server.getPort(), "/");
         assertEquals(content, client.getBody());
+    }
 
+    @Test
+    void shouldGive404ForMissingIndexFileInDirectory() throws IOException {
+        Files.createDirectories(serverRoot.resolve("something"));
+        var server = new HttpServer(0, serverRoot);
+        var client = new HttpRequestResult("localhost", server.getPort(), "/something/");
+        assertEquals(404, client.getStatusCode());
     }
 }

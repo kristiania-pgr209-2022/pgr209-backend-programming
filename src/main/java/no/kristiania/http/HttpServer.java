@@ -65,11 +65,10 @@ public class HttpServer {
             }
 
             var requestPath = serverRoot.resolve(requestTarget.substring(1));
+            if (Files.isDirectory(requestPath)) {
+                requestPath = requestPath.resolve("index.html");
+            }
             if (Files.exists(requestPath)) {
-                if (Files.isDirectory(requestPath)) {
-                    requestPath = requestPath.resolve("index.html");
-                }
-
                 var body = Files.readString(requestPath);
                 clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                       "Connection: close\r\n" +
