@@ -13,7 +13,7 @@ class HttpServerTest {
 
     @Test
     void shouldRespondWith404ToUnknownUrl() throws IOException {
-        var server = new HttpServer(0);
+        var server = new HttpServer(0, Path.of("."));
         var client = new HttpRequestResult("localhost", server.getPort(), "/unknown-url");
         assertEquals(404, client.getStatusCode());
         assertEquals("Unknown URL '/unknown-url'", client.getBody());
@@ -21,9 +21,11 @@ class HttpServerTest {
 
     @Test
     void shouldRespondWith200ForKnownUrl() throws IOException {
-        Path file = Path.of("example-file.txt");
+        Path serverRoot = Path.of("target", "test-files");
+        Files.createDirectories(serverRoot);
+        Path file = serverRoot.resolve("example-file.txt");
         Files.writeString(file, "Hello There " + LocalDateTime.now());
-        var server = new HttpServer(0);
+        var server = new HttpServer(0, serverRoot);
         var client = new HttpRequestResult("localhost", server.getPort(), "/" + file.getFileName());
         assertEquals(200, client.getStatusCode());
     }

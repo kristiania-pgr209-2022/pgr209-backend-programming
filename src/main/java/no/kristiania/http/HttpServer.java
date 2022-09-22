@@ -11,7 +11,7 @@ public class HttpServer {
 
     private ServerSocket serverSocket;
 
-    public HttpServer(int port) throws IOException {
+    public HttpServer(int port, Path serverRoot) throws IOException {
         serverSocket = new ServerSocket(port);
         start();
     }
@@ -30,6 +30,7 @@ public class HttpServer {
 
     private void handleClient(Socket clientSocket) throws IOException {
         var request = new HttpMessage(clientSocket);
+        System.out.println(request.getStartLine());
         var requestTarget = request.getStartLine().split(" ")[1];
         if (Files.exists(Path.of(requestTarget.substring(1)))) {
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
@@ -51,7 +52,7 @@ public class HttpServer {
     }
 
     public static void main(String[] args) throws IOException {
-        var server = new HttpServer(9080);
+        var server = new HttpServer(9080, Path.of("."));
     }
 
 }
