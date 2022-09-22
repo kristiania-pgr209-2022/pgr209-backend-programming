@@ -75,6 +75,25 @@ public class HttpServer {
                                                       "\r\n" + body).getBytes(StandardCharsets.UTF_8));
                 return;
             }
+            if (requestTarget.equals("/api/userinfo")) {
+                var cookies = request.getHeader("Cookie");
+                if (cookies != null) {
+                    var cookieMap = new HashMap<String, String>();
+                    for (String c : cookies.split(";")) {
+                        var part = c.split("=", 2);
+                        cookieMap.put(part[0], part[1]);
+                    }
+
+                    var body = cookieMap.get("authenticatedUserName");
+                    if (body != null) {
+                        clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                                                              "Connection: close\r\n" +
+                                                              "Content-Length: " + body.getBytes(StandardCharsets.UTF_8).length + "\r\n" +
+                                                              "\r\n" + body).getBytes(StandardCharsets.UTF_8));
+                        return;
+                    }
+                }
+            }
 
             var requestPath = serverRoot.resolve(requestTarget.substring(1));
             if (Files.isDirectory(requestPath)) {

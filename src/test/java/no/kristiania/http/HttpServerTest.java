@@ -3,6 +3,8 @@ package no.kristiania.http;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -100,10 +102,26 @@ class HttpServerTest {
 
     @Test
     void shouldSetCookieOnLogin() throws IOException {
-        var server = new  HttpServer(80, serverRoot);
+        var server = new  HttpServer(0, serverRoot);
         var client = new HttpRequestResult("localhost", server.getPort(), "/api/login?username=adminuser");
         assertEquals(200, client.getStatusCode());
         assertEquals("authenticatedUserName=adminuser; HttpOnly; Path=/", client.getHeader("Set-Cookie"));
+    }
 
+    @Test
+    void shouldUseCookieOnUserinfoRequest() throws IOException {
+        var server = new  HttpServer(0, serverRoot);
+        var socket = new Socket("localhost", server.getPort());
+
+        var requestTarget = "/api/userinfo";
+        socket.getOutputStream().write(
+                ("GET " + requestTarget + " HTTP/1.1\r\n" +
+                 "Connection: close\r\n" +
+                 "Cookie: authenticatedUserName=adminuser; otherCookie=value\r\n" +
+                 "\r\n").getBytes(StandardCharsets.UTF_8)
+        );
+
+        var response = new HttpMessage(socket);
+        assertEquals("adminuser", response.body);
     }
 }
