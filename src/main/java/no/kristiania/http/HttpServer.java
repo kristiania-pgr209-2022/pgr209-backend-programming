@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 public class HttpServer {
 
@@ -38,13 +39,19 @@ public class HttpServer {
             System.out.println(request.getStartLine());
             var requestTarget = request.getStartLine().split(" ")[1];
             var targetParts = requestTarget.split("\\?", 2);
+            var queryParameters = new HashMap<String, String>();
             if (targetParts.length >= 2) {
                 var query = targetParts[1];
                 requestTarget = targetParts[0];
+                for (String queryParameter : query.split("&")) {
+                    var parameterParts = queryParameter.split("=", 2);
+                    queryParameters.put(parameterParts[0], parameterParts[1]);
+                }
+
             }
 
             if (requestTarget.equals("/api/echo")) {
-                var body = "Hello";
+                var body = queryParameters.get("input-string");
                 clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                       "Connection: close\r\n" +
                                                       "Content-Length: " + body.length() + "\r\n" +
