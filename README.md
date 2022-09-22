@@ -35,12 +35,19 @@ This lecture covers Maven, Github Actions and Github Issues
 ### Lecture 3: Network programming and introduction to HTTP (13/09 9:15 FAU-310)
 
 This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html) and repeats GitHub Actions
+* 
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-lecture-3-reference)
+* [Commit log from live pair programming](https://github.com/kristiania-pgr209-2022/pgr209-lecture-3-lecture/commits/main)
 
 ### Lecture 4: HTTP server (22/09 9:15 FAU-310)
 
 **Assignment 1 is due**
 
 This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser
+
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-lecture-4-reference)
+* [Commit log from live pair programming](https://github.com/kristiania-pgr209-2022/pgr209-lecture-4-lecture/commits/main)
+
 
 ### Lecture 5: Java Servlet API and Jetty (27/09 9:15 FAU-310)
 
