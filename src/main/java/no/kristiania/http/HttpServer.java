@@ -69,7 +69,7 @@ public class HttpServer {
                 var body = "Ok";
                 clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                       "Connection: close\r\n" +
-                                                      "Set-Cookie: authenticatedUserName=" + username + "; HttpOnly\r\n" +
+                                                      "Set-Cookie: authenticatedUserName=" + username + "; HttpOnly; Path=/\r\n" +
                                                       "Content-type: text/plain; charset=utf-8\r\n" +
                                                       "Content-Length: " + body.getBytes(StandardCharsets.UTF_8).length + "\r\n" +
                                                       "\r\n" + body).getBytes(StandardCharsets.UTF_8));
