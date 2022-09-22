@@ -7,6 +7,10 @@
 </head>
 <body>
 <main>
+    <div id="user">
+        <a href="/login.html">Log in</a>
+    </div>
+
     <img src="logo.png" alt="Logo" width="200">
     <h1>Hello world</h1>
 
@@ -16,4 +20,11 @@
     </form>
 </main>
 </body>
+<script>
+    fetch("/api/userinfo").then((res) => {
+        if (res.ok) {
+            res.text().then(body => document.getElementById("user").innerHTML = body);
+        }
+    })
+</script>
 </html>
