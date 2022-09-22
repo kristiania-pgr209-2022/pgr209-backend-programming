@@ -40,11 +40,13 @@ public class HttpServer {
         if (Files.exists(requestPath)) {
             var body = Files.readString(requestPath);
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                                                  "Connection: close\r\n" +
                                                   "Content-Length: " + body.length() + "\r\n" +
                                                   "\r\n" + body).getBytes(StandardCharsets.UTF_8));
         } else {
             var responseBody = "Unknown URL '" + requestTarget + "'";
             clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
+                                                  "Connection: close\r\n" +
                                                   "Content-Type: text/plain\r\n" +
                                                   "Content-Length: " + responseBody.length() + "\r\n" +
                                                   "\r\n" +
