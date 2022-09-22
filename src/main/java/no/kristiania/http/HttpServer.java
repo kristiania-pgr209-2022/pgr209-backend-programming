@@ -58,6 +58,7 @@ public class HttpServer {
             clientSocket.getOutputStream().write(("HTTP/1.1 500 SERVER ERROR\r\n" +
                                                   "Connection: close\r\n" +
                                                   "Content-Type: text/plain\r\n" +
+                                                  "Content-Length: " + 0 + "\r\n" +
                                                   "\r\n").getBytes(StandardCharsets.UTF_8));
             e.printStackTrace();
         }

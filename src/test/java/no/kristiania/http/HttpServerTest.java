@@ -58,4 +58,13 @@ class HttpServerTest {
                         .getStatusCode()
         );
     }
+
+    @Test
+    void shouldHandleEchoRequest() throws IOException {
+        var server = new HttpServer(0, serverRoot);
+        assertEquals("Hello",
+                new HttpRequestResult("localhost", server.getPort(), "/api/echo?input-string=Hello")
+                        .getBody()
+        );
+    }
 }
