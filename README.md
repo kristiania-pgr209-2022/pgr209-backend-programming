@@ -30,28 +30,28 @@ This lecture covers pair programming, test-driven development and basic IntelliJ
 This lecture covers Maven, Github Actions and Github Issues
 
 * [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-lecture-2-reference)
-* [Commit log from live pair programming](https://github.com/kristiania-pgr209-2022/pgr209-lecture-2-lecture/commits/main)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-lecture-2/commits/main)
 
 ### Lecture 3: Network programming and introduction to HTTP (13/09 9:15 FAU-310)
 
 This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https://www.rfc-editor.org/rfc/rfc7230.html) and repeats GitHub Actions
-* 
-* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-lecture-3-reference)
-* [Commit log from live pair programming](https://github.com/kristiania-pgr209-2022/pgr209-lecture-3-lecture/commits/main)
+
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/03)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/03)
 
 ### Lecture 4: HTTP server (22/09 9:15 FAU-310)
 
 **Assignment 1 is due**
 
-This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser
+This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser, including images, encoding and cookies
 
-* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-lecture-4-reference)
-* [Commit log from live pair programming](https://github.com/kristiania-pgr209-2022/pgr209-lecture-4-lecture/commits/main)
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/04)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/04)
 
 
-### Lecture 5: Java Servlet API and Jetty (27/09 9:15 FAU-310)
+### Lecture 5: POST requests and Java Servlet API with Jetty (27/09 9:15 FAU-310)
 
-### Lecture 6: Refactoring (04/10 9:15 FAU-310)
+### Lecture 6: Servlet API and JSP (04/10 9:15 FAU-310)
 
 ### Lecture 7: Controllers (11/10 9:15 FAU-310)
 
