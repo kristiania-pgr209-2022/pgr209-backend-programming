@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
 
+    private Path serverRoot = Path.of("target", "test-files");
+
     @Test
     void shouldRespondWith404ToUnknownUrl() throws IOException {
         var server = new HttpServer(0, Path.of("."));
@@ -21,7 +23,6 @@ class HttpServerTest {
 
     @Test
     void shouldRespondWith200ForKnownUrl() throws IOException {
-        Path serverRoot = Path.of("target", "test-files");
         Files.createDirectories(serverRoot);
         Path file = serverRoot.resolve("example-file.txt");
         var content = "Hello There " + LocalDateTime.now();
@@ -32,5 +33,20 @@ class HttpServerTest {
         assertEquals(content, client.getBody());
     }
 
+    @Test
+    void shouldHandleMoreThanOneRequest() throws IOException {
+        Files.createDirectories(serverRoot);
+        Path file = serverRoot.resolve("index.html");
+        Files.writeString(file, "<h1>Hello world</h1>");
 
+        var server = new HttpServer(0, serverRoot);
+        assertEquals(200,
+                new HttpRequestResult("localhost", server.getPort(), "/" + file.getFileName())
+                        .getStatusCode()
+        );
+        assertEquals(200,
+                new HttpRequestResult("localhost", server.getPort(), "/" + file.getFileName())
+                        .getStatusCode()
+        );
+    }
 }
