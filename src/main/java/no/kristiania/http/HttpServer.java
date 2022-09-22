@@ -20,11 +20,13 @@ public class HttpServer {
 
     private void start() {
         new Thread(() -> {
-            try {
-                var clientSocket = serverSocket.accept();
-                handleClient(clientSocket);
-            } catch (IOException e) {
-                e.printStackTrace();
+            while (true) {
+                try {
+                    var clientSocket = serverSocket.accept();
+                    handleClient(clientSocket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
         System.out.println("Server started");
