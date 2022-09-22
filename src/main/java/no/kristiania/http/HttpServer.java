@@ -10,9 +10,11 @@ import java.nio.file.Path;
 public class HttpServer {
 
     private ServerSocket serverSocket;
+    private final Path serverRoot;
 
     public HttpServer(int port, Path serverRoot) throws IOException {
         serverSocket = new ServerSocket(port);
+        this.serverRoot = serverRoot;
         start();
     }
 
@@ -32,7 +34,7 @@ public class HttpServer {
         var request = new HttpMessage(clientSocket);
         System.out.println(request.getStartLine());
         var requestTarget = request.getStartLine().split(" ")[1];
-        if (Files.exists(Path.of(requestTarget.substring(1)))) {
+        if (Files.exists(serverRoot.resolve(requestTarget.substring(1)))) {
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                   "\r\n").getBytes(StandardCharsets.UTF_8));
         } else {
