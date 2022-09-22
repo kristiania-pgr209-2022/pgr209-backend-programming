@@ -57,7 +57,7 @@ public class HttpServer {
     }
 
     public static void main(String[] args) throws IOException {
-        var server = new HttpServer(9080, Path.of("."));
+        var server = new HttpServer(9080, Path.of("src/main/resources"));
     }
 
 }
