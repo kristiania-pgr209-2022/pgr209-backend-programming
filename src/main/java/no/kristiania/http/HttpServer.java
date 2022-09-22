@@ -86,6 +86,7 @@ public class HttpServer {
                                                       "\r\n" +
                                                       responseBody +
                                                       "\r\n").getBytes(StandardCharsets.UTF_8));
+                System.out.println("404 NOT FOUND");
             }
         } catch (Exception e) {
             clientSocket.getOutputStream().write(("HTTP/1.1 500 SERVER ERROR\r\n" +
