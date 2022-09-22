@@ -11,6 +11,20 @@ public class HttpServer {
 
     public HttpServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
+        start();
+    }
+
+    private void start() {
+        new Thread(() -> {
+            try {
+                var clientSocket = serverSocket.accept();
+                clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
+                                                      "\r\n").getBytes(StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        System.out.println("Server started");
     }
 
     public int getPort() {
@@ -18,8 +32,6 @@ public class HttpServer {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Hello world");
-
         var serverSocket = new ServerSocket(9080);
 
         var clientSocket = serverSocket.accept();
