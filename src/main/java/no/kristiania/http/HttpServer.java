@@ -33,25 +33,33 @@ public class HttpServer {
     }
 
     private void handleClient(Socket clientSocket) throws IOException {
-        var request = new HttpMessage(clientSocket);
-        System.out.println(request.getStartLine());
-        var requestTarget = request.getStartLine().split(" ")[1];
-        var requestPath = serverRoot.resolve(requestTarget.substring(1));
-        if (Files.exists(requestPath)) {
-            var body = Files.readString(requestPath);
-            clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
-                                                  "Connection: close\r\n" +
-                                                  "Content-Length: " + body.length() + "\r\n" +
-                                                  "\r\n" + body).getBytes(StandardCharsets.UTF_8));
-        } else {
-            var responseBody = "Unknown URL '" + requestTarget + "'";
-            clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
+        try {
+            var request = new HttpMessage(clientSocket);
+            System.out.println(request.getStartLine());
+            var requestTarget = request.getStartLine().split(" ")[1];
+            var requestPath = serverRoot.resolve(requestTarget.substring(1));
+            if (Files.exists(requestPath)) {
+                var body = Files.readString(requestPath);
+                clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                                                      "Connection: close\r\n" +
+                                                      "Content-Length: " + body.length() + "\r\n" +
+                                                      "\r\n" + body).getBytes(StandardCharsets.UTF_8));
+            } else {
+                var responseBody = "Unknown URL '" + requestTarget + "'";
+                clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
+                                                      "Connection: close\r\n" +
+                                                      "Content-Type: text/plain\r\n" +
+                                                      "Content-Length: " + responseBody.length() + "\r\n" +
+                                                      "\r\n" +
+                                                      responseBody +
+                                                      "\r\n").getBytes(StandardCharsets.UTF_8));
+            }
+        } catch (Exception e) {
+            clientSocket.getOutputStream().write(("HTTP/1.1 500 SERVER ERROR\r\n" +
                                                   "Connection: close\r\n" +
                                                   "Content-Type: text/plain\r\n" +
-                                                  "Content-Length: " + responseBody.length() + "\r\n" +
-                                                  "\r\n" +
-                                                  responseBody +
                                                   "\r\n").getBytes(StandardCharsets.UTF_8));
+            e.printStackTrace();
         }
 
     }
