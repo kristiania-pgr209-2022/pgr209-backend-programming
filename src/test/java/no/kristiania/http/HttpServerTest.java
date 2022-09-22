@@ -49,4 +49,13 @@ class HttpServerTest {
                         .getStatusCode()
         );
     }
+
+    @Test
+    void shouldReturn500OnUnhandledErrors() throws IOException {
+        var server = new HttpServer(0, serverRoot);
+        assertEquals(500,
+                new HttpRequestResult("localhost", server.getPort(), "/foo*bar")
+                        .getStatusCode()
+        );
+    }
 }
