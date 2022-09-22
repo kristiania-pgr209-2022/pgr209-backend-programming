@@ -62,8 +62,8 @@ class HttpServerTest {
     @Test
     void shouldHandleEchoRequest() throws IOException {
         var server = new HttpServer(0, serverRoot);
-        assertEquals("Hello",
-                new HttpRequestResult("localhost", server.getPort(), "/api/echo?input-string=Hello")
+        assertEquals("hallæ world + universe & galaxy",
+                new HttpRequestResult("localhost", server.getPort(), "/api/echo?input-string=hallæ+world+%2B+universe+%26+galaxy")
                         .getBody()
         );
     }

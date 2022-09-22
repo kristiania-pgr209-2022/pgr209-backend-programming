@@ -3,6 +3,7 @@ package no.kristiania.http;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,7 +46,10 @@ public class HttpServer {
                 requestTarget = targetParts[0];
                 for (String queryParameter : query.split("&")) {
                     var parameterParts = queryParameter.split("=", 2);
-                    queryParameters.put(parameterParts[0], parameterParts[1]);
+                    queryParameters.put(
+                            URLDecoder.decode(parameterParts[0], StandardCharsets.UTF_8),
+                            URLDecoder.decode(parameterParts[1], StandardCharsets.UTF_8)
+                    );
                 }
 
             }
@@ -54,7 +58,8 @@ public class HttpServer {
                 var body = queryParameters.get("input-string");
                 clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                       "Connection: close\r\n" +
-                                                      "Content-Length: " + body.length() + "\r\n" +
+                                                      "Content-type: text/plain; charset=utf-8\r\n" +
+                                                      "Content-Length: " + body.getBytes(StandardCharsets.UTF_8).length + "\r\n" +
                                                       "\r\n" + body).getBytes(StandardCharsets.UTF_8));
                 return;
             }
