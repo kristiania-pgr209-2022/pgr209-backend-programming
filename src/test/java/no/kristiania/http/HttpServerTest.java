@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
 
-    private Path serverRoot = Path.of("target", "test-files");
+    private final Path serverRoot = Path.of("target", "test-files");
 
     @Test
     void shouldRespondWith404ToUnknownUrl() throws IOException {
@@ -72,7 +72,7 @@ class HttpServerTest {
     void shouldListIndexFileForDirectory() throws IOException {
         Files.createDirectories(serverRoot);
         Path file = serverRoot.resolve("index.html");
-        var content = "Hello There " + LocalDateTime.now();
+        var content = "<h1>Hello There " + LocalDateTime.now() + "</h1>";
         Files.writeString(file, content);
         var server = new HttpServer(0, serverRoot);
         var client = new HttpRequestResult("localhost", server.getPort(), "/");
