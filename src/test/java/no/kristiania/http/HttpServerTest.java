@@ -98,5 +98,12 @@ class HttpServerTest {
         );
     }
 
+    @Test
+    void shouldSetCookieOnLogin() throws IOException {
+        var server = new  HttpServer(80, serverRoot);
+        var client = new HttpRequestResult("localhost", server.getPort(), "/api/login?username=adminuser");
+        assertEquals(200, client.getStatusCode());
+        assertEquals("authenticatedUserName=adminuser; HttpOnly", client.getHeader("Set-Cookie"));
 
+    }
 }
