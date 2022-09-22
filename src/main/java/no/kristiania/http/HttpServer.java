@@ -27,7 +27,9 @@ public class HttpServer {
     }
 
     private void handleClient(Socket clientSocket) throws IOException {
-        var responseBody = "Unknown URL '/unknown-url'";
+        var request = new HttpMessage(clientSocket);
+        var requestTarget = request.getStartLine().split(" ")[1];
+        var responseBody = "Unknown URL '" + requestTarget + "'";
         clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
                                               "Content-Type: text/plain\r\n" +
                                               "Content-Length: " + responseBody.length() + "\r\n" +
