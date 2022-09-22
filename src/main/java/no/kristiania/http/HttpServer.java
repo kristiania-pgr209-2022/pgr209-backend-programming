@@ -7,9 +7,14 @@ import java.nio.charset.StandardCharsets;
 
 public class HttpServer {
 
+    private ServerSocket serverSocket;
 
-    public HttpServer(int port) {
+    public HttpServer(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
+    }
 
+    public int getPort() {
+        return serverSocket.getLocalPort();
     }
 
     public static void main(String[] args) throws IOException {
@@ -33,7 +38,4 @@ public class HttpServer {
 
     }
 
-    public int getPort() {
-        return 0;
-    }
 }
