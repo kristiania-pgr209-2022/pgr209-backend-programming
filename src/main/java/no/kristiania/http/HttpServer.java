@@ -37,6 +37,21 @@ public class HttpServer {
             var request = new HttpMessage(clientSocket);
             System.out.println(request.getStartLine());
             var requestTarget = request.getStartLine().split(" ")[1];
+            var targetParts = requestTarget.split("\\?", 2);
+            if (targetParts.length >= 2) {
+                var query = targetParts[1];
+                requestTarget = targetParts[0];
+            }
+
+            if (requestTarget.equals("/api/echo")) {
+                var body = "Hello";
+                clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
+                                                      "Connection: close\r\n" +
+                                                      "Content-Length: " + body.length() + "\r\n" +
+                                                      "\r\n" + body).getBytes(StandardCharsets.UTF_8));
+                return;
+            }
+
             var requestPath = serverRoot.resolve(requestTarget.substring(1));
             if (Files.exists(requestPath)) {
                 var body = Files.readString(requestPath);
