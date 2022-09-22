@@ -34,9 +34,12 @@ public class HttpServer {
         var request = new HttpMessage(clientSocket);
         System.out.println(request.getStartLine());
         var requestTarget = request.getStartLine().split(" ")[1];
-        if (Files.exists(serverRoot.resolve(requestTarget.substring(1)))) {
+        var requestPath = serverRoot.resolve(requestTarget.substring(1));
+        if (Files.exists(requestPath)) {
+            var body = Files.readString(requestPath);
             clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
-                                                  "\r\n").getBytes(StandardCharsets.UTF_8));
+                                                  "Content-Length: " + body.length() + "\r\n" +
+                                                  "\r\n" + body).getBytes(StandardCharsets.UTF_8));
         } else {
             var responseBody = "Unknown URL '" + requestTarget + "'";
             clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
