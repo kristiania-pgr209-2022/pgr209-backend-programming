@@ -13,5 +13,6 @@ class HttpServerTest {
         var server = new HttpServer(0);
         var client = new HttpRequestResult("localhost", server.getPort(), "/unknown-url");
         assertEquals(404, client.getStatusCode());
+        assertEquals("Unknown URL '/unknown-url'", client.getBody());
     }
 }

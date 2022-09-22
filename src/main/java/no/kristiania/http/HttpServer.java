@@ -18,13 +18,17 @@ public class HttpServer {
         new Thread(() -> {
             try {
                 var clientSocket = serverSocket.accept();
-                clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
-                                                      "\r\n").getBytes(StandardCharsets.UTF_8));
+                handleClient(clientSocket);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }).start();
         System.out.println("Server started");
+    }
+
+    private void handleClient(Socket clientSocket) throws IOException {
+        clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
+                                              "\r\n").getBytes(StandardCharsets.UTF_8));
     }
 
     public int getPort() {
