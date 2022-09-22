@@ -93,8 +93,7 @@ class HttpServerTest {
         var server = new HttpServer(0, testResources);
         var client = new HttpRequestResult("localhost", server.getPort(), "/image.png");
         assertEquals(
-                testResources.resolve("image.png").toFile().length()
-                ,
+                testResources.resolve("image.png").toFile().length(),
                 client.getContentLength()
         );
     }

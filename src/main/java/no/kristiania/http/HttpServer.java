@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -69,11 +70,13 @@ public class HttpServer {
                 requestPath = requestPath.resolve("index.html");
             }
             if (Files.exists(requestPath)) {
-                var body = Files.readString(requestPath);
                 clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n" +
                                                       "Connection: close\r\n" +
-                                                      "Content-Length: " + body.length() + "\r\n" +
-                                                      "\r\n" + body).getBytes(StandardCharsets.UTF_8));
+                                                      "Content-Length: " + requestPath.toFile().length() + "\r\n" +
+                                                      "\r\n").getBytes(StandardCharsets.UTF_8));
+                try (var fileInputStream = new FileInputStream(requestPath.toFile())) {
+                    fileInputStream.transferTo(clientSocket.getOutputStream());
+                }
             } else {
                 var responseBody = "Unknown URL '" + requestTarget + "'";
                 clientSocket.getOutputStream().write(("HTTP/1.1 404 NOT FOUND\r\n" +
