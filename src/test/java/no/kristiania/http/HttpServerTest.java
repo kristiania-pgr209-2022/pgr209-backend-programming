@@ -67,4 +67,16 @@ class HttpServerTest {
                         .getBody()
         );
     }
+
+    @Test
+    void shouldListIndexFileForDirectory() throws IOException {
+        Files.createDirectories(serverRoot);
+        Path file = serverRoot.resolve("index.html");
+        var content = "Hello There " + LocalDateTime.now();
+        Files.writeString(file, content);
+        var server = new HttpServer(0, serverRoot);
+        var client = new HttpRequestResult("localhost", server.getPort(), "/");
+        assertEquals(content, client.getBody());
+
+    }
 }
