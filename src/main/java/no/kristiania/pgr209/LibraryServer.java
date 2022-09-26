@@ -19,6 +19,7 @@ public class LibraryServer {
     private void start() throws Exception {
         var webapp = new WebAppContext(Resource.newClassPathResource("/webapp"), "/");
         webapp.addServlet(new ServletHolder(new AddBookServlet(bookRepository)), "/api/addBook");
+        webapp.addServlet(new ServletHolder(new ListBooksServlet(bookRepository)), "/api/listBooks");
         server.setHandler(webapp);
 
         server.start();

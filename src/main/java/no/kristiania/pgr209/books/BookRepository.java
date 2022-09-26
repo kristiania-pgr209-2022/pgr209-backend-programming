@@ -8,4 +8,8 @@ public class BookRepository {
     public void addBook(String title, String author) {
         books.add(title + " by " + author);
     }
+
+    public List<String> listBooks() {
+        return books;
+    }
 }
