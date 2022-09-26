@@ -2,15 +2,24 @@ package no.kristiania.http;
 
 import org.junit.jupiter.api.Test;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HttpClientTest {
 
     @Test
     void shouldReadStatusCode() throws IOException {
         var client = new HttpRequestResult("httpbin.org", 80, "/html");
+        assertEquals(200, client.getStatusCode());
+    }
+
+    @Test
+    void shouldReadStatusCodeWithHttps() throws IOException {
+        var socket = SSLSocketFactory.getDefault().createSocket("httpbin.org", 443);
+        var client = new HttpRequestResult(socket, "httpbin.org", "/html");
         assertEquals(200, client.getStatusCode());
     }
 

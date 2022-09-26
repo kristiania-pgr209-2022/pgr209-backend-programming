@@ -10,8 +10,10 @@ public class HttpRequestResult {
     private final int statusCode;
 
     public HttpRequestResult(String host, int port, String requestTarget) throws IOException {
-        var socket = new Socket(host, port);
+        this(new Socket(host, port), host, requestTarget);
+    }
 
+    public HttpRequestResult(Socket socket, String host, String requestTarget) throws IOException {
         socket.getOutputStream().write(
                 ("GET " + requestTarget + " HTTP/1.1\r\n" +
                  "Connection: close\r\n" +
