@@ -1,5 +1,8 @@
 package no.kristiania.http;
 
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,15 +11,25 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.HashMap;
 
 public class HttpServer {
 
-    private ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
     private final Path serverRoot;
 
     public HttpServer(int port, Path serverRoot) throws IOException {
-        serverSocket = new ServerSocket(port);
+        this(new ServerSocket(port), serverRoot);
+    }
+
+    public HttpServer(ServerSocket serverSocket, Path serverRoot) {
+        this.serverSocket = serverSocket;
         this.serverRoot = serverRoot;
         start();
     }
@@ -119,12 +132,12 @@ public class HttpServer {
                 System.out.println("404 NOT FOUND");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             clientSocket.getOutputStream().write(("HTTP/1.1 500 SERVER ERROR\r\n" +
                                                   "Connection: close\r\n" +
                                                   "Content-Type: text/plain\r\n" +
                                                   "Content-Length: " + 0 + "\r\n" +
                                                   "\r\n").getBytes(StandardCharsets.UTF_8));
-            e.printStackTrace();
         }
 
     }
@@ -133,8 +146,21 @@ public class HttpServer {
         return serverSocket.getLocalPort();
     }
 
-    public static void main(String[] args) throws IOException {
-        var server = new HttpServer(9080, Path.of("src/main/resources"));
+    // keytool -genkeypair -keystore servercert.p12 -dname cn=localhost -storepass abc123 -keyalg RSA
+    // keytool -genkeypair -keystore servercert.p12 -dname cn=localhost -storepass abc123 -keyalg RSA -ext san=dns:localhost
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException, UnrecoverableKeyException, KeyStoreException, CertificateException {
+        var context = SSLContext.getInstance("TLS");
+
+        var keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        var keyStore = KeyStore.getInstance("pkcs12");
+        try (var stream = new FileInputStream("servercert.p12")) {
+            keyStore.load(stream, "abc123".toCharArray());
+        }
+        keyManagerFactory.init(keyStore, "abc123".toCharArray());
+        context.init(keyManagerFactory.getKeyManagers(), null, null);
+
+        SSLServerSocket serverSocket = (SSLServerSocket) context.getServerSocketFactory().createServerSocket(9443);
+        var server = new HttpServer(serverSocket, Path.of("src/main/resources"));
     }
 
 }
