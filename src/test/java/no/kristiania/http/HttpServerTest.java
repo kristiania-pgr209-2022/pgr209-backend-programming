@@ -2,14 +2,20 @@ package no.kristiania.http;
 
 import org.junit.jupiter.api.Test;
 
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HttpServerTest {
 
@@ -123,5 +129,30 @@ class HttpServerTest {
 
         var response = new HttpMessage(socket);
         assertEquals("adminuser", response.body);
+    }
+
+    @Test
+    void shouldConnectWithHttps() throws IOException, GeneralSecurityException {
+        var keyStore = KeyStore.getInstance("pkcs12");
+        try (var stream = new FileInputStream("servercert.p12")) {
+            keyStore.load(stream, "abc123".toCharArray());
+        }
+
+        var serverContext = SSLContext.getInstance("TLS");
+        var keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        keyManagerFactory.init(keyStore, "abc123".toCharArray());
+        serverContext.init(keyManagerFactory.getKeyManagers(), null, null);
+        var serverSocket = serverContext.getServerSocketFactory().createServerSocket(0);
+
+        var server = new HttpServer(serverSocket, Path.of("."));
+
+        var clientContext = SSLContext.getInstance("TLS");
+        var trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        trustManagerFactory.init(keyStore);
+        clientContext.init(null, trustManagerFactory.getTrustManagers(), null);
+        var socket = clientContext.getSocketFactory().createSocket( "localhost", server.getPort());
+
+        var client = new HttpRequestResult(socket, "localhost", "/unknown-url");
+        assertEquals(404, client.getStatusCode());
     }
 }

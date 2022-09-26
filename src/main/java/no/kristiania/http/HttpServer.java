@@ -159,7 +159,7 @@ public class HttpServer {
         keyManagerFactory.init(keyStore, "abc123".toCharArray());
         context.init(keyManagerFactory.getKeyManagers(), null, null);
 
-        SSLServerSocket serverSocket = (SSLServerSocket) context.getServerSocketFactory().createServerSocket(9443);
+        var serverSocket = context.getServerSocketFactory().createServerSocket(9443);
         var server = new HttpServer(serverSocket, Path.of("src/main/resources"));
     }
 
