@@ -17,6 +17,11 @@
             <artifactId>jetty-webapp</artifactId>
             <version>11.0.12</version>
         </dependency>
+        <dependency>
+            <groupId>org.logevents</groupId>
+            <artifactId>logevents</artifactId>
+            <version>0.3.3</version>
+        </dependency>
     </dependencies>
 
 </project>
