@@ -1,5 +1,9 @@
 package no.kristiania.http;
 
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,6 +12,12 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.GeneralSecurityException;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.HashMap;
 
 public class HttpServer {
@@ -16,7 +26,11 @@ public class HttpServer {
     private final Path serverRoot;
 
     public HttpServer(int port, Path serverRoot) throws IOException {
-        serverSocket = new ServerSocket(port);
+        this(serverRoot, new ServerSocket(port));
+    }
+
+    public HttpServer(Path serverRoot, ServerSocket serverSocket) throws IOException {
+        this.serverSocket = serverSocket;
         this.serverRoot = serverRoot;
         start();
     }
@@ -133,8 +147,16 @@ public class HttpServer {
         return serverSocket.getLocalPort();
     }
 
-    public static void main(String[] args) throws IOException {
-        var server = new HttpServer(9080, Path.of("src/main/resources"));
+    // keytool -genkeypair -keystore servercert.p12 -dname cn=localhost -storepass abc123 -keyalg RSA -ext san=dns:localhost -ext san=dns:kristiania.no
+    public static void main(String[] args) throws IOException, GeneralSecurityException {
+        var sslContext = SSLContext.getInstance("TLS");
+        var keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        var keyStore = KeyStore.getInstance("pkcs12");
+        keyStore.load(new FileInputStream("servercert.p12"), "abc123".toCharArray());
+        keyManagerFactory.init(keyStore, "abc123".toCharArray());
+        sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
+        var serverSocket = sslContext.getServerSocketFactory().createServerSocket(443);
+        var server = new HttpServer(Path.of("src/main/resources"), serverSocket);
     }
 
 }

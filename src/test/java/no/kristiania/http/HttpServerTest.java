@@ -2,11 +2,19 @@ package no.kristiania.http;
 
 import org.junit.jupiter.api.Test;
 
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +27,29 @@ class HttpServerTest {
     void shouldRespondWith404ToUnknownUrl() throws IOException {
         var server = new HttpServer(0, Path.of("."));
         var client = new HttpRequestResult("localhost", server.getPort(), "/unknown-url");
+        assertEquals(404, client.getStatusCode());
+        assertEquals("Unknown URL '/unknown-url'", client.getBody());
+    }
+
+    @Test
+    void shouldRespondWith404ToUnknownUrlOnHttps() throws IOException, GeneralSecurityException {
+        var sslContext = SSLContext.getInstance("TLS");
+        var keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        var keyStore = KeyStore.getInstance("pkcs12");
+        keyStore.load(new FileInputStream("servercert.p12"), "abc123".toCharArray());
+        keyManagerFactory.init(keyStore, "abc123".toCharArray());
+        sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
+        var serverSocket = sslContext.getServerSocketFactory().createServerSocket(0);
+
+        var server = new HttpServer(Path.of("."), serverSocket);
+
+        var clientSslContext = SSLContext.getInstance("TLS");
+        var trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        trustManagerFactory.init(keyStore);
+        clientSslContext.init(null, trustManagerFactory.getTrustManagers(), null);
+
+        var socket = clientSslContext.getSocketFactory().createSocket("localhost", server.getPort());
+        var client = new HttpRequestResult("localhost", "/unknown-url", socket);
         assertEquals(404, client.getStatusCode());
         assertEquals("Unknown URL '/unknown-url'", client.getBody());
     }
