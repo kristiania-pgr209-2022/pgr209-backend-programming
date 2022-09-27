@@ -19,6 +19,7 @@ public class LibraryServer {
                 "/"
         );
         webApp.addServlet(new ServletHolder(new AddBookServlet(bookRepository)), "/api/addBook");
+        webApp.addServlet(new ServletHolder(new ListBooksServlet(bookRepository)), "/api/books/*");
         server.setHandler(webApp);
 
 
