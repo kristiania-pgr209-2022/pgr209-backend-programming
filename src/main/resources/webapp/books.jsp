@@ -1,3 +1,5 @@
+<%@ page import="no.kristiania.library.BookRepository" %>
+<%@ page import="no.kristiania.library.Book" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,13 @@
 </head>
 <body>
 
-<h2>Hello the time is <%= java.time.LocalTime.now() %></h2>
+<h2>Here are all the books</h2>
+
+<ul>
+<% for (Book book : BookRepository.getInstance().listAll()) { %>
+    <li><%= book %></li>
+<% } %>
+</ul>
 
 </body>
 </html>
