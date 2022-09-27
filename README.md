@@ -5,10 +5,10 @@ Books with authors:
 * [ ] Add a book
 * [ ] List books
 
-* [ ] Maven project
+* [x] Maven project
+* [x] Jetty embedded in main
+* [x] Serving files from disk
 * [ ] Servlet API
-* [ ] Jetty embedded in main
-* [ ] Serving files from disk
 * [ ] Implement POST business logic with servlets
 * [ ] Implement GET business logic with servlets
 * [ ] View data with Java Server Pages (JSP)
