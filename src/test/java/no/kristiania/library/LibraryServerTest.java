@@ -11,8 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LibraryServerTest {
 
     @Test
-    void shouldShowFrontPage() throws IOException {
+    void shouldShowFrontPage() throws Exception {
         LibraryServer server = new LibraryServer(0);
+        server.start();
 
         URL url = server.getURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
