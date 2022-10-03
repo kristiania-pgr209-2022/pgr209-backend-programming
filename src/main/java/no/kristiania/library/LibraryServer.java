@@ -2,6 +2,7 @@ package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
@@ -35,7 +36,13 @@ public class LibraryServer {
         } else {
             webapp.setBaseResource(resource);
         }
-        webapp.addServlet(ListBooksServlet.class, "/api/books");
+        ServletHolder jerseyServlet = webapp.addServlet(
+                org.glassfish.jersey.servlet.ServletContainer.class, "/api/*");
+        jerseyServlet.setInitOrder(0);
+        jerseyServlet.setInitParameter(
+                "jersey.config.server.provider.packages",
+                "no.kristiania.library");
+        //webapp.addServlet(ListBooksServlet.class, "/api/books");
         return webapp;
     }
 
