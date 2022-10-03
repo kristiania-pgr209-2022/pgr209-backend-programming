@@ -1,5 +1,7 @@
 package no.kristiania.library;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,15 +17,12 @@ public class ListBooksServlet extends HttpServlet {
         exampleBook.setTitle("Example Book");
         var books = List.of(exampleBook);
 
-        resp.getWriter().println("[");
+        JsonArrayBuilder booksJson = Json.createArrayBuilder();
         for (Book book : books) {
-            resp.getWriter().print("{");
-            resp.getWriter().print("\"title\": \"");
-            resp.getWriter().print(book.getTitle());
-            resp.getWriter().print("\"}");
+            booksJson.add(Json.createObjectBuilder()
+                    .add("title", book.getTitle())
+            );
         }
-        resp.getWriter().println("]");
-
-        resp.getWriter().print("");
+        resp.getWriter().print(booksJson.build().toString());
     }
 }
