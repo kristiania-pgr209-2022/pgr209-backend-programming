@@ -1,10 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import reactLogo from "./assets/react.svg";
+import "./App.css";
+import { useEffect, useState } from "react";
+
+function BookList() {
+  const [loading, setLoading] = useState(true);
+  const [books, setBooks] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/books");
+      if (res.ok) {
+        setBooks(await res.json());
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return books.map((b) => <div>{b.title}</div>);
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
       <div>
@@ -16,19 +34,9 @@ function App() {
         </a>
       </div>
       <h1>Kristiania Library</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BookList />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
