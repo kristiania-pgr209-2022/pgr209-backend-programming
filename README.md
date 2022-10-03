@@ -6,6 +6,6 @@
 * [x] Serve a React application
 * [x] Return JSON from a servlet with javax.json
 * [ ] Introduce JAX-RS to serve a GET resource with Jersey ServletContainer
-* [ ] JAX-RS to serve a POST resource
+* [x] JAX-RS to serve a POST resource
 * [ ] Dependency management
 
