@@ -20,9 +20,13 @@ class LibraryServerTest {
         server.start();
     }
 
+    private HttpURLConnection getOpenConnection(String spec) throws IOException {
+        return (HttpURLConnection) new URL(server.getURL(), spec).openConnection();
+    }
+
     @Test
     void shouldShowFrontPage() throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(server.getURL(), "/").openConnection();
+        HttpURLConnection connection = getOpenConnection("/");
         assertThat(connection.getResponseCode()).as(connection.getResponseMessage())
                 .isEqualTo(200);
         assertThat(connection.getInputStream()).asString(StandardCharsets.UTF_8)
@@ -31,7 +35,7 @@ class LibraryServerTest {
 
     @Test
     void shouldReturnBookList() throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(server.getURL(), "/api/books").openConnection();
+        HttpURLConnection connection = getOpenConnection("/api/books");
         assertThat(connection.getResponseCode()).as(connection.getResponseMessage())
                 .isEqualTo(200);
         assertThat(connection.getInputStream()).asString(StandardCharsets.UTF_8)
