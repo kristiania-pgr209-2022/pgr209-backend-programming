@@ -32,7 +32,6 @@
             <groupId>org.logevents</groupId>
             <artifactId>logevents</artifactId>
             <version>0.3.3</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
     <properties>

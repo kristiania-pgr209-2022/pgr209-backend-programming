@@ -6,6 +6,8 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -15,13 +17,24 @@ public class LibraryServer {
 
     private final Server server;
 
-    public LibraryServer(int port) {
+    public LibraryServer(int port) throws IOException {
         this.server = new Server(port);
+        server.setHandler(createWebApp());
+    }
+
+    private static WebAppContext createWebApp() throws IOException {
         var webapp = new WebAppContext();
         webapp.setContextPath("/");
-        webapp.setBaseResource(Resource.newClassPathResource("/webapp"));
+        Resource resource = Resource.newClassPathResource("/webapp");
+        var sourcePath = new File(resource.getFile().getAbsolutePath().replace('\\', '/')
+                        .replace("/target/classes/", "/src/main/resources/"));
+        if (sourcePath.isDirectory()) {
+            webapp.setBaseResource(Resource.newResource(sourcePath));
+        } else {
+            webapp.setBaseResource(resource);
+        }
         webapp.addServlet(ListBooksServlet.class, "/api/books");
-        server.setHandler(webapp);
+        return webapp;
     }
 
     public URL getURL() throws MalformedURLException {
