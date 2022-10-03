@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class LibraryServerTest {
 
     @Test
