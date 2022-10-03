@@ -2,13 +2,14 @@ package no.kristiania.library;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 class LibraryServerTest {
 
     @Test
-    void shouldShowFrontPage() {
+    void shouldShowFrontPage() throws IOException {
         LibraryServer server = new LibraryServer(0);
 
         URL url = server.getURL();
