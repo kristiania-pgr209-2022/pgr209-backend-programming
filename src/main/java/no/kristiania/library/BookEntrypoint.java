@@ -8,19 +8,17 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("/")
 public class BookEntrypoint {
 
-    private static final List<Book> books = new ArrayList<>();
+    private static final BookRepository books = new BookRepository();
 
     @GET
     @Path("/books")
     public Response getBooks() {
         JsonArrayBuilder booksJson = Json.createArrayBuilder();
-        for (Book book : books) {
+        for (Book book : books.getBooks()) {
             booksJson.add(Json.createObjectBuilder()
                     .add("title", book.getTitle())
             );
