@@ -3,5 +3,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()]
+  plugins: [react()],
+  base: "/react/",
+  build: {
+    emptyOutDir: true,
+    outDir: "../resources/webapp/react"
+  }
 })
