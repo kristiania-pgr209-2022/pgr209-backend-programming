@@ -1,6 +1,7 @@
 package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ public class LibraryServer {
         WebAppContext webapp = new WebAppContext();
         webapp.setContextPath("/");
         webapp.setBaseResource(Resource.newClassPathResource("/webapp"));
+        webapp.addServlet(ListBooksServlet.class, "/api/books");
         server.setHandler(webapp);
     }
 
