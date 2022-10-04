@@ -5,6 +5,7 @@ import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,12 @@ public class LibraryServer {
             webContext.setBaseResource(resources);
         }
 
-        webContext.addServlet(new ServletHolder(new ListBooksServlet()), "/api/books");
+        //webContext.addServlet(new ServletHolder(new ListBooksServlet()), "/api/books");
+
+        ServletHolder jerseyServlet = webContext.addServlet(ServletContainer.class, "/api/*");
+        jerseyServlet.setInitOrder(0);
+        jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "no.kristiania.library");
+
         return webContext;
     }
 
