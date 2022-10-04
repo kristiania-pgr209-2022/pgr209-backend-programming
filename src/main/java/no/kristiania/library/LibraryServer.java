@@ -20,11 +20,14 @@ public class LibraryServer {
 
     public LibraryServer(int port) throws IOException {
         this.server = new Server(port);
+        server.setHandler(createWebApp());
+    }
 
+    private static WebAppContext createWebApp() throws IOException {
         WebAppContext webContext = new WebAppContext();
         webContext.setContextPath("/");
-        Resource resources = Resource.newClassPathResource("/webapp");
 
+        Resource resources = Resource.newClassPathResource("/webapp");
         var sourceDirectory = new File(resources.getFile().getAbsoluteFile().toString()
                 .replace('\\', '/')
                 .replace("target/classes", "src/main/resources"));
@@ -36,8 +39,7 @@ public class LibraryServer {
         }
 
         webContext.addServlet(new ServletHolder(new ListBooksServlet()), "/api/books");
-        server.setHandler(webContext);
-
+        return webContext;
     }
 
     public URL getURL() throws MalformedURLException {

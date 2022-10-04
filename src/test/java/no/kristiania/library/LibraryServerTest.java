@@ -28,7 +28,7 @@ public class LibraryServerTest {
                 .isEqualTo(200);
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
-                .contains("<h1>Kristiania Library</h1>");
+                .contains("<title>Kristiania Library</title>");
     }
 
 
