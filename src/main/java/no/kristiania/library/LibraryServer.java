@@ -2,16 +2,19 @@ package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.servlet.DispatcherType;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.EnumSet;
 
 public class LibraryServer {
     private static final Logger logger = LoggerFactory.getLogger(LibraryServer.class);
@@ -40,6 +43,9 @@ public class LibraryServer {
 
         var jerseyServlet = webContext.addServlet(ServletContainer.class, "/api/*");
         jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "no.kristiania.library");
+
+        webContext.addFilter(new FilterHolder(new LibraryFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
+
 
         return webContext;
     }
