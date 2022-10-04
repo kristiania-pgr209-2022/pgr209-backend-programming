@@ -20,7 +20,6 @@ public class BookEndpoint {
         books.add(exampleBook);
     }
 
-    @Path("/")
     @GET
     public Response getAllBooks() {
         var result = Json.createArrayBuilder();
@@ -33,7 +32,6 @@ public class BookEndpoint {
         return Response.ok(result.build().toString()).build();
     }
 
-    @Path("/")
     @POST
     public Response addBook(String body) {
         JsonObject jsonBook = Json.createReader(new StringReader(body)).readObject();
