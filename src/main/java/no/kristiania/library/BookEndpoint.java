@@ -1,7 +1,6 @@
 package no.kristiania.library;
 
 import jakarta.json.Json;
-import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -13,8 +12,8 @@ import java.util.List;
 
 @Path("/books")
 public class BookEndpoint {
-    private List<Book> books = new ArrayList<>();
-    {
+    private static final List<Book> books = new ArrayList<>();
+    static {
         var exampleBook = new Book();
         exampleBook.setTitle("Java in a nutshell");
         exampleBook.setAuthor("David Flannagan");
@@ -24,7 +23,7 @@ public class BookEndpoint {
     @Path("/")
     @GET
     public Response getAllBooks() {
-        JsonArrayBuilder result = Json.createArrayBuilder();
+        var result = Json.createArrayBuilder();
         for (var book : books) {
             result.add(Json.createObjectBuilder()
                     .add("title", book.getTitle())
