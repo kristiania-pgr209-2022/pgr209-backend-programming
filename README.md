@@ -41,6 +41,8 @@ This lecture covers `java.net.Socket` and introduces the [HTTP protocol](https:/
 
 ### Lecture 4: HTTP server (22/09 9:15 FAU-310)
 
+*"All complex systems that work evolved from simpler systems that worked."* - John Gall, "Systemantics"
+
 **Assignment 1 is due**
 
 This lecture covers `java.net.ServerSocket` and how to respond with a file to a web browser, including images, encoding and cookies
