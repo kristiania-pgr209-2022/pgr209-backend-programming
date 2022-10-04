@@ -1,6 +1,5 @@
 package no.kristiania.library;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,13 +9,19 @@ import java.util.List;
 public class ListBooksServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var book = new Book();
-        book.setTitle("Java in a nutshell");
-        book.setAuthor("David Flannagan");
-        var books = List.of(book);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        var exampleBook = new Book();
+        exampleBook.setTitle("Java in a nutshell");
+        exampleBook.setAuthor("David Flannagan");
+        var books = List.of(exampleBook);
 
-
-        resp.getWriter().println("[{\"title\":\"Java in a nutshell\"}]");
+        resp.getWriter().write("[");
+        for (Book book : books) {
+            resp.getWriter().write("{");
+            resp.getWriter().write("\"title\":\"" + book.getTitle() + "\"");
+            resp.getWriter().write("\"author\":\"" + book.getAuthor() + "\"");
+            resp.getWriter().write("}");
+        }
+        resp.getWriter().write("]");
     }
 }
