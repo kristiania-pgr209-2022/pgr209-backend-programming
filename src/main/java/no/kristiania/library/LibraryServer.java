@@ -1,6 +1,7 @@
 package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -29,6 +30,7 @@ public class LibraryServer {
                 .replace("target/classes", "src/main/resources"));
         if (sourceDirectory.isDirectory()) {
             webContext.setBaseResource(Resource.newResource(sourceDirectory));
+            webContext.setInitParameter(DefaultServlet.CONTEXT_INIT + "useFileMappedBuffer", "false");
         } else {
             webContext.setBaseResource(resources);
         }
