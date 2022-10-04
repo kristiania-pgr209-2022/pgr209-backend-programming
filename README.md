@@ -49,9 +49,22 @@ This lecture covers `java.net.ServerSocket` and how to respond with a file to a 
 * [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/04)
 
 
-### Lecture 5: POST requests and Java Servlet API with Jetty (27/09 9:15 FAU-310)
+### Lecture 5: Secure HTTPS requests and Java Servlet API with Jetty (27/09 9:15 FAU-310)
 
-### Lecture 6: Servlet API and JSP (04/10 9:15 FAU-310)
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/05b)
+* [Reference implementation - HTTP server again](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/05)
+* [Commit log from live programming - HTTP server again](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/05)
+* [Commit log from live programming - SSL and Cookies](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/05b)
+* [Commit log from live programming - Jetty and servlets](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/05c)
+
+
+### Lecture 6: Servlet API, React and JAX-RS (04/10 9:15 FAU-310)
+
+In this lecture, we look at standard frameworks in the Java Enterprise Edition standard and how they can be used to implement HTTP services.
+
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/06)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/06)
+
 
 ### Lecture 7: Controllers (11/10 9:15 FAU-310)
 
