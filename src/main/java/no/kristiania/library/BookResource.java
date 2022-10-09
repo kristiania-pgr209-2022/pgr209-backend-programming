@@ -8,9 +8,9 @@ import jakarta.ws.rs.core.MediaType;
 @Path("")
 public class BookResource {
     @GET
-    @Path("/hello")
+    @Path("/books")
     @Produces(MediaType.TEXT_PLAIN)
-    public String sayHello() {
-        return "Hello World";
+    public String listBooks() {
+        return "[{\"title\":\"Hello World\"";
     }
 }
