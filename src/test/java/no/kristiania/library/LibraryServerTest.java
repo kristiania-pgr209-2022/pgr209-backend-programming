@@ -28,11 +28,11 @@ class LibraryServerTest {
     }
 
     @Test
-    void shouldServeContentFromEndpoint() throws IOException {
-        var connection = openConnection("/api/hello");
+    void shouldListBooksAsJson() throws IOException {
+        var connection = openConnection("/api/books");
         assertThat(connection.getResponseCode()).isEqualTo(200);
         assertThat(connection.getInputStream()).asString(StandardCharsets.UTF_8)
-                .contains("Hello World");
+                .contains("[{\"title\":\"Hello World\"");
     }
 
     private HttpURLConnection openConnection(String path) throws IOException {
