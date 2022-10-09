@@ -2,6 +2,8 @@ package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
 
+import java.net.URL;
+
 public class LibraryServer {
 
     private final Server server;
@@ -16,5 +18,9 @@ public class LibraryServer {
 
     public static void main(String[] args) throws Exception {
         new LibraryServer(8080).start();
+    }
+
+    public URL getURL() {
+        return null;
     }
 }
