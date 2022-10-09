@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,13 +21,21 @@ class LibraryServerTest {
 
     @Test
     void shouldServeFrontPage() throws Exception {
-        var connection = getOpenConnection();
+        var connection = openConnection("/");
         assertThat(connection.getResponseCode()).isEqualTo(200);
         assertThat(connection.getInputStream()).asString(StandardCharsets.UTF_8)
                 .contains("<title>Kristiania Library</title>");
     }
 
-    private HttpURLConnection getOpenConnection() throws IOException {
-        return (HttpURLConnection) server.getURL().openConnection();
+    @Test
+    void shouldServeContentFromEndpoint() throws IOException {
+        var connection = openConnection("/api/hello");
+        assertThat(connection.getResponseCode()).isEqualTo(200);
+        assertThat(connection.getInputStream()).asString(StandardCharsets.UTF_8)
+                .contains("Hello World");
+    }
+
+    private HttpURLConnection openConnection(String path) throws IOException {
+        return (HttpURLConnection) new URL(server.getURL(), path).openConnection();
     }
 }
