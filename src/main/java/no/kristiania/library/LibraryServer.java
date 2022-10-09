@@ -7,6 +7,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.glassfish.jersey.servlet.ServletContainer;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -38,6 +39,7 @@ public class LibraryServer {
                 resp.getWriter().write("Hello World");
             }
         }), "/hello");
+        context.addServlet(new ServletHolder(new ServletContainer()), "/*");
         return context;
     }
 
