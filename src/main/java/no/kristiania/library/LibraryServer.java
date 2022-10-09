@@ -1,7 +1,11 @@
 package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.webapp.WebAppContext;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class LibraryServer {
@@ -10,9 +14,13 @@ public class LibraryServer {
 
     public LibraryServer(int port) {
         this.server = new Server(port);
+
+        server.setHandler(new HandlerList(
+                new WebAppContext(Resource.newClassPathResource("/webapp"), "/")
+        ));
     }
 
-    private void start() throws Exception {
+    void start() throws Exception {
         server.start();
     }
 
@@ -20,7 +28,7 @@ public class LibraryServer {
         new LibraryServer(8080).start();
     }
 
-    public URL getURL() {
-        return null;
+    public URL getURL() throws MalformedURLException {
+        return server.getURI().toURL();
     }
 }
