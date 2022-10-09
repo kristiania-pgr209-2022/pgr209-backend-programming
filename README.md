@@ -67,16 +67,19 @@ In this lecture, we look at standard frameworks in the Java Enterprise Edition s
 * [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/06)
 * [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/06)
 
+### Lecture 7: Deployment to Azure App Services + Review of assignment 1 (11/10 9:15 FAU-310)
 
-### Lecture 7: Controllers (11/10 9:15 FAU-310)
+In this lecture, we will deploy a minimal Jetty application with JAX-RS endpoints and a React frontend to Azure Web Services. We will also look at the solution to assignment 1.
 
-**Assignment 2 is due**
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/07)
 
 ### Lecture 8: Database Access with JDBC (18/10 9:15 FAU-310)
 
+**Assignment 2 is due**
+
 ### Lecture 9: Database Access with JPA (and fluent-jdbc) (25/10 9:15 FAU-310)
 
-### Lecture 10: Deployment to Azure App Services (01/11 9:15 FAU-310)
+### Lecture 10: Structuring server logic (04/11 9:15 FAU-310)
 
 **Assignment 3 is due**
 
