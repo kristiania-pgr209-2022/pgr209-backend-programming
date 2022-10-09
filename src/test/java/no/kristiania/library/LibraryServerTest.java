@@ -31,6 +31,8 @@ class LibraryServerTest {
     void shouldListBooksAsJson() throws IOException {
         var connection = openConnection("/api/books");
         assertThat(connection.getResponseCode()).isEqualTo(200);
+        assertThat(connection.getHeaderField("Content-Type"))
+                .isEqualTo("application/json");
         assertThat(connection.getInputStream()).asString(StandardCharsets.UTF_8)
                 .contains("[{\"title\":\"Hello World\"");
     }

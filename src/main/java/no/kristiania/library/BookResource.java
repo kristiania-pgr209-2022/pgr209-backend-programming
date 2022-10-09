@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 public class BookResource {
     @GET
     @Path("/books")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String listBooks() {
         return "[{\"title\":\"Hello World\"";
     }
