@@ -30,7 +30,7 @@ public class LibraryServer {
         ServletContextHandler context = new ServletContextHandler();
         context.setContextPath("/api");
         context.addServlet(new ServletHolder(new ServletContainer(
-                new ResourceConfig(BookResource.class)
+                new ResourceConfig(BookResource.class, AutoScanFeature.class)
         )), "/*");
         return context;
     }
