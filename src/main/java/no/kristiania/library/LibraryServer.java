@@ -8,7 +8,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +35,10 @@ public class LibraryServer {
     private Handler createApiContext() {
         ServletContextHandler context = new ServletContextHandler();
         context.setContextPath("/api");
-        context.addServlet(new ServletHolder(new ServletContainer(
-                new ResourceConfig(BookResource.class, AutoScanFeature.class)
-        )), "/*");
+        context.addServlet(
+                new ServletHolder(new ServletContainer(new LibraryApplicationConfig())),
+                "/*"
+        );
         return context;
     }
 
