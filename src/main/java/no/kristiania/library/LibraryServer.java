@@ -7,11 +7,15 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class LibraryServer {
+
+    private static final Logger logger = LoggerFactory.getLogger(LibraryServer.class);
 
     private final Server server;
 
@@ -32,16 +36,17 @@ public class LibraryServer {
         return context;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello world");
-    }
-
     public URL getURL() throws MalformedURLException {
         return server.getURI().toURL();
     }
 
     public void start() throws Exception {
         server.start();
+        logger.info("Started server at {}", getURL());
+    }
+
+    public static void main(String[] args) throws Exception {
+        new LibraryServer(8080).start();
     }
 
 }
