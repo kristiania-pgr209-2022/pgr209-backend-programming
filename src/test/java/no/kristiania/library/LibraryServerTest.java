@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +22,7 @@ class LibraryServerTest {
 
     @Test
     void shouldShowFrontPage() throws Exception {
-        var connection = openConnection();
+        var connection = openConnection("/");
         assertThat(connection.getResponseCode()).isEqualTo(200);
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
@@ -29,7 +30,7 @@ class LibraryServerTest {
     }
 
     @Test
-    void shouldShowDynamicContent() {
+    void shouldShowDynamicContent() throws IOException {
         var connection = openConnection("/api/books");
         assertThat(connection.getResponseCode()).isEqualTo(200);
         assertThat(connection.getHeaderField("Content-Type"))
@@ -39,7 +40,7 @@ class LibraryServerTest {
                 .contains("{\"title\":\"Hello World\"");
     }
 
-    private HttpURLConnection openConnection() throws IOException {
-        return (HttpURLConnection) server.getURL().openConnection();
+    private HttpURLConnection openConnection(String path) throws IOException {
+        return (HttpURLConnection) new URL(server.getURL(), path).openConnection();
     }
 }
