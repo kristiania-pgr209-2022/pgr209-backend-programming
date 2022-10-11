@@ -22,4 +22,9 @@ public class BookResource {
         return bookRepository.listAll();
     }
 
+    @POST
+    public void addBook() {
+
+    }
+
 }

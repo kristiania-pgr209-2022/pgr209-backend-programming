@@ -56,7 +56,7 @@ class LibraryServerTest {
         );
         assertThat(postConnection.getResponseCode())
                 .as(postConnection.getResponseMessage())
-                .isEqualTo(200);
+                .isEqualTo(204);
 
         var connection = openConnection("/api/books");
         assertThat(connection.getInputStream())
