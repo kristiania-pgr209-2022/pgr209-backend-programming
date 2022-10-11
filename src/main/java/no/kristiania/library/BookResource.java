@@ -1,5 +1,7 @@
 package no.kristiania.library;
 
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -11,14 +13,13 @@ import java.util.List;
 @Path("/books")
 public class BookResource {
 
+    @Inject
+    private BookRepository bookRepository;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Book> getAllBooks() {
-        return List.of(new Book("Hello World"));
+        return bookRepository.listAll();
     }
 
-    @POST
-    public Response saveBook() {
-        return Response.ok().build();
-    }
 }
