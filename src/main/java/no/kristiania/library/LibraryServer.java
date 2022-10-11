@@ -33,6 +33,7 @@ public class LibraryServer {
         context.addServlet(new ServletHolder(new HttpServlet() {
             @Override
             protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                resp.getWriter().write("{\"title\":\"Hello World\"");
             }
         }), "/*");
         return context;
