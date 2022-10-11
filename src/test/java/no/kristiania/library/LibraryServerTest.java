@@ -3,6 +3,8 @@ package no.kristiania.library;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -38,6 +40,23 @@ class LibraryServerTest {
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
                 .contains("{\"title\":\"Hello World\"");
+    }
+
+    @Test
+    void shouldAddBook() throws IOException {
+        var postConnection = openConnection("/api/books");
+        postConnection.setRequestMethod("POST");
+        postConnection.setDoOutput(true);
+        JsonObject bookJson = Json.createObjectBuilder()
+                .add("title", "Test Book")
+                .build();
+        postConnection.getOutputStream().write(bookJson.toString().getBytes(StandardCharsets.UTF_8));
+        assertThat(postConnection.getResponseCode()).isEqualTo(200);
+
+        var getConnection = openConnection("/api/books");
+        assertThat(getConnection.getInputStream())
+                .asString(StandardCharsets.UTF_8)
+                .contains("{\"title\":\"Test Book\"");
     }
 
     private HttpURLConnection openConnection(String path) throws IOException {
