@@ -39,5 +39,12 @@
             <version>3.0.8</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.logevents</groupId>
+            <artifactId>logevents</artifactId>
+            <version>0.4.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 </project>
