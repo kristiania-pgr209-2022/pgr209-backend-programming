@@ -6,6 +6,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.glassfish.jersey.servlet.ServletContainer;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -30,12 +31,7 @@ public class LibraryServer {
 
     private ServletContextHandler createApiContext() {
         var context = new ServletContextHandler(server, "/api");
-        context.addServlet(new ServletHolder(new HttpServlet() {
-            @Override
-            protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                resp.getWriter().write("{\"title\":\"Hello World\"");
-            }
-        }), "/*");
+        context.addServlet(new ServletHolder(new ServletContainer()), "/*");
         return context;
     }
 

@@ -1,8 +1,12 @@
 package no.kristiania.library;
 
-//@Path("/books")
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+
+@Path("/books")
 public class BookResource {
-    //@GET
+
+    @GET
     public String getAllBooks() {
         return "Foo";
     }
