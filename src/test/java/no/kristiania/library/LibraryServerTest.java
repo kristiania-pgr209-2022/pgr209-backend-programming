@@ -46,6 +46,7 @@ class LibraryServerTest {
     void shouldAddBook() throws IOException {
         var postConnection = openConnection("/api/books");
         postConnection.setRequestMethod("POST");
+        postConnection.setRequestProperty("Content-Type", "application/json");
         postConnection.setDoOutput(true);
         postConnection.getOutputStream().write(
                 Json.createObjectBuilder()
