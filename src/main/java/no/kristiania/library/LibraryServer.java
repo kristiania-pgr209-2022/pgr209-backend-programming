@@ -6,14 +6,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -33,7 +27,7 @@ public class LibraryServer {
     private ServletContextHandler createApiContext() {
         var context = new ServletContextHandler(server, "/api");
         context.addServlet(new ServletHolder(new ServletContainer(
-                new ResourceConfig(BookResource.class)
+                new LibraryConfig()
         )), "/*");
         return context;
     }
@@ -49,4 +43,5 @@ public class LibraryServer {
     public void start() throws Exception {
         server.start();
     }
+
 }
