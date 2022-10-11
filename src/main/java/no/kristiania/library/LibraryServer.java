@@ -1,5 +1,6 @@
 package no.kristiania.library;
 
+import org.eclipse.jetty.server.CustomRequestLog;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -27,6 +28,7 @@ public class LibraryServer {
         this.server = new Server(port);
 
         server.setHandler(new HandlerList(createApiContext(), createWebAppContext()));
+        server.setRequestLog(new CustomRequestLog());
     }
 
     private WebAppContext createWebAppContext() throws IOException {
