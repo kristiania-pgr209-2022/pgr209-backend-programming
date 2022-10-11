@@ -2,9 +2,16 @@ package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -13,11 +20,22 @@ public class LibraryServer {
     private final Server server;
 
     public LibraryServer(int port) {
-        this.server = new Server(0);
+        this.server = new Server(port);
 
         server.setHandler(new HandlerList(
+                createApiContext(),
                 new WebAppContext(Resource.newClassPathResource("/webapp"), "/")
         ));
+    }
+
+    private ServletContextHandler createApiContext() {
+        var context = new ServletContextHandler(server, "/api");
+        context.addServlet(new ServletHolder(new HttpServlet() {
+            @Override
+            protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            }
+        }), "/*");
+        return context;
     }
 
     public static void main(String[] args) {
