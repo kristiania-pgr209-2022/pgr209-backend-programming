@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 
 public class LibraryServer {
 
@@ -46,7 +47,10 @@ public class LibraryServer {
     }
 
     public static void main(String[] args) throws Exception {
-        new LibraryServer(8080).start();
+        int port = Optional.ofNullable(System.getenv("HTTP_PLATFORM_PORT"))
+                .map(Integer::parseInt)
+                .orElse(8080);
+        new LibraryServer(port).start();
     }
 
 }

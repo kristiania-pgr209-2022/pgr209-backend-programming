@@ -9,6 +9,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <azure.appName>${project.artifactId}-${user.name}</azure.appName>
     </properties>
 
     <dependencies>
@@ -89,7 +90,7 @@
                 <configuration>
                     <schemaVersion>v2</schemaVersion>
                     <resourceGroup>${project.groupId}</resourceGroup>
-                    <appName>${project.artifactId}-${user.name}</appName>
+                    <appName>${azure.appName}</appName>
                     <pricingTier>F1</pricingTier>
                     <region>westeurope</region>
                     <runtime>
