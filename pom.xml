@@ -106,6 +106,14 @@
                                     <include>${project.build.finalName}.jar</include>
                                 </includes>
                             </resource>
+                            <resource>
+                                <type>static</type>
+                                <directory>${project.basedir}/src/main/azure</directory>
+                                <includes>
+                                    <include>*.properties</include>
+                                </includes>
+                                <targetPath>/site/wwwroot</targetPath>
+                            </resource>
                         </resources>
                     </deployment>
                 </configuration>

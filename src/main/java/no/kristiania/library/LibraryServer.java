@@ -34,10 +34,8 @@ public class LibraryServer {
         context.setContextPath("/");
 
         Resource resource = Resource.newClassPathResource("/webapp");
-        File sourceDirectory = new File(resource.getFile().getAbsolutePath()
-                .replace('\\', '/')
-                .replace("target/classes", "src/main/resources"));
-        if (sourceDirectory.exists()) {
+        File sourceDirectory = getSourceDirectory(resource);
+        if (sourceDirectory != null) {
             context.setBaseResource(Resource.newResource(sourceDirectory));
             context.setInitParameter(DefaultServlet.CONTEXT_INIT + "useFileMappedBuffer", "false");
         } else {
@@ -45,6 +43,16 @@ public class LibraryServer {
         }
 
         return context;
+    }
+
+    private static File getSourceDirectory(Resource resource) throws IOException {
+        if (resource.getFile() == null) {
+            return null;
+        }
+        File sourceDirectory = new File(resource.getFile().getAbsolutePath()
+                .replace('\\', '/')
+                .replace("target/classes", "src/main/resources"));
+        return sourceDirectory.exists() ? sourceDirectory : null;
     }
 
     private ServletContextHandler createApiContext() {
