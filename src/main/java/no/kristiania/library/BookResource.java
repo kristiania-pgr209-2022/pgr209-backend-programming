@@ -8,6 +8,6 @@ public class BookResource {
 
     @GET
     public String getAllBooks() {
-        return "Foo";
+        return "{\"title\":\"Hello World\"";
     }
 }
