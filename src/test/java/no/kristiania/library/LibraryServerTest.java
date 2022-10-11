@@ -12,8 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LibraryServerTest {
 
     @Test
-    void shouldShowFrontPage() throws IOException {
+    void shouldShowFrontPage() throws Exception {
         var server = new LibraryServer(0);
+        server.start();
         var connection = (HttpURLConnection)server.getURL().openConnection();
         assertThat(connection.getResponseCode()).isEqualTo(200);
         assertThat(connection.getInputStream())
