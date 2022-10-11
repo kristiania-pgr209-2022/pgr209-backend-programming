@@ -6,6 +6,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 import jakarta.servlet.ServletException;
@@ -31,7 +32,9 @@ public class LibraryServer {
 
     private ServletContextHandler createApiContext() {
         var context = new ServletContextHandler(server, "/api");
-        context.addServlet(new ServletHolder(new ServletContainer()), "/*");
+        context.addServlet(new ServletHolder(new ServletContainer(
+                new ResourceConfig(BookResource.class)
+        )), "/*");
         return context;
     }
 
