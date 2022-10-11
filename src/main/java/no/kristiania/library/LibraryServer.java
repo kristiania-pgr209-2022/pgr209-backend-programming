@@ -2,6 +2,7 @@ package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
@@ -10,6 +11,8 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
@@ -20,13 +23,28 @@ public class LibraryServer {
 
     private final Server server;
 
-    public LibraryServer(int port) {
+    public LibraryServer(int port) throws IOException {
         this.server = new Server(port);
 
-        server.setHandler(new HandlerList(
-                createApiContext(),
-                new WebAppContext(Resource.newClassPathResource("/webapp"), "/")
-        ));
+        server.setHandler(new HandlerList(createApiContext(), createWebAppContext()));
+    }
+
+    private WebAppContext createWebAppContext() throws IOException {
+        WebAppContext context = new WebAppContext();
+        context.setContextPath("/");
+
+        Resource resource = Resource.newClassPathResource("/webapp");
+        File sourceDirectory = new File(resource.getFile().getAbsolutePath()
+                .replace('\\', '/')
+                .replace("target/classes", "src/main/resources"));
+        if (sourceDirectory.exists()) {
+            context.setBaseResource(Resource.newResource(sourceDirectory));
+            context.setInitParameter(DefaultServlet.CONTEXT_INIT + "useFileMappedBuffer", "false");
+        } else {
+            context.setBaseResource(resource);
+        }
+
+        return context;
     }
 
     private ServletContextHandler createApiContext() {
