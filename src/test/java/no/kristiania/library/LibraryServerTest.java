@@ -42,6 +42,28 @@ class LibraryServerTest {
                 .contains("{\"title\":\"Hello World\"");
     }
 
+    @Test
+    void shouldAddBook() throws IOException {
+        var postConnection = openConnection("/api/books");
+        postConnection.setRequestMethod("POST");
+        postConnection.setDoOutput(true);
+        postConnection.getOutputStream().write(
+                Json.createObjectBuilder()
+                        .add("title", "Test Book")
+                        .build()
+                        .toString()
+                        .getBytes(StandardCharsets.UTF_8)
+        );
+        assertThat(postConnection.getResponseCode())
+                .as(postConnection.getResponseMessage())
+                .isEqualTo(200);
+
+        var connection = openConnection("/api/books");
+        assertThat(connection.getInputStream())
+                .asString(StandardCharsets.UTF_8)
+                .contains("{\"title\":\"Test Book\"");
+    }
+
     private HttpURLConnection openConnection(String path) throws IOException {
         return (HttpURLConnection) new URL(server.getURL(), path).openConnection();
     }
