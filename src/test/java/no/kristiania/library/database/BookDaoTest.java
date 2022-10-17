@@ -1,12 +1,21 @@
 package no.kristiania.library.database;
 
+import org.h2.jdbcx.JdbcDataSource;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BookDaoTest {
 
-    private BookDao dao = new BookDao();
+    private BookDao dao;
+
+    @BeforeEach
+    void setUp() {
+        var dataSource = new JdbcDataSource();
+        dataSource.setUrl("jdbc:h2:mem:bookDaoTest");
+        dao = new BookDao(dataSource);
+    }
 
     @Test
     void shouldRetrieveSavedBook() {
