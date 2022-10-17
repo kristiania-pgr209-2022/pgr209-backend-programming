@@ -24,6 +24,13 @@
             <artifactId>flyway-core</artifactId>
             <version>9.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.logevents</groupId>
+            <artifactId>logevents</artifactId>
+            <version>0.4.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
