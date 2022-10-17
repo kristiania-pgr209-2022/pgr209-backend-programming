@@ -26,7 +26,7 @@ public class BookDaoTest {
 
     @Test
     void shouldRetrieveSavedBook() throws SQLException {
-        var book = sampleBook();
+        var book = SampleData.sampleBook();
         dao.save(book);
 
         assertThat(dao.retrieve(book.getId()))
@@ -43,12 +43,12 @@ public class BookDaoTest {
 
     @Test
     void shouldFindBookByAuthor() throws SQLException {
-        var matchingBook = sampleBook();
+        var matchingBook = SampleData.sampleBook();
         dao.save(matchingBook);
-        var otherBookBySameAuthor = sampleBook();
+        var otherBookBySameAuthor = SampleData.sampleBook();
         otherBookBySameAuthor.setTitle("Something else");
         dao.save(otherBookBySameAuthor);
-        var bookByOtherAuthor = sampleBook();
+        var bookByOtherAuthor = SampleData.sampleBook();
         bookByOtherAuthor.setAuthor("Other Author");
         dao.save(bookByOtherAuthor);
 
@@ -58,10 +58,4 @@ public class BookDaoTest {
                 .doesNotContain(bookByOtherAuthor.getId());
     }
 
-    private Book sampleBook() {
-        Book book = new Book();
-        book.setTitle("Sample title");
-        book.setAuthor("Firstname Lastname");
-        return book;
-    }
 }

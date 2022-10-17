@@ -26,17 +26,11 @@ public class LibraryDaoTest {
 
     @Test
     void shouldRetrieveSavedLibrary() throws SQLException {
-        var library = sampleLibrary();
+        var library = SampleData.sampleLibrary();
         dao.save(library);
         assertThat(dao.retrieve(library.getId()))
                 .usingRecursiveComparison()
                 .isEqualTo(library);
     }
 
-    private Library sampleLibrary() {
-        var library = new Library();
-        library.setName("Deichmanske");
-        library.setAddress("Dronning Eufemias gate");
-        return library;
-    }
 }

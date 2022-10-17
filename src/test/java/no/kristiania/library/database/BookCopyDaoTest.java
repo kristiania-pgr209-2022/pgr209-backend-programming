@@ -10,15 +10,15 @@ public class BookCopyDaoTest {
     private LibraryDao libraryDao;
     private BookCopyDao dao;
 
-    private Library library;
-    private Book firstBook;
-    private Book secondBook;
+    private final Library library = SampleData.sampleLibrary();
+    private final Book firstBook = SampleData.sampleBook();
+    private final Book secondBook = SampleData.sampleBook();
 
 
     @Test
     @Disabled
     void shouldFindBooksByLibrary() {
-        Library otherLibrary = null;
+        var otherLibrary = SampleData.sampleLibrary();
 
         dao.insert(library, firstBook);
         dao.insert(library, secondBook);
