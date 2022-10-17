@@ -15,13 +15,7 @@ public class LibraryDaoTest {
 
     @BeforeEach
     void setUp() {
-        var dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:mem:libraryDaoTest;DB_CLOSE_DELAY=-1");
-
-        var flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.migrate();
-
-        dao = new LibraryDao(dataSource);
+        dao = new LibraryDao(InmemoryDatabase.testDataSource());
     }
 
     @Test
