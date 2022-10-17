@@ -20,7 +20,7 @@ public class BookDao {
     public void save(Book book) throws SQLException {
         try (var connection = dataSource.getConnection()) {
             var sql = "insert into books (title, author_name) values (?, ?)";
-            try (var statement = connection.prepareStatement(sql)) {
+            try (var statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, book.getTitle());
                 statement.setString(2, book.getAuthor());
 
