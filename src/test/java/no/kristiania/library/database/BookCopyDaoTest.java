@@ -39,6 +39,7 @@ public class BookCopyDaoTest {
                 .contains(firstBook.getId(), secondBook.getId());
         assertThat(dao.findByLibrary(otherLibrary.getId()))
                 .extracting(Book::getId)
-                .contains(firstBook.getId(), secondBook.getId());
+                .contains(firstBook.getId())
+                .doesNotContain(secondBook.getId());
     }
 }
