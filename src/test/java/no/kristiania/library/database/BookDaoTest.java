@@ -36,6 +36,12 @@ public class BookDaoTest {
                 .isNotSameAs(book);
     }
 
+
+    @Test
+    void shouldReturnNullForMissingBook() throws SQLException {
+        assertThat(dao.retrieve(-1L)).isNull();;
+    }
+
     private Book sampleBook() {
         Book book = new Book();
         book.setTitle("Sample title");
