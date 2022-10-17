@@ -36,10 +36,26 @@ public class BookDaoTest {
                 .isNotSameAs(book);
     }
 
-
     @Test
     void shouldReturnNullForMissingBook() throws SQLException {
         assertThat(dao.retrieve(-1L)).isNull();;
+    }
+
+    @Test
+    void shouldFindBookByAuthor() throws SQLException {
+        var matchingBook = sampleBook();
+        dao.save(matchingBook);
+        var otherBookBySameAuthor = sampleBook();
+        otherBookBySameAuthor.setTitle("Something else");
+        dao.save(otherBookBySameAuthor);
+        var bookByOtherAuthor = sampleBook();
+        bookByOtherAuthor.setAuthor("Other Author");
+        dao.save(bookByOtherAuthor);
+
+        assertThat(dao.findByAuthor(matchingBook.getAuthor()))
+                .extracting(Book::getId)
+                .contains(matchingBook.getId(), otherBookBySameAuthor.getId())
+                .doesNotContain(bookByOtherAuthor.getId());
     }
 
     private Book sampleBook() {
