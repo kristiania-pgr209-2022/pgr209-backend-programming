@@ -5,6 +5,8 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LibraryDaoTest {
@@ -23,7 +25,7 @@ public class LibraryDaoTest {
     }
 
     @Test
-    void shouldRetrieveSavedLibrary() {
+    void shouldRetrieveSavedLibrary() throws SQLException {
         var library = sampleLibrary();
         dao.save(library);
         assertThat(dao.retrieve(library.getId()))
