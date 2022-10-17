@@ -17,8 +17,7 @@ public class BookCopyDao {
 
     public void insert(Library library, Book book) throws SQLException {
         try (var connection = dataSource.getConnection()) {
-            var sql = "insert into book_copies (library_id, book_id) values (?, ?)";
-            try (var statement = connection.prepareStatement(sql)) {
+            try (var statement = connection.prepareStatement("insert into book_copies (library_id, book_id) values (?, ?)")) {
                 statement.setLong(1, library.getId());
                 statement.setLong(2, book.getId());
                 statement.executeUpdate();
