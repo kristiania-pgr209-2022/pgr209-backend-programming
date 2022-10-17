@@ -35,7 +35,22 @@ public class BookDao {
         books.put(book.getId(), book);
     }
 
-    public Book retrieve(Long id) {
+    public Book retrieve(Long id) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (var statement = connection.prepareStatement("select * from books where id = ?")) {
+                statement.setLong(1, id);
+
+                try (var rs = statement.executeQuery()) {
+                    rs.next(); // TODO
+                    var book = new Book();
+                    book.setId(rs.getLong("id"));
+                    book.setTitle(rs.getString("title"));
+                    book.setAuthor(rs.getString("author_name"));
+                }
+            }
+        }
+
+
         return books.get(id);
     }
 }
