@@ -1,5 +1,8 @@
 package no.kristiania.library.database;
 
+import org.flywaydb.core.Flyway;
+import org.postgresql.ds.PGSimpleDataSource;
+
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
@@ -16,7 +19,11 @@ public class Demo {
     }
 
     public static void main(String[] args) throws SQLException {
-        new Demo(InmemoryDatabase.testDataSource()).run();
+        var dataSource = new PGSimpleDataSource();
+        dataSource.setUrl("jdbc:postgresql://localhost/library_ref");
+        dataSource.setUser("application_user");
+        Flyway.configure().dataSource(dataSource).load().migrate();
+        new Demo(dataSource).run();
     }
 
     private void run() throws SQLException {
