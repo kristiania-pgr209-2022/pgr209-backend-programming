@@ -33,8 +33,7 @@ public class BookDaoTest {
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(book)
-                //.isNotSameAs(book)
-        ;
+                .isNotSameAs(book);
     }
 
     private Book sampleBook() {
