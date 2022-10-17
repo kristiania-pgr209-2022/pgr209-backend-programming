@@ -46,11 +46,9 @@ public class BookDao {
                     book.setId(rs.getLong("id"));
                     book.setTitle(rs.getString("title"));
                     book.setAuthor(rs.getString("author_name"));
+                    return book;
                 }
             }
         }
-
-
-        return books.get(id);
     }
 }
