@@ -36,12 +36,15 @@ public class BookDao {
                 statement.setLong(1, id);
 
                 try (var rs = statement.executeQuery()) {
-                    rs.next(); // TODO
-                    var book = new Book();
-                    book.setId(rs.getLong("id"));
-                    book.setTitle(rs.getString("title"));
-                    book.setAuthor(rs.getString("author_name"));
-                    return book;
+                    if (rs.next()) {
+                        var book = new Book();
+                        book.setId(rs.getLong("id"));
+                        book.setTitle(rs.getString("title"));
+                        book.setAuthor(rs.getString("author_name"));
+                        return book;
+                    } else {
+                        return null;
+                    }
                 }
             }
         }
