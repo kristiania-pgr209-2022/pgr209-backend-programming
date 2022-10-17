@@ -3,6 +3,7 @@ package no.kristiania.library.database;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +25,13 @@ public class BookDao {
                 statement.setString(2, book.getAuthor());
 
                 statement.executeUpdate();
+
+                try (var generatedKeys = statement.getGeneratedKeys()) {
+                    generatedKeys.next();
+                    book.setId(generatedKeys.getLong("id"));
+                }
             }
         }
-
-        book.setId((long) (books.size() + 1));
         books.put(book.getId(), book);
     }
 
