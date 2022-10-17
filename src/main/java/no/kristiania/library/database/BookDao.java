@@ -1,11 +1,19 @@
 package no.kristiania.library.database;
 
-public class BookDao {
-    public void save(Book book) {
+import java.util.HashMap;
+import java.util.Map;
 
+public class BookDao {
+
+    private Map<Long, Book> books = new HashMap<>();
+
+
+    public void save(Book book) {
+        book.setId((long) (books.size() + 1));
+        books.put(book.getId(), book);
     }
 
     public Book retrieve(Long id) {
-        return null;
+        return books.get(id);
     }
 }
