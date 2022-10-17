@@ -46,7 +46,7 @@ public class BookDaoTest {
         var matchingBook = SampleData.sampleBook();
         dao.save(matchingBook);
         var otherBookBySameAuthor = SampleData.sampleBook();
-        otherBookBySameAuthor.setTitle("Something else");
+        otherBookBySameAuthor.setAuthor(matchingBook.getAuthor());
         dao.save(otherBookBySameAuthor);
         var bookByOtherAuthor = SampleData.sampleBook();
         bookByOtherAuthor.setAuthor("Other Author");
