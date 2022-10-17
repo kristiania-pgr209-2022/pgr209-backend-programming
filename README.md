@@ -72,10 +72,17 @@ In this lecture, we look at standard frameworks in the Java Enterprise Edition s
 In this lecture, we will deploy a minimal Jetty application with JAX-RS endpoints and a React frontend to Azure Web Services. We will also look at the solution to assignment 1.
 
 * [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/07)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lecture/07)
 
 ### Lecture 8: Database Access with JDBC (18/10 9:15 FAU-310)
 
 **Assignment 2 is due**
+
+In this lecture we will explore how to access a database with the JDBC and JPA approaches. We will start with a fresh project, but next we will join this database together with the web server.
+
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/08)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/08)
+
 
 ### Lecture 9: Database Access with JPA (and fluent-jdbc) (25/10 9:15 FAU-310)
 
