@@ -13,8 +13,18 @@ public class LibraryDao {
         this.dataSource = dataSource;
     }
 
-    public void save(Library library) {
+    public void save(Library library) throws SQLException {
+        try (var connection = dataSource.getConnection()) {
+            try (var statement = connection.prepareStatement("insert into libraries (name) values (?)")) {
+                statement.setString(1, library.getName());
+                statement.executeUpdate();
 
+                try (var generatedKeys = statement.getGeneratedKeys()) {
+                    generatedKeys.next();
+                    library.setId(generatedKeys.getLong("id"));
+                }
+            }
+        }
     }
 
     public Library retrieve(long id) throws SQLException {
