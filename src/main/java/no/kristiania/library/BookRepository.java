@@ -1,16 +1,22 @@
 package no.kristiania.library;
 
-import java.util.ArrayList;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 import java.util.List;
 
 public class BookRepository {
-    private List<Book> books = new ArrayList<>();
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void add(Book book) {
-        books.add(book);
+        entityManager.persist(book);
     }
 
     public List<Book> listAll() {
-        return books;
+        return entityManager
+                .createQuery(entityManager.getCriteriaBuilder().createQuery(Book.class))
+                .getResultList();
     }
 }
