@@ -36,7 +36,9 @@ public class LibraryDao {
                 try (var rs = statement.executeQuery()) {
                     rs.next();
                     var library = new Library();
+                    library.setId(rs.getLong("id"));
                     library.setName(rs.getString("name"));
+                    library.setAddress(rs.getString("address"));
                     return library;
                 }
             }
