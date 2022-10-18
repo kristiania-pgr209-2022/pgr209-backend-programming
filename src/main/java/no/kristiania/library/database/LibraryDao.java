@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class LibraryDao {
     private final DataSource dataSource;
@@ -15,7 +16,8 @@ public class LibraryDao {
 
     public void save(Library library) throws SQLException {
         try (var connection = dataSource.getConnection()) {
-            try (var statement = connection.prepareStatement("insert into libraries (name) values (?)")) {
+            var sql = "insert into libraries (name) values (?)";
+            try (var statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, library.getName());
                 statement.executeUpdate();
 
