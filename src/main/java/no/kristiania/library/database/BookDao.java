@@ -61,7 +61,7 @@ public class BookDao {
         }
     }
 
-    private Book readBook(ResultSet rs) throws SQLException {
+    static Book readBook(ResultSet rs) throws SQLException {
         var book = new Book();
         book.setId(rs.getLong("id"));
         book.setTitle(rs.getString("title"));
