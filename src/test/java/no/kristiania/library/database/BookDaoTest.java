@@ -28,6 +28,7 @@ public class BookDaoTest {
         var book = SampleData.sampleBook();
         dao.save(book);
         assertThat(dao.retrieve(book.getId()))
+                .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(book)
                 .isNotSameAs(book)
