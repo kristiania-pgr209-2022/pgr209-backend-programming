@@ -9,9 +9,11 @@ import java.sql.SQLException;
 public class Demo {
 
     private final BookDao bookDao;
+    private final LibraryDao libraryDao;
 
     public Demo(DataSource dataSource) {
         this.bookDao = new BookDao(dataSource);
+        this.libraryDao = new LibraryDao(dataSource);
     }
 
     public static void main(String[] args) throws SQLException {
@@ -25,6 +27,7 @@ public class Demo {
 
     private void run() throws SQLException {
         bookDao.save(SampleData.sampleBook());
+        libraryDao.save(SampleData.sampleLibrary());
     }
 
 }
