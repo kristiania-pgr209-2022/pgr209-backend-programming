@@ -25,7 +25,7 @@ public class BookDaoTest {
 
     @Test
     void shouldRetrieveSavedBook() throws SQLException {
-        var book = sampleBook();
+        var book = SampleData.sampleBook();
         dao.save(book);
         assertThat(dao.retrieve(book.getId()))
                 .usingRecursiveComparison()
@@ -39,9 +39,4 @@ public class BookDaoTest {
         assertThat(dao.retrieve(-1)).isNull();
     }
 
-    private Book sampleBook() {
-        var book = new Book();
-        book.setTitle("Java in a Nutshell");
-        return book;
-    }
 }

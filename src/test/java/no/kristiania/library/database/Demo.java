@@ -22,9 +22,7 @@ public class Demo {
     }
 
     private void run() throws SQLException {
-        var book = new Book();
-        book.setTitle("Java in a Nutshell");
-        bookDao.save(book);
+        bookDao.save(SampleData.sampleBook());
     }
 
 }
