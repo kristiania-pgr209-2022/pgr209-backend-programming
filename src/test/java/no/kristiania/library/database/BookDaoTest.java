@@ -37,6 +37,8 @@ public class BookDaoTest {
     }
 
     private Book sampleBook() {
-        return new Book();
+        var book = new Book();
+        book.setTitle("Java in a Nutshell");
+        return book;
     }
 }
