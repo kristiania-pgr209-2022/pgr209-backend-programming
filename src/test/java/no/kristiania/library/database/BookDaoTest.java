@@ -1,5 +1,6 @@
 package no.kristiania.library.database;
 
+import no.kristiania.library.database.jdbc.JdbcBookDao;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;

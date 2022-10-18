@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AbstractLibraryDaoTest {
+public abstract class AbstractLibraryDaoTest {
     private final LibraryDao dao;
 
     public AbstractLibraryDaoTest(LibraryDao dao) {

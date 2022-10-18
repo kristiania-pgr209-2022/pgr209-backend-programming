@@ -1,5 +1,8 @@
 package no.kristiania.library.database;
 
+import no.kristiania.library.database.jdbc.JdbcBookDao;
+import no.kristiania.library.database.jdbc.JdbcLibraryDao;
+import no.kristiania.library.database.jdbc.JdbcPhysicalBookDao;
 import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;

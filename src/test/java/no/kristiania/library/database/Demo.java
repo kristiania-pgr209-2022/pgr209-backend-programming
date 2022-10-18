@@ -1,5 +1,8 @@
 package no.kristiania.library.database;
 
+import no.kristiania.library.database.jdbc.JdbcBookDao;
+import no.kristiania.library.database.jdbc.JdbcLibraryDao;
+import no.kristiania.library.database.jdbc.JdbcPhysicalBookDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
