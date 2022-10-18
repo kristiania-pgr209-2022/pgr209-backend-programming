@@ -16,9 +16,10 @@ public class LibraryDao {
 
     public void save(Library library) throws SQLException {
         try (var connection = dataSource.getConnection()) {
-            var sql = "insert into libraries (name) values (?)";
+            var sql = "insert into libraries (name, address) values (?, ?)";
             try (var statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, library.getName());
+                statement.setString(2, library.getAddress());
                 statement.executeUpdate();
 
                 try (var generatedKeys = statement.getGeneratedKeys()) {

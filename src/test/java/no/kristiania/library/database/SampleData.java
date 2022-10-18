@@ -24,7 +24,7 @@ public class SampleData {
                 + " " +
                 pickOne("Public Library", "Deichmanske", "City Library")
         );
-        //library.setAddress(sampleFullName() + " gate " + random.nextInt(100));
+        library.setAddress(sampleFullName() + " gate " + random.nextInt(100));
         return library;
     }
 
