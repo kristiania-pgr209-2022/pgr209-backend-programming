@@ -12,7 +12,6 @@ import java.util.Map;
 public class BookDao {
 
     private final DataSource dataSource;
-    private Map<Long, Book> allBooks = new HashMap<>();
 
     public BookDao(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -31,11 +30,20 @@ public class BookDao {
                 }
             }
         }
-
-        allBooks.put(book.getId(), book);
     }
 
-    public Book retrieve(Long id) {
-        return allBooks.get(id);
+    public Book retrieve(Long id) throws SQLException {
+
+        try (var connection = dataSource.getConnection()) {
+            try (var statement = connection.prepareStatement("select * from books where id = ?")) {
+                statement.setLong(1, id);
+                try (var rs = statement.executeQuery()) {
+                    rs.next();
+                    var book = new Book();
+                    book.setId(rs.getLong("id"));
+                    return book;
+                }
+            }
+        }
     }
 }
