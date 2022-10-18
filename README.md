@@ -14,6 +14,6 @@
 * [x] Store data in a real database - PostgreSQL
 * [x] BookDaoTest shouldFindByAuthorName
 * [x] Repeat: LibraryDaoTest
-* [ ] Foreign keys and joins: BookCopyDaoTest
+* [x] Foreign keys and joins: BookCopyDaoTest
 
 * [ ] The same but with JPA (migrate the parts over to JPA)

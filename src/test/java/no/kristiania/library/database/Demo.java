@@ -8,14 +8,14 @@ import java.sql.SQLException;
 
 public class Demo {
 
-    private final BookDao bookDao;
-    private final LibraryDao libraryDao;
-    private final PhysicalBookDao physicalBookDao;
+    private final JdbcBookDao bookDao;
+    private final JdbcLibraryDao libraryDao;
+    private final JdbcPhysicalBookDao physicalBookDao;
 
     public Demo(DataSource dataSource) {
-        this.bookDao = new BookDao(dataSource);
-        this.libraryDao = new LibraryDao(dataSource);
-        physicalBookDao = new PhysicalBookDao(dataSource);
+        this.bookDao = new JdbcBookDao(dataSource);
+        this.libraryDao = new JdbcLibraryDao(dataSource);
+        physicalBookDao = new JdbcPhysicalBookDao(dataSource);
     }
 
     public static void main(String[] args) throws SQLException {
