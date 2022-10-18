@@ -12,7 +12,7 @@
 * [x] H2 in-memory database
 * [x] Flyway for database migrations
 * [x] Store data in a real database - PostgreSQL
-* [ ] BookDaoTest shouldFindByAuthorName
+* [x] BookDaoTest shouldFindByAuthorName
 * [ ] Repeat: LibraryDaoTest
 * [ ] Foreign keys and joins: BookCopyDaoTest
 
