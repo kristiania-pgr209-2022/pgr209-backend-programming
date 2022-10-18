@@ -1,13 +1,8 @@
 package no.kristiania.library.database;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BookDao {
 
@@ -32,7 +27,7 @@ public class BookDao {
         }
     }
 
-    public Book retrieve(Long id) throws SQLException {
+    public Book retrieve(long id) throws SQLException {
 
         try (var connection = dataSource.getConnection()) {
             try (var statement = connection.prepareStatement("select * from books where id = ?")) {
@@ -41,6 +36,7 @@ public class BookDao {
                     rs.next(); // TODO
                     var book = new Book();
                     book.setId(rs.getLong("id"));
+                    book.setTitle(rs.getString("title"));
                     return book;
                 }
             }

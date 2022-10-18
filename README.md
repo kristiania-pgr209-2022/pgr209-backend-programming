@@ -7,9 +7,9 @@
    4. findByXXX
    5. Finds should include matching objects and exclude non-matching objects
 
-* [ ] Maven project
-* [ ] BookDaoTest shouldRetrieveSavedBook
-* [ ] H2 in-memory database
+* [x] Maven project
+* [x] BookDaoTest shouldRetrieveSavedBook
+* [x] H2 in-memory database
 * [ ] Flyway for database migrations
 * [ ] Store data in a real database - PostgreSQL
 * [ ] BookDaoTest shouldFindByAuthorName
