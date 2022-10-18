@@ -10,10 +10,12 @@ public class Demo {
 
     private final BookDao bookDao;
     private final LibraryDao libraryDao;
+    private final PhysicalBookDao physicalBookDao;
 
     public Demo(DataSource dataSource) {
         this.bookDao = new BookDao(dataSource);
         this.libraryDao = new LibraryDao(dataSource);
+        physicalBookDao = new PhysicalBookDao(dataSource);
     }
 
     public static void main(String[] args) throws SQLException {
@@ -26,8 +28,12 @@ public class Demo {
     }
 
     private void run() throws SQLException {
-        bookDao.save(SampleData.sampleBook());
-        libraryDao.save(SampleData.sampleLibrary());
+        var book = SampleData.sampleBook();
+        bookDao.save(book);
+        var library = SampleData.sampleLibrary();
+        libraryDao.save(library);
+
+        physicalBookDao.insert(library, book);
     }
 
 }
