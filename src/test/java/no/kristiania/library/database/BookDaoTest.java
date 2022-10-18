@@ -18,7 +18,7 @@ public class BookDaoTest {
         dataSource.setUrl("jdbc:h2:mem:testDatabase;DB_CLOSE_DELAY=-1");
         try (var connection = dataSource.getConnection()) {
             var statement = connection.createStatement();
-            statement.executeUpdate("create table books (id serial primary key, title varchar(100))");
+            statement.executeUpdate("create table if not exists books (id serial primary key, title varchar(100))");
         }
         dao = new BookDao(dataSource);
     }
