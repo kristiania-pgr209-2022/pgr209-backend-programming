@@ -20,11 +20,6 @@ public class BookDaoTest {
 
         var flyway = Flyway.configure().dataSource(dataSource).load();
         flyway.migrate();
-
-        try (var connection = dataSource.getConnection()) {
-            var statement = connection.createStatement();
-            statement.executeUpdate("create table if not exists books (id serial primary key, title varchar(100))");
-        }
         dao = new BookDao(dataSource);
     }
 
