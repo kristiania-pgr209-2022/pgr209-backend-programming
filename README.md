@@ -10,8 +10,8 @@
 * [x] Maven project
 * [x] BookDaoTest shouldRetrieveSavedBook
 * [x] H2 in-memory database
-* [ ] Flyway for database migrations
-* [ ] Store data in a real database - PostgreSQL
+* [x] Flyway for database migrations
+* [x] Store data in a real database - PostgreSQL
 * [ ] BookDaoTest shouldFindByAuthorName
 * [ ] Repeat: LibraryDaoTest
 * [ ] Foreign keys and joins: BookCopyDaoTest

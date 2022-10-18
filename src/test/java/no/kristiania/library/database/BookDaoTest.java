@@ -36,6 +36,24 @@ public class BookDaoTest {
     }
 
     @Test
+    void shouldFindBooksByAuthorName() throws SQLException {
+        var book = SampleData.sampleBook();
+        var bookWithSameAuthor = SampleData.sampleBook();
+        bookWithSameAuthor.setAuthorName(book.getAuthorName());
+        var bookWithOtherAuthor = SampleData.sampleBook();
+        bookWithOtherAuthor.setAuthorName("Other Author");
+
+        dao.save(book);
+        dao.save(bookWithSameAuthor);
+        dao.save(bookWithOtherAuthor);
+
+        assertThat(dao.findByAuthorName(book.getAuthorName()))
+                .extracting(Book::getId)
+                .contains(book.getId(), bookWithSameAuthor.getId())
+                .doesNotContain(bookWithOtherAuthor.getId());
+    }
+
+    @Test
     void shouldRetrieveNullForMissingBook() throws SQLException {
         assertThat(dao.retrieve(-1)).isNull();
     }
