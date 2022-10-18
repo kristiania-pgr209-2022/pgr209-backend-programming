@@ -17,6 +17,17 @@ public class SampleData {
         return book;
     }
 
+    public static Library sampleLibrary() {
+        var library = new Library();
+        library.setName(
+                pickOne("Oslo", "Grunerløkka", "Bergen", "Sogndal", "Ulvik")
+                + " " +
+                pickOne("Public Library", "Deichmanske", "City Library")
+        );
+        //library.setAddress(sampleFullName() + " gate " + random.nextInt(100));
+        return library;
+    }
+
     private static String sampleFullName() {
         return pickOne("Johannes", "Simen", "Magnus")
                 + " " +
@@ -26,4 +37,5 @@ public class SampleData {
     private static String pickOne(String... alternatives) {
         return alternatives[random.nextInt(alternatives.length)];
     }
+
 }
