@@ -29,7 +29,11 @@ public class PhysicalBookDao {
 
     public List<Book> findByLibrary(long libraryId) throws SQLException {
         try (var connection = dataSource.getConnection()) {
-            var sql = "select * from physical_books where library_id = ?";
+            var sql = """
+                select b.*
+                from physical_books pb join books b on pb.book_id = b.id
+                where library_id = ?
+                """;
             try (var statement = connection.prepareStatement(sql)) {
                 statement.setLong(1, libraryId);
                 try (var rs = statement.executeQuery()) {
