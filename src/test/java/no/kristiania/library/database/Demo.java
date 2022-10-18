@@ -17,7 +17,7 @@ public class Demo {
         var dataSource = new PGSimpleDataSource();
         dataSource.setUrl("jdbc:postgresql://localhost:5432/library");
         dataSource.setUser("kristiania_app");
-        dataSource.setPassword("this is secret, don't check it in!");
+        dataSource.setPassword("this is secret, do not check it in!");
         new Demo(dataSource).run();
     }
 
