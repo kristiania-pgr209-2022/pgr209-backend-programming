@@ -1,5 +1,6 @@
 package no.kristiania.library.database;
 
+import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,10 @@ public class BookDaoTest {
     void setUp() throws SQLException {
         var dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:mem:testDatabase;DB_CLOSE_DELAY=-1");
+
+        var flyway = Flyway.configure().dataSource(dataSource).load();
+        flyway.migrate();
+
         try (var connection = dataSource.getConnection()) {
             var statement = connection.createStatement();
             statement.executeUpdate("create table if not exists books (id serial primary key, title varchar(100))");
