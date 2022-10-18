@@ -32,7 +32,7 @@ public class BookDaoTest {
         assertThat(dao.retrieve(book.getId()))
                 .usingRecursiveComparison()
                 .isEqualTo(book)
-                //.isNotSameAs(book)
+                .isNotSameAs(book)
         ;
     }
 
