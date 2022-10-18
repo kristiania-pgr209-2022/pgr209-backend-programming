@@ -34,6 +34,11 @@ public class BookDaoTest {
         ;
     }
 
+    @Test
+    void shouldRetrieveNullForMissingBook() throws SQLException {
+        assertThat(dao.retrieve(-1)).isNull();
+    }
+
     private Book sampleBook() {
         var book = new Book();
         book.setTitle("Java in a Nutshell");

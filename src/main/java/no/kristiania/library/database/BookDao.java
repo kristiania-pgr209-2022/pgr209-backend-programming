@@ -33,11 +33,14 @@ public class BookDao {
             try (var statement = connection.prepareStatement("select * from books where id = ?")) {
                 statement.setLong(1, id);
                 try (var rs = statement.executeQuery()) {
-                    rs.next(); // TODO
-                    var book = new Book();
-                    book.setId(rs.getLong("id"));
-                    book.setTitle(rs.getString("title"));
-                    return book;
+                    if (rs.next()) {
+                        var book = new Book();
+                        book.setId(rs.getLong("id"));
+                        book.setTitle(rs.getString("title"));
+                        return book;
+                    } else {
+                        return null;
+                    }
                 }
             }
         }
