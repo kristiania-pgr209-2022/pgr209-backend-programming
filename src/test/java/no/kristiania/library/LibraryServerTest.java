@@ -22,6 +22,7 @@ class LibraryServerTest {
         var postConnection = (HttpURLConnection)url.openConnection();
         postConnection.setRequestMethod("POST");
         postConnection.setDoOutput(true);
+        postConnection.setRequestProperty("Content-Type", "application/json");
         //language=JSON
         postConnection.getOutputStream().write("""
         {"name":"test"}
