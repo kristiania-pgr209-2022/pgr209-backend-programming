@@ -2,7 +2,6 @@ package no.kristiania.library;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -12,8 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LibraryServerTest {
 
     @Test
-    void shouldGetPostedResources() throws IOException {
+    void shouldGetPostedResources() throws Exception {
         var server = new LibraryServer(0);
+        server.start();
         var url = new URL(server.getURL(), "/api/books");
 
         var postConnection = (HttpURLConnection)url.openConnection();
