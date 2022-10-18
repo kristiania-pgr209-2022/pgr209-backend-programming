@@ -15,7 +15,7 @@ public class Demo {
 
     public static void main(String[] args) throws SQLException {
         var dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5000/library");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/library");
         dataSource.setUser("kristiania_app");
         dataSource.setPassword("this is secret, don't check it in!");
         new Demo(dataSource).run();
