@@ -6,9 +6,12 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LibraryDaoTest {
+public class AbstractLibraryDaoTest {
+    private final LibraryDao dao;
 
-    private final JdbcLibraryDao dao = new JdbcLibraryDao(InMemoryDataSource.createTestDataSource());
+    public AbstractLibraryDaoTest(LibraryDao dao) {
+        this.dao = dao;
+    }
 
     @Test
     void shouldRetrieveSavedLibrary() throws SQLException {
@@ -19,4 +22,5 @@ public class LibraryDaoTest {
                 .usingRecursiveComparison()
                 .isEqualTo(library);
     }
+
 }
