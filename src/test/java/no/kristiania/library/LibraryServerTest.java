@@ -1,7 +1,10 @@
 package no.kristiania.library;
 
+import org.flywaydb.core.Flyway;
+import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.Test;
 
+import javax.sql.DataSource;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -12,7 +15,7 @@ class LibraryServerTest {
 
     @Test
     void shouldGetPostedResources() throws Exception {
-        var server = new LibraryServer(0);
+        var server = new LibraryServer(0, createTestDataSource());
         server.start();
         var url = new URL(server.getURL(), "/api/books");
 
@@ -31,5 +34,12 @@ class LibraryServerTest {
                 .isEqualTo(200);
         assertThat(getConnection.getInputStream()).asString(UTF_8).contains("""
                         {"name":"test"}""");
+    }
+
+    private DataSource createTestDataSource() {
+        var dataSource = new JdbcDataSource();
+        dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
+        Flyway.configure().dataSource(dataSource).load().migrate();
+        return dataSource;
     }
 }
