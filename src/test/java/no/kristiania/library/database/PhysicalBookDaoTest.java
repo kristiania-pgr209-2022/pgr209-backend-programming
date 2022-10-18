@@ -2,9 +2,11 @@ package no.kristiania.library.database;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class PhysicalBookDaoTest {
 
-    private PhysicalBookDao dao = new PhysicalBookDao(InMemoryDataSource.createTestDataSource());
+    private final PhysicalBookDao dao = new PhysicalBookDao(InMemoryDataSource.createTestDataSource());
 
     @Test
     void shouldListBooksByLibrary() {
@@ -20,11 +22,11 @@ public class PhysicalBookDaoTest {
 
         assertThat(dao.findByLibrary(firstLibrary.getId()))
                 .extracting(Book::getId)
-                .contain(firstBook.getId(), secondBook.getId());
+                .contains(firstBook.getId(), secondBook.getId());
         assertThat(dao.findByLibrary(secondLibrary.getId()))
                 .extracting(Book::getId)
-                .contain(firstBook.getId())
-                .doesNotInclude(secondBook.getId())
+                .contains(firstBook.getId())
+                .doesNotContain(secondBook.getId())
         ;
 
 
