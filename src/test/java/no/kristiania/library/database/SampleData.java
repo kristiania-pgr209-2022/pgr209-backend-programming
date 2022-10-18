@@ -13,6 +13,7 @@ public class SampleData {
                 "Becoming ",
                 "The start of "
         ) + sampleFullName());
+        book.setAuthorName(sampleFullName());
         return book;
     }
 

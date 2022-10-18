@@ -14,9 +14,10 @@ public class BookDao {
 
     public void save(Book book) throws SQLException {
         try (var connection = dataSource.getConnection()) {
-            var sql = "insert into books (title) values (?)";
+            var sql = "insert into books (title, author_name) values (?, ?)";
             try (var statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, book.getTitle());
+                statement.setString(2, book.getAuthorName());
                 statement.executeUpdate();
 
                 try (var generatedKeys = statement.getGeneratedKeys()) {
@@ -37,6 +38,7 @@ public class BookDao {
                         var book = new Book();
                         book.setId(rs.getLong("id"));
                         book.setTitle(rs.getString("title"));
+                        book.setAuthorName(rs.getString("author_name"));
                         return book;
                     } else {
                         return null;
