@@ -10,7 +10,7 @@ public class JpaLibraryDaoTest extends AbstractLibraryDaoTest {
 
     private final EntityManager entityManager;
 
-    public JpaLibraryDaoTest(@TestPersistenceManager EntityManager entityManager) {
+    public JpaLibraryDaoTest(@TestPersistenceManager("library") EntityManager entityManager) {
         super(new JpaLibraryDao(entityManager));
         this.entityManager = entityManager;
     }

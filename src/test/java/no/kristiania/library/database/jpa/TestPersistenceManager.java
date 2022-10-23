@@ -18,6 +18,9 @@ import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith(TestPersistenceManager.PersistenceManagerResolver.class)
 public @interface TestPersistenceManager {
+
+    String value();
+
     class PersistenceManagerResolver implements ParameterResolver, BeforeEachCallback, AfterEachCallback {
 
         @Override
@@ -27,7 +30,9 @@ public @interface TestPersistenceManager {
 
         @Override
         public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-            var entityManager = Persistence.createEntityManagerFactory("library").createEntityManager();
+            var persistenceUnitName = parameterContext.getParameter().getAnnotation(TestPersistenceManager.class).value();
+            var entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName);
+            var entityManager = entityManagerFactory.createEntityManager();
             extensionContext.getStore(GLOBAL).put(EntityManager.class.getName(), entityManager);
             return entityManager;
         }
