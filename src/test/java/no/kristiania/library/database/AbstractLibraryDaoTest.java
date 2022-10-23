@@ -7,9 +7,12 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LibraryDaoTest {
+public abstract class AbstractLibraryDaoTest {
+    private final LibraryDao dao;
 
-    private final LibraryDao dao = new JdbcLibraryDao(InMemoryDataSource.createTestDataSource());
+    public AbstractLibraryDaoTest(JdbcLibraryDao dao) {
+        this.dao = dao;
+    }
 
     @Test
     void shouldRetrieveSavedLibrary() throws SQLException {
