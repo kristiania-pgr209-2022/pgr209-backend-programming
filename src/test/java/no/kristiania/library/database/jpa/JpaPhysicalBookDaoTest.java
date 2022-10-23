@@ -12,7 +12,16 @@ import javax.sql.DataSource;
 
 public class JpaPhysicalBookDaoTest extends AbstractPhysicalBookDaoTest {
 
+    private final EntityManager entityManager;
+
     private JpaPhysicalBookDaoTest(@TestPersistenceManager("library") EntityManager entityManager) {
         super(new JpaPhysicalBookDao(entityManager), new JpaBookDao(entityManager), new JpaLibraryDao(entityManager));
+        this.entityManager = entityManager;
+    }
+
+    @Override
+    protected void flush() {
+        entityManager.flush();
+        entityManager.clear();
     }
 }
