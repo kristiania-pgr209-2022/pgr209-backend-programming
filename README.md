@@ -22,7 +22,7 @@ Disclaimer: JPA destroys much of the work we have been relying on so far. Don't 
 
 * [ ] Install SQL server
   * Install Docker from https://docs.docker.com/get-docker/
-  * Run with Docker: `docker run --name pgr209-sqlserver -e ACCEPT_EULA=Y -e SA_PASSWORD=... -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest`
+  * Run with Docker: `docker run --name pgr209-sqlserver -e ACCEPT_EULA=Y -e SA_PASSWORD=... -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest`
   * Use `docker logs pgr209-sqlserver` to see if the server started successfully
   * Use `docker stop pgr209-sqlserver` to stop the server
   * Use `docker start pgr209-sqlserver` to restart the server
