@@ -12,12 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LibraryServerTest {
 
     @Test
-    void shouldServeFrontPage() throws IOException {
+    void shouldServeFrontPage() throws Exception {
         var server = new LibraryServer(0);
         server.start();
 
         var connection = (HttpURLConnection) new URL(server.getURL(), "/").openConnection();
-        assertThat(connection.getResponseCode()).as(connection.getRequestMethod())
+        assertThat(connection.getResponseCode()).as(connection.getResponseMessage())
                 .isEqualTo(200);
         assertThat(connection.getInputStream()).asString(UTF_8)
                 .contains("<title>Kristiania Library</title>");
