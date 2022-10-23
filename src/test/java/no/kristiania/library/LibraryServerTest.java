@@ -29,6 +29,27 @@ public class LibraryServerTest {
                 .contains("<title>Kristiania Library</title>");
     }
 
+    @Test
+    void shouldPostNewBook() throws Exception {
+        var postConnection = openConnection("/api/books");
+        postConnection.setRequestMethod("POST");
+        postConnection.setRequestProperty("Content-Type", "application/json");
+        postConnection.setDoOutput(true);
+        postConnection.getOutputStream().write("""
+                {"title":"My Test Book","authorName":"My Test Author"}
+                """.getBytes(UTF_8));
+        assertThat(postConnection.getResponseCode()).as(postConnection.getResponseMessage())
+                .isEqualTo(204);
+
+        var connection = openConnection("/api/books");
+        assertThat(connection.getResponseCode()).as(connection.getResponseMessage())
+                .isEqualTo(200);
+        assertThat(connection.getInputStream()).asString(UTF_8)
+                .contains("""
+                        "title":"My Test Book"
+                        """);
+    }
+
     private HttpURLConnection openConnection(String path) throws IOException {
         return (HttpURLConnection) new URL(server.getURL(), path).openConnection();
     }
