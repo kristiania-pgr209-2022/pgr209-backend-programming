@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class AbstractLibraryDaoTest {
     private final LibraryDao dao;
 
-    public AbstractLibraryDaoTest(JdbcLibraryDao dao) {
+    public AbstractLibraryDaoTest(LibraryDao dao) {
         this.dao = dao;
     }
 
