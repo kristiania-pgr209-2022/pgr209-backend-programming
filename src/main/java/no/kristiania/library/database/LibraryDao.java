@@ -24,7 +24,7 @@ public class LibraryDao {
 
                 try (var generatedKeys = statement.getGeneratedKeys()) {
                     generatedKeys.next();
-                    library.setId(generatedKeys.getLong("id"));
+                    library.setId(generatedKeys.getLong(1));
                 }
             }
         }
