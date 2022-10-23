@@ -1,7 +1,7 @@
 package no.kristiania.library;
 
 import no.kristiania.library.database.BookDao;
-import no.kristiania.library.database.jdbc.JdbcBookDao;
+import no.kristiania.library.database.jpa.JpaBookDao;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -13,7 +13,7 @@ class LibraryResourceConfig extends ResourceConfig {
         register(new AbstractBinder() {
             @Override
             protected void configure() {
-                bind(JdbcBookDao.class).to(BookDao.class);
+                bind(JpaBookDao.class).to(BookDao.class);
                 bindFactory(() -> dataSource).to(DataSource.class);
             }
         });
