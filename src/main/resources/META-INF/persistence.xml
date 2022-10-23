@@ -1,6 +1,7 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
     <persistence-unit name="library">
         <non-jta-data-source>jdbc/dataSource</non-jta-data-source>
+        <class>no.kristiania.library.database.Book</class>
         <class>no.kristiania.library.database.Library</class>
     </persistence-unit>
 </persistence>

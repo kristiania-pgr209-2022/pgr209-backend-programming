@@ -18,6 +18,7 @@ public abstract class AbstractBookDaoTest {
     void shouldRetrieveSavedBook() throws SQLException {
         var book = SampleData.sampleBook();
         dao.save(book);
+        flush();
         assertThat(dao.retrieve(book.getId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
@@ -37,6 +38,7 @@ public abstract class AbstractBookDaoTest {
         dao.save(book);
         dao.save(bookWithSameAuthor);
         dao.save(bookWithOtherAuthor);
+        flush();
 
         assertThat(dao.findByAuthorName(book.getAuthorName()))
                 .extracting(Book::getId)
@@ -47,5 +49,10 @@ public abstract class AbstractBookDaoTest {
     @Test
     void shouldRetrieveNullForMissingBook() throws SQLException {
         assertThat(dao.retrieve(-1)).isNull();
+    }
+
+
+    protected void flush() {
+
     }
 }
