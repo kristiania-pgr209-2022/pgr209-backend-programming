@@ -12,7 +12,7 @@ public class LibraryServer {
     private final Server server;
 
     public LibraryServer(int port) {
-        this.server = new Server(0);
+        this.server = new Server(port);
 
         var handler = new WebAppContext();
         handler.setContextPath("/");
