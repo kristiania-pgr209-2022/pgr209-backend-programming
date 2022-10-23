@@ -4,5 +4,8 @@
         <class>no.kristiania.library.database.Book</class>
         <class>no.kristiania.library.database.Library</class>
         <class>no.kristiania.library.database.PhysicalBook</class>
+        <properties>
+            <property name="eclipselink.logging.logger" value="no.kristiania.infrastructure.EclipseLinkSlf4jLogger"/>
+        </properties>
     </persistence-unit>
 </persistence>
