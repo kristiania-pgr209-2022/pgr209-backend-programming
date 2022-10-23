@@ -1,6 +1,9 @@
 package no.kristiania.library;
 
+import jakarta.persistence.Persistence;
+import jakarta.servlet.DispatcherType;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -10,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.EnumSet;
 
 public class LibraryServer {
     private final Server server;
@@ -22,7 +26,10 @@ public class LibraryServer {
         var handler = new WebAppContext();
         handler.setContextPath("/");
         handler.setBaseResource(Resource.newClassPathResource("/webapp"));
-        handler.addServlet(new ServletHolder(new ServletContainer(new LibraryResourceConfig(dataSource))), "/api/*");
+        handler.addServlet(new ServletHolder(new ServletContainer(new LibraryResourceConfig())), "/api/*");
+        handler.addFilter(new FilterHolder(new TransactionFilter(
+                Persistence.createEntityManagerFactory("library")
+        )), "/*", EnumSet.of(DispatcherType.REQUEST));
         server.setHandler(handler);
     }
 
