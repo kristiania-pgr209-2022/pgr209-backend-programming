@@ -1,9 +1,8 @@
 package no.kristiania.library.database;
 
+import no.kristiania.library.database.jdbc.JdbcBookDao;
+
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class PhysicalBookDao {
                 try (var rs = statement.executeQuery()) {
                     var books = new ArrayList<Book>();
                     while (rs.next()) {
-                        books.add(BookDao.readBook(rs));
+                        books.add(JdbcBookDao.readBook(rs));
                     }
                     return books;
                 }
