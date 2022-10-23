@@ -23,7 +23,8 @@ public class JpaPhysicalBookDao implements PhysicalBookDao {
 
     @Override
     public List<Book> findByLibrary(long libraryId) {
-        return entityManager.createNamedQuery("findAll", PhysicalBook.class)
+        return entityManager.createNamedQuery("findByLibrary", PhysicalBook.class)
+                .setParameter("libraryId", libraryId)
                 .getResultList()
                 .stream().map(PhysicalBook::getBook)
                 .collect(Collectors.toList());

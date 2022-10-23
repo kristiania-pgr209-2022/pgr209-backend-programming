@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "physical_books")
-@NamedQuery(name = "findAll", query = "select b from PhysicalBook b")
+@NamedQuery(name = "findByLibrary", query = "select b from PhysicalBook b where b.library.id = :libraryId")
 public class PhysicalBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
