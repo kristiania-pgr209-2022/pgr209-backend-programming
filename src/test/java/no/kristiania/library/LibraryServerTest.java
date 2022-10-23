@@ -31,7 +31,6 @@ public class LibraryServerTest {
     }
 
     @Test
-    @Disabled("Waiting for implementation of BookDao.findAll")
     void shouldPostNewBook() throws Exception {
         var postConnection = openConnection("/api/books");
         postConnection.setRequestMethod("POST");
