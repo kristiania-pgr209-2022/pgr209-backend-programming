@@ -10,5 +10,5 @@ public interface BookDao {
 
     List<Book> findByAuthorName(String authorName) throws SQLException;
 
-    List<Book> findAll();
+    List<Book> findAll() throws SQLException;
 }

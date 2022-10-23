@@ -65,8 +65,18 @@ public class JdbcBookDao implements BookDao {
     }
 
     @Override
-    public List<Book> findAll() {
-        return null;
+    public List<Book> findAll() throws SQLException {
+        try (var connection = dataSource.getConnection()) {
+            try (var statement = connection.prepareStatement("select * from books")) {
+                try (var rs = statement.executeQuery()) {
+                    var books = new ArrayList<Book>();
+                    while (rs.next()) {
+                        books.add(readBook(rs));
+                    }
+                    return books;
+                }
+            }
+        }
     }
 
     public static Book readBook(ResultSet rs) throws SQLException {

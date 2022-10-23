@@ -11,7 +11,6 @@ import no.kristiania.library.database.Book;
 import no.kristiania.library.database.BookDao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/books")
@@ -22,7 +21,7 @@ public class BookResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks() throws SQLException {
         return bookDao.findAll();
     }
 
