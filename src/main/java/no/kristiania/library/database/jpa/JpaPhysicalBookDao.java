@@ -23,6 +23,9 @@ public class JpaPhysicalBookDao implements PhysicalBookDao {
 
     @Override
     public List<Book> findByLibrary(long libraryId) {
-        return entityManager.find(Library.class, libraryId).getBooks();
+        return entityManager.find(Library.class, libraryId)
+                .getBooks()
+                .stream().map(PhysicalBook::getBook)
+                .collect(Collectors.toList());
     }
 }

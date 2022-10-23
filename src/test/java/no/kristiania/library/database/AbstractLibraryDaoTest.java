@@ -19,7 +19,7 @@ public abstract class AbstractLibraryDaoTest {
         dao.save(library);
         flush();
         assertThat(dao.retrieve(library.getId()))
-                .hasNoNullFieldsOrProperties()
+                .hasNoNullFieldsOrPropertiesExcept("books")
                 .usingRecursiveComparison()
                 .isEqualTo(library);
     }
