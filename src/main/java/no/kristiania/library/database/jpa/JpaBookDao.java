@@ -32,6 +32,8 @@ public class JpaBookDao implements BookDao {
 
     @Override
     public List<Book> findAll() {
-        return null;
+        return entityManager
+                .createQuery(entityManager.getCriteriaBuilder().createQuery(Book.class))
+                .getResultList();
     }
 }
