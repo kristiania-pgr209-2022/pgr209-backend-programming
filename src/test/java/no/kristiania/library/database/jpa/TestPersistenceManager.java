@@ -2,7 +2,6 @@ package no.kristiania.library.database.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
-import no.kristiania.library.database.Database;
 import no.kristiania.library.database.InMemoryDataSource;
 import org.eclipse.jetty.plus.jndi.Resource;
 import org.junit.jupiter.api.extension.AfterEachCallback;
@@ -13,8 +12,6 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-import javax.naming.NamingException;
-import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
