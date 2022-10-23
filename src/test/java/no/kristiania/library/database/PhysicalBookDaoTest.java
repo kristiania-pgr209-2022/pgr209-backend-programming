@@ -1,6 +1,7 @@
 package no.kristiania.library.database;
 
 import no.kristiania.library.database.jdbc.JdbcBookDao;
+import no.kristiania.library.database.jdbc.JdbcLibraryDao;
 import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PhysicalBookDaoTest {
 
     private final DataSource dataSource = InMemoryDataSource.createTestDataSource();
-    private final LibraryDao libraryDao = new LibraryDao(dataSource);
+    private final LibraryDao libraryDao = new JdbcLibraryDao(dataSource);
     private final BookDao bookDao = new JdbcBookDao(dataSource);
     private final PhysicalBookDao dao = new PhysicalBookDao(dataSource);
 

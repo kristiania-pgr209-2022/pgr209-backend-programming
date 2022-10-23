@@ -2,6 +2,7 @@ package no.kristiania.library.database;
 
 import com.zaxxer.hikari.HikariDataSource;
 import no.kristiania.library.database.jdbc.JdbcBookDao;
+import no.kristiania.library.database.jdbc.JdbcLibraryDao;
 import org.flywaydb.core.Flyway;
 
 import javax.sql.DataSource;
@@ -18,7 +19,7 @@ public class Demo {
 
     public Demo(DataSource dataSource) {
         this.bookDao = new JdbcBookDao(dataSource);
-        this.libraryDao = new LibraryDao(dataSource);
+        this.libraryDao = new JdbcLibraryDao(dataSource);
         physicalBookDao = new PhysicalBookDao(dataSource);
     }
 
