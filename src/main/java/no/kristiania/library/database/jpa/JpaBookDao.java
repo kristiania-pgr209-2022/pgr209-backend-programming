@@ -27,7 +27,8 @@ public class JpaBookDao implements BookDao {
     @Override
     public List<Book> findByAuthorName(String authorName) {
         return entityManager.createQuery(
-                entityManager.getCriteriaBuilder().createQuery(Book.class)
-        ).getResultList();
+                        "select b from Book b where b.authorName = :authorName"
+                ).setParameter("authorName", authorName)
+                .getResultList();
     }
 }
