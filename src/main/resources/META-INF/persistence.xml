@@ -3,5 +3,6 @@
         <non-jta-data-source>jdbc/dataSource</non-jta-data-source>
         <class>no.kristiania.library.database.Book</class>
         <class>no.kristiania.library.database.Library</class>
+        <class>no.kristiania.library.database.PhysicalBook</class>
     </persistence-unit>
 </persistence>
