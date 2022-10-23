@@ -37,7 +37,7 @@ public class LibraryServerTest {
         postConnection.setRequestProperty("Content-Type", "application/json");
         postConnection.setDoOutput(true);
         postConnection.getOutputStream().write("""
-                {"title":"My Test Book","authorName":"My Test Author"}
+                {"title":"Java In A Nutshell","authorName":"My Test Author"}
                 """.getBytes(UTF_8));
         assertThat(postConnection.getResponseCode()).as(postConnection.getResponseMessage())
                 .isEqualTo(204);
@@ -46,7 +46,7 @@ public class LibraryServerTest {
         assertThat(connection.getResponseCode()).as(connection.getResponseMessage())
                 .isEqualTo(200);
         assertThat(connection.getInputStream()).asString(UTF_8)
-                .contains("\"title\":\"My Test Book\"");
+                .contains("\"title\":\"Java In A Nutshell\"");
     }
 
     private HttpURLConnection openConnection(String path) throws IOException {

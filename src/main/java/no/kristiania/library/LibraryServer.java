@@ -6,6 +6,7 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.servlet.ServletContainer;
 
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,8 +14,10 @@ import java.net.URL;
 public class LibraryServer {
     private final Server server;
 
-    public LibraryServer(int port, DataSource dataSource) {
+    public LibraryServer(int port, DataSource dataSource) throws NamingException {
         this.server = new Server(port);
+
+        new org.eclipse.jetty.plus.jndi.Resource("jdbc/dataSource", dataSource);
 
         var handler = new WebAppContext();
         handler.setContextPath("/");
