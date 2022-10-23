@@ -15,13 +15,13 @@ public class JpaBookDao implements BookDao {
     }
 
     @Override
-    public void save(Book book) throws SQLException {
-
+    public void save(Book book) {
+        entityManager.persist(book);
     }
 
     @Override
-    public Book retrieve(long id) throws SQLException {
-        return null;
+    public Book retrieve(long id) {
+        return entityManager.find(Book.class, id);
     }
 
     @Override
