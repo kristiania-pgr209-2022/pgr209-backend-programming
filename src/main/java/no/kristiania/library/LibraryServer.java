@@ -2,6 +2,7 @@ package no.kristiania.library;
 
 import jakarta.persistence.Persistence;
 import jakarta.servlet.DispatcherType;
+import no.kristiania.library.database.Database;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -11,6 +12,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EnumSet;
@@ -41,4 +43,7 @@ public class LibraryServer {
         return server.getURI().toURL();
     }
 
+    public static void main(String[] args) throws Exception {
+        new LibraryServer(8080, Database.createDataSource()).start();
+    }
 }
