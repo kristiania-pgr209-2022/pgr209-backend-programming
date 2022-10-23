@@ -4,10 +4,11 @@ import no.kristiania.library.database.Library;
 import no.kristiania.library.database.LibraryDao;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JdbcLibraryDao implements LibraryDao {
+public class JdbcLibraryDao extends AbstractJdbcDao implements LibraryDao  {
     private final DataSource dataSource;
 
     public JdbcLibraryDao(DataSource dataSource) {
@@ -34,15 +35,16 @@ public class JdbcLibraryDao implements LibraryDao {
         try (var connection = dataSource.getConnection()) {
             try (var statement = connection.prepareStatement("select * from libraries where id = ?")) {
                 statement.setLong(1, id);
-                try (var rs = statement.executeQuery()) {
-                    rs.next();
-                    var library = new Library();
-                    library.setId(rs.getLong("id"));
-                    library.setName(rs.getString("name"));
-                    library.setAddress(rs.getString("address"));
-                    return library;
-                }
+                return collectSingleResult(statement, this::rowToLibrary);
             }
         }
+    }
+
+    private Library rowToLibrary(ResultSet rs) throws SQLException {
+        var library = new Library();
+        library.setId(rs.getLong("id"));
+        library.setName(rs.getString("name"));
+        library.setAddress(rs.getString("address"));
+        return library;
     }
 }
