@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import no.kristiania.library.database.Book;
 import no.kristiania.library.database.BookDao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class JpaBookDao implements BookDao {
@@ -29,5 +28,10 @@ public class JpaBookDao implements BookDao {
         return entityManager.createNamedQuery("findByAuthorName", Book.class)
                 .setParameter("authorName", authorName)
                 .getResultList();
+    }
+
+    @Override
+    public List<Book> findAll() {
+        return null;
     }
 }

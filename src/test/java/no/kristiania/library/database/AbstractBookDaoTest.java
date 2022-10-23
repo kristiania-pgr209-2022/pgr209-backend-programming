@@ -28,6 +28,19 @@ public abstract class AbstractBookDaoTest {
     }
 
     @Test
+    void shouldFindAllBooks() throws SQLException {
+        var book1 = SampleData.sampleBook();
+        var book2 = SampleData.sampleBook();
+        dao.save(book1);
+        dao.save(book2);
+        flush();
+
+        assertThat(dao.findAll())
+                .extracting(Book::getId)
+                .contains(book1.getId(), book2.getId());
+    }
+
+    @Test
     void shouldFindBooksByAuthorName() throws SQLException {
         var book = SampleData.sampleBook();
         var bookWithSameAuthor = SampleData.sampleBook();

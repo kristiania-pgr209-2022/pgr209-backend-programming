@@ -64,6 +64,11 @@ public class JdbcBookDao implements BookDao {
         }
     }
 
+    @Override
+    public List<Book> findAll() {
+        return null;
+    }
+
     public static Book readBook(ResultSet rs) throws SQLException {
         var book = new Book();
         book.setId(rs.getLong("id"));
