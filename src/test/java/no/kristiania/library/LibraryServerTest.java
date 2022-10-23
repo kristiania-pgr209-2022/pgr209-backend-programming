@@ -45,9 +45,7 @@ public class LibraryServerTest {
         assertThat(connection.getResponseCode()).as(connection.getResponseMessage())
                 .isEqualTo(200);
         assertThat(connection.getInputStream()).asString(UTF_8)
-                .contains("""
-                        "title":"My Test Book"
-                        """);
+                .contains("\"title\":\"My Test Book\"");
     }
 
     private HttpURLConnection openConnection(String path) throws IOException {

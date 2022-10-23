@@ -1,5 +1,6 @@
 package no.kristiania.library;
 
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -22,7 +23,8 @@ public class BookResource {
     }
 
     @POST
-    public void addBook() {
-
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void addBook(Book book) {
+        books.add(book);
     }
 }
