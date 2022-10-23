@@ -1,6 +1,5 @@
 package no.kristiania.library.database;
 
-import no.kristiania.library.database.jdbc.JdbcLibraryDao;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -18,9 +17,14 @@ public abstract class AbstractLibraryDaoTest {
     void shouldRetrieveSavedLibrary() throws SQLException {
         var library = SampleData.sampleLibrary();
         dao.save(library);
+        flush();
         assertThat(dao.retrieve(library.getId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(library);
+    }
+
+    protected void flush() {
+
     }
 }
