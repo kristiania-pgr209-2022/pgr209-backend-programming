@@ -1,5 +1,6 @@
 package no.kristiania.library.database.jdbc;
 
+import jakarta.inject.Inject;
 import no.kristiania.library.database.Book;
 import no.kristiania.library.database.BookDao;
 
@@ -13,6 +14,7 @@ public class JdbcBookDao extends AbstractJdbcDao implements BookDao {
 
     private final DataSource dataSource;
 
+    @Inject
     public JdbcBookDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }

@@ -1,7 +1,7 @@
 package no.kristiania.library;
 
+import no.kristiania.library.database.Database;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class LibraryServerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        server = new LibraryServer(0);
+        server = new LibraryServer(0, Database.createDataSource());
         server.start();
     }
 
