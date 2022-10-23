@@ -1,16 +1,12 @@
 package no.kristiania.library.database;
 
-import com.zaxxer.hikari.HikariDataSource;
 import no.kristiania.library.database.jdbc.JdbcBookDao;
 import no.kristiania.library.database.jdbc.JdbcLibraryDao;
 import no.kristiania.library.database.jdbc.JdbcPhysicalBookDao;
-import org.flywaydb.core.Flyway;
 
 import javax.sql.DataSource;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class Demo {
 
@@ -25,17 +21,7 @@ public class Demo {
     }
 
     public static void main(String[] args) throws SQLException, IOException {
-        var properties = new Properties();
-        try (var reader = new FileReader("application.properties")) {
-            properties.load(reader);
-        }
-
-        var dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl(properties.getProperty("jdbc.url", "jdbc:postgresql://localhost:5432/library"));
-        dataSource.setUsername(properties.getProperty("jdbc.username", "kristiania_app"));
-        dataSource.setPassword(properties.getProperty("jdbc.password"));
-        Flyway.configure().dataSource(dataSource).load().migrate();
-        new Demo(dataSource).run();
+        new Demo(Database.createDataSource()).run();
     }
 
     private void run() throws SQLException {
