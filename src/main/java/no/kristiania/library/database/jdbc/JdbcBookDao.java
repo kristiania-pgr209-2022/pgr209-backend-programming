@@ -7,10 +7,9 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcBookDao implements BookDao {
+public class JdbcBookDao extends AbstractJdbcDao implements BookDao {
 
     private final DataSource dataSource;
 
@@ -38,13 +37,7 @@ public class JdbcBookDao implements BookDao {
         try (var connection = dataSource.getConnection()) {
             try (var statement = connection.prepareStatement("select * from books where id = ?")) {
                 statement.setLong(1, id);
-                try (var rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        return readBook(rs);
-                    } else {
-                        return null;
-                    }
-                }
+                return collectSingleResult(statement, JdbcBookDao::readBook);
             }
         }
     }
@@ -53,13 +46,7 @@ public class JdbcBookDao implements BookDao {
         try (var connection = dataSource.getConnection()) {
             try (var statement = connection.prepareStatement("select * from books where author_name = ?")) {
                 statement.setString(1, authorName);
-                try (var rs = statement.executeQuery()) {
-                    var books = new ArrayList<Book>();
-                    while (rs.next()) {
-                        books.add(readBook(rs));
-                    }
-                    return books;
-                }
+                return collectQueryResult(statement, JdbcBookDao::readBook);
             }
         }
     }
@@ -68,13 +55,7 @@ public class JdbcBookDao implements BookDao {
     public List<Book> findAll() throws SQLException {
         try (var connection = dataSource.getConnection()) {
             try (var statement = connection.prepareStatement("select * from books")) {
-                try (var rs = statement.executeQuery()) {
-                    var books = new ArrayList<Book>();
-                    while (rs.next()) {
-                        books.add(readBook(rs));
-                    }
-                    return books;
-                }
+                return collectQueryResult(statement, JdbcBookDao::readBook);
             }
         }
     }
