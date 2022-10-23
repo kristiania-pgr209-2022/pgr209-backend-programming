@@ -3,6 +3,7 @@ package no.kristiania.library.database.jpa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import no.kristiania.library.database.Database;
+import no.kristiania.library.database.InMemoryDataSource;
 import org.eclipse.jetty.plus.jndi.Resource;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -35,8 +36,8 @@ public @interface TestPersistenceManager {
         @Override
         public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
             try {
-                new Resource("jdbc/dataSource", Database.createDataSource());
-            } catch (NamingException | IOException e) {
+                new Resource("jdbc/dataSource", InMemoryDataSource.createTestDataSource());
+            } catch (Exception e) {
                 throw new ParameterResolutionException(e.toString());
             }
 
