@@ -78,13 +78,26 @@ In this lecture, we will deploy a minimal Jetty application with JAX-RS endpoint
 
 **Assignment 2 is due**
 
-In this lecture we will explore how to access a database with the JDBC and JPA approaches. We will start with a fresh project, but next we will join this database together with the web server.
+In this lecture we will explore how to access a database with the JDBC approach. We will start with a fresh project, but next we will join this database together with the web server.
 
 * [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/08)
 * [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/08)
 
 
-### Lecture 9: Database Access with JPA (and fluent-jdbc) (25/10 9:15 FAU-310)
+### Lecture 9: Database Access with JPA (25/10 9:15 FAU-310)
+
+In this lecture we will explore how to access a database with the JPA approach. We will continue with the JDBC code from lecture 8. We will also connect the database code the the server logic and hopefully deploy to Azure as well!
+
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/09)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/09)
+
+Assignment 3 is now available:
+
+* Fill in survey by Thursday if you want a new group
+* Clone the repository in Github Classroom
+
+Assignment 2 has been corrected, but not yet updated in Canvas. You will have received comments on Github.
+
 
 ### Lecture 10: Structuring server logic (04/11 9:15 FAU-310)
 
