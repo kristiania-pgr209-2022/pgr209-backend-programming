@@ -88,7 +88,7 @@ In this lecture we will explore how to access a database with the JDBC approach.
 
 In this lecture we will explore how to access a database with the JPA approach. We will continue with the JDBC code from lecture 8. We will also connect the database code the the server logic and hopefully deploy to Azure as well!
 
-* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/09)
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/09jpa)
 * [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/09)
 
 Assignment 3 is now available:
