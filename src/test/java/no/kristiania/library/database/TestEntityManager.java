@@ -2,6 +2,7 @@ package no.kristiania.library.database;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
+import org.eclipse.jetty.plus.jndi.Resource;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
+import javax.naming.NamingException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,6 +31,11 @@ public @interface TestEntityManager {
 
         @Override
         public Object resolveParameter(ParameterContext parameterContext, ExtensionContext context) throws ParameterResolutionException {
+            try {
+                new Resource("jdbc/dataSource", InMemoryDataSource.createTestDataSource());
+            } catch (NamingException e) {
+                throw new ParameterResolutionException(e.toString());
+            }
             var entityManager = Persistence.createEntityManagerFactory("library").createEntityManager();
             context.getStore(ExtensionContext.Namespace.GLOBAL).put("entityManager", entityManager);
             return entityManager;

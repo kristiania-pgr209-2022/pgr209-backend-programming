@@ -1,10 +1,7 @@
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
     <persistence-unit name="library">
+        <non-jta-data-source>jdbc/dataSource</non-jta-data-source>
         <class>no.kristiania.library.database.Book</class>
         <class>no.kristiania.library.database.Library</class>
-        <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:testDatabase;DB_CLOSE_DELAY=-1;MODE=LEGACY"/>
-            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
-        </properties>
     </persistence-unit>
 </persistence>
