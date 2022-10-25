@@ -1,12 +1,10 @@
 package no.kristiania.library.database;
 
-import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import org.eclipse.jetty.plus.jndi.Resource;
 
 import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 
