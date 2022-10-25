@@ -18,14 +18,4 @@ public class JpaLibraryDaoTest extends AbstractLibraryDaoTest {
     protected void flush() {
         entityManager.flush();
     }
-
-    @BeforeEach
-    void setUp() {
-        entityManager.getTransaction().begin();
-    }
-
-    @AfterEach
-    void tearDown() {
-        entityManager.getTransaction().rollback();
-    }
 }
