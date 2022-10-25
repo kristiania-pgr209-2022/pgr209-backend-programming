@@ -18,7 +18,7 @@ public class Demo {
     public Demo(DataSource dataSource) {
         this.bookDao = new JdbcBookDao(dataSource);
         this.libraryDao = new JdbcLibraryDao(dataSource);
-        physicalBookDao = new PhysicalBookDao(dataSource);
+        physicalBookDao = new JdbcPhysicalBookDao(dataSource);
     }
 
     public static void main(String[] args) throws SQLException, IOException {

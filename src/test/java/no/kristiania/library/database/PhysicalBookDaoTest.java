@@ -13,7 +13,7 @@ public class PhysicalBookDaoTest {
     private final DataSource dataSource = InMemoryDataSource.createTestDataSource();
     private final LibraryDao libraryDao = new JdbcLibraryDao(dataSource);
     private final BookDao bookDao = new JdbcBookDao(dataSource);
-    private final PhysicalBookDao dao = new PhysicalBookDao(dataSource);
+    private final PhysicalBookDao dao = new JdbcPhysicalBookDao(dataSource);
 
     @Test
     void shouldListBooksByLibrary() throws SQLException {
