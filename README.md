@@ -20,6 +20,9 @@
 
 * [ ] Converter til SQL Server instead of PostgreSQL
   * Configure connection properties
+  * Install Docker
+  * Run sql server on docker: `docker run --name pgr209-lecture -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=JUNL3252aaa#sw" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2022-latest`
+  * URL: `jdbc:sqlserver://localhost:1433;encrypt=true; trustServerCertificate=true`
 * [ ] Extract interfaces from DAO-classes => JdbcBookDao
 * [ ] Extract abstract superclasses from test
 * [ ] Implement DAO (and test) with JPA
