@@ -2,33 +2,39 @@ package no.kristiania.library;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import no.kristiania.library.database.BookDao;
 import no.kristiania.library.database.JpaBookDao;
-import org.eclipse.jetty.plus.jndi.Resource;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 class LibraryResourceConfig extends ResourceConfig {
 
-    private EntityManagerFactory library = Persistence.createEntityManagerFactory("library");
+    private ThreadLocal<EntityManager> requestEntityManager = new ThreadLocal<>();
 
-    public LibraryResourceConfig(DataSource dataSource) throws NamingException {
+    private EntityManagerFactory entityManagerFactory;
+
+    public LibraryResourceConfig(EntityManagerFactory entityManagerFactory) {
         super(BookEndpoint.class);
 
-        new Resource("jdbc/dataSource", dataSource);
+        this.entityManagerFactory = entityManagerFactory;
         register(new AbstractBinder() {
             @Override
             protected void configure() {
                 bind(JpaBookDao.class).to(BookDao.class);
-                bindFactory(() -> library.createEntityManager())
+                bindFactory(() -> requestEntityManager.get())
                         .to(EntityManager.class)
                         .in(RequestScoped.class);
             }
         });
+    }
+
+    public EntityManager createEntityManagerForRequest() {
+        requestEntityManager.set(entityManagerFactory.createEntityManager());
+        return requestEntityManager.get();
+    }
+
+    public void cleanRequestEntityManager() {
+        requestEntityManager.remove();
     }
 }
