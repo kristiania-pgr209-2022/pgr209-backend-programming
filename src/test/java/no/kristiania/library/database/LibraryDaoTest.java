@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LibraryDaoTest {
 
-    private final LibraryDao dao = new LibraryDao(InMemoryDataSource.createTestDataSource());
+    private final LibraryDao dao = new JdbcLibraryDao(InMemoryDataSource.createTestDataSource());
 
     @Test
     void shouldRetrieveSavedLibrary() throws SQLException {

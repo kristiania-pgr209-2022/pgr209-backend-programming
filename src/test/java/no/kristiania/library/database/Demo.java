@@ -17,7 +17,7 @@ public class Demo {
 
     public Demo(DataSource dataSource) {
         this.bookDao = new JdbcBookDao(dataSource);
-        this.libraryDao = new LibraryDao(dataSource);
+        this.libraryDao = new JdbcLibraryDao(dataSource);
         physicalBookDao = new PhysicalBookDao(dataSource);
     }
 
