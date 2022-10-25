@@ -17,9 +17,13 @@ public abstract class AbstractLibraryDaoTest {
     void shouldRetrieveSavedLibrary() throws SQLException {
         var library = SampleData.sampleLibrary();
         dao.save(library);
+        flush();
         assertThat(dao.retrieve(library.getId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(library);
+    }
+
+    protected void flush() {
     }
 }

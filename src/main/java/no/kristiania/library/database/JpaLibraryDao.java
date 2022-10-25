@@ -16,6 +16,6 @@ public class JpaLibraryDao implements LibraryDao {
 
     @Override
     public Library retrieve(long id) {
-        return null;
+        return entityManager.find(Library.class, id);
     }
 }
