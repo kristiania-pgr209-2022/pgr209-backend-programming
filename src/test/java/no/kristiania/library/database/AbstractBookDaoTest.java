@@ -6,8 +6,7 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BookDaoTest {
-
+public abstract class AbstractBookDaoTest {
     private final BookDao dao = new JdbcBookDao(InMemoryDataSource.createTestDataSource());
 
     @Test
@@ -44,5 +43,4 @@ public class BookDaoTest {
     void shouldRetrieveNullForMissingBook() throws SQLException {
         assertThat(dao.retrieve(-1)).isNull();
     }
-
 }
