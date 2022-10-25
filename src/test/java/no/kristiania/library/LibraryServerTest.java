@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LibraryServerTest {
 
     @Test
-    void shouldPostAndGetBooks() {
+    void shouldPostAndGetBooks() throws Exception {
         var server = new LibraryServer(0);
         server.start();
 
