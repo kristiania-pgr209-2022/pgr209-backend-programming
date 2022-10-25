@@ -45,6 +45,20 @@ public abstract class AbstractBookDaoTest {
                 .doesNotContain(bookWithOtherAuthor.getId());
     }
 
+    @Test
+    void shouldFindAllBooks() throws SQLException {
+        var book1 = SampleData.sampleBook();
+        var book2 = SampleData.sampleBook();
+
+        dao.save(book1);
+        dao.save(book2);
+        flush();
+
+        assertThat(dao.listAll())
+                .extracting(Book::getId)
+                .contains(book1.getId(), book2.getId());
+    }
+
 
     @Test
     void shouldRetrieveNullForMissingBook() throws SQLException {
