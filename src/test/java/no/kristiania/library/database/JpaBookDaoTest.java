@@ -14,5 +14,6 @@ public class JpaBookDaoTest extends AbstractBookDaoTest {
     @Override
     protected void flush() {
         entityManager.flush();
+        entityManager.clear();
     }
 }

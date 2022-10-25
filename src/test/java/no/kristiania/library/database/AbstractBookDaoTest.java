@@ -52,6 +52,5 @@ public abstract class AbstractBookDaoTest {
     }
 
     protected void flush() {
-
     }
 }
