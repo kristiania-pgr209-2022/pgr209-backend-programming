@@ -1,9 +1,9 @@
 package no.kristiania.library.database;
 
 public class Library {
+    private Long id;
     private String name;
     private String address;
-    private Long id;
 
     public void setName(String name) {
         this.name = name;

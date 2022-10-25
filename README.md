@@ -1,4 +1,4 @@
-
+# Lecture 8: JDBC
 
 1. DAO test
    1. DAO Data Access Object (DAO ~= Repository)
@@ -16,4 +16,16 @@
 * [x] Repeat: LibraryDaoTest
 * [ ] Foreign keys and joins: BookCopyDaoTest
 
-* [ ] The same but with JPA (migrate the parts over to JPA)
+# Lecture 9: JPA
+
+* [ ] Converter til SQL Server instead of PostgreSQL
+  * Configure connection properties
+* [ ] Extract interfaces from DAO-classes => JdbcBookDao
+* [ ] Extract abstract superclasses from test
+* [ ] Implement DAO (and test) with JPA
+   * Junit extensions for JPA
+
+* Add LibraryServerTest and reimplement LibraryServer with BookEndpoint
+* Integrate BookEndpoint with JpaBookDao
+* Deploy to Azure
+* 
