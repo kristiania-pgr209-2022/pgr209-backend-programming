@@ -4,8 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 
 @Entity
+@NamedQuery(
+        name = "findByAuthorName", query = "select b from Book b where b.authorName = :authorName"
+)
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
