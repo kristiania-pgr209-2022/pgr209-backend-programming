@@ -7,11 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class JpaLibraryDaoTest extends AbstractLibraryDaoTest {
 
-    private static EntityManager entityManager = Persistence.createEntityManagerFactory("library")
-            .createEntityManager();
+    private final EntityManager entityManager;
 
-    public JpaLibraryDaoTest() {
+    public JpaLibraryDaoTest(@TestEntityManager EntityManager entityManager) {
         super(new JpaLibraryDao(entityManager));
+        this.entityManager = entityManager;
     }
 
     @Override
