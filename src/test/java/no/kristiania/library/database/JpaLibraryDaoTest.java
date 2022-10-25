@@ -1,9 +1,6 @@
 package no.kristiania.library.database;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 
 public class JpaLibraryDaoTest extends AbstractLibraryDaoTest {
 
