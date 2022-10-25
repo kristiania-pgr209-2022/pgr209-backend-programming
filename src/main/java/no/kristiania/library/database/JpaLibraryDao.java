@@ -11,7 +11,7 @@ public class JpaLibraryDao implements LibraryDao {
 
     @Override
     public void save(Library library) {
-
+        entityManager.persist(library);
     }
 
     @Override
