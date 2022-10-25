@@ -9,12 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class AbstractPhysicalBookDaoTest {
     private final LibraryDao libraryDao;
     private final BookDao bookDao;
-    private final PhysicalBookDao dao;
+    private final PhysicalBookDao physicalBookDao;
 
-    public AbstractPhysicalBookDaoTest(LibraryDao libraryDao, BookDao bookDao, PhysicalBookDao dao) {
+    public AbstractPhysicalBookDaoTest(LibraryDao libraryDao, BookDao bookDao, PhysicalBookDao physicalBookDao) {
         this.libraryDao = libraryDao;
         this.bookDao = bookDao;
-        this.dao = dao;
+        this.physicalBookDao = physicalBookDao;
     }
 
     @Test
@@ -29,14 +29,14 @@ public abstract class AbstractPhysicalBookDaoTest {
         libraryDao.save(firstLibrary);
         libraryDao.save(secondLibrary);
 
-        dao.insert(firstLibrary, firstBook);
-        dao.insert(firstLibrary, secondBook);
-        dao.insert(secondLibrary, firstBook);
+        physicalBookDao.insert(firstLibrary, firstBook);
+        physicalBookDao.insert(firstLibrary, secondBook);
+        physicalBookDao.insert(secondLibrary, firstBook);
 
-        assertThat(dao.findByLibrary(firstLibrary.getId()))
+        assertThat(physicalBookDao.findByLibrary(firstLibrary.getId()))
                 .extracting(Book::getId)
                 .contains(firstBook.getId(), secondBook.getId());
-        assertThat(dao.findByLibrary(secondLibrary.getId()))
+        assertThat(physicalBookDao.findByLibrary(secondLibrary.getId()))
                 .extracting(Book::getId)
                 .contains(firstBook.getId())
                 .doesNotContain(secondBook.getId())
