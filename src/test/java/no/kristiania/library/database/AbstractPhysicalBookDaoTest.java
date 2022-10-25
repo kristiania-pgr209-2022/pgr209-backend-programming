@@ -32,6 +32,7 @@ public abstract class AbstractPhysicalBookDaoTest {
         physicalBookDao.insert(firstLibrary, firstBook);
         physicalBookDao.insert(firstLibrary, secondBook);
         physicalBookDao.insert(secondLibrary, firstBook);
+        flush();
 
         assertThat(physicalBookDao.findByLibrary(firstLibrary.getId()))
                 .extracting(Book::getId)
@@ -42,6 +43,10 @@ public abstract class AbstractPhysicalBookDaoTest {
                 .doesNotContain(secondBook.getId())
         ;
 
+
+    }
+
+    protected void flush() {
 
     }
 }
