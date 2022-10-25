@@ -23,6 +23,18 @@
             <artifactId>jetty-plus</artifactId>
             <version>11.0.12</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>3.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>3.0.8</version>
+            <scope>runtime</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>com.zaxxer</groupId>
