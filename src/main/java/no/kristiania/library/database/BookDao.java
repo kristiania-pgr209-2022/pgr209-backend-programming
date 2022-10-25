@@ -25,7 +25,7 @@ public class BookDao {
 
                 try (var generatedKeys = statement.getGeneratedKeys()) {
                     generatedKeys.next();
-                    book.setId(generatedKeys.getLong("id"));
+                    book.setId(generatedKeys.getLong(1));
                 }
             }
         }
