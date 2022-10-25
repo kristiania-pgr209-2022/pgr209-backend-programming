@@ -2,18 +2,20 @@ package no.kristiania.library.database;
 
 import org.junit.jupiter.api.Test;
 
-import javax.sql.DataSource;
-
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PhysicalBookDaoTest {
+public abstract class AbstractPhysicalBookDaoTest {
+    private final LibraryDao libraryDao;
+    private final BookDao bookDao;
+    private final PhysicalBookDao dao;
 
-    private final DataSource dataSource = InMemoryDataSource.createTestDataSource();
-    private final LibraryDao libraryDao = new JdbcLibraryDao(dataSource);
-    private final BookDao bookDao = new JdbcBookDao(dataSource);
-    private final PhysicalBookDao dao = new JdbcPhysicalBookDao(dataSource);
+    public AbstractPhysicalBookDaoTest(LibraryDao libraryDao, BookDao bookDao, PhysicalBookDao dao) {
+        this.libraryDao = libraryDao;
+        this.bookDao = bookDao;
+        this.dao = dao;
+    }
 
     @Test
     void shouldListBooksByLibrary() throws SQLException {
