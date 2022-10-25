@@ -7,12 +7,17 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class AbstractBookDaoTest {
-    private final BookDao dao = new JdbcBookDao(InMemoryDataSource.createTestDataSource());
+    private final BookDao dao;
+
+    protected AbstractBookDaoTest(BookDao dao) {
+        this.dao = dao;
+    }
 
     @Test
     void shouldRetrieveSavedBook() throws SQLException {
         var book = SampleData.sampleBook();
         dao.save(book);
+        flush();
         assertThat(dao.retrieve(book.getId()))
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
@@ -32,6 +37,7 @@ public abstract class AbstractBookDaoTest {
         dao.save(book);
         dao.save(bookWithSameAuthor);
         dao.save(bookWithOtherAuthor);
+        flush();
 
         assertThat(dao.findByAuthorName(book.getAuthorName()))
                 .extracting(Book::getId)
@@ -39,8 +45,13 @@ public abstract class AbstractBookDaoTest {
                 .doesNotContain(bookWithOtherAuthor.getId());
     }
 
+
     @Test
     void shouldRetrieveNullForMissingBook() throws SQLException {
         assertThat(dao.retrieve(-1)).isNull();
+    }
+
+    protected void flush() {
+
     }
 }
