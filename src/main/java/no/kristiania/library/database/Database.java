@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Database {
-    static HikariDataSource getDataSource() throws IOException {
+    public static HikariDataSource getDataSource() throws IOException {
         var properties = new Properties();
         try (var reader = new FileReader("application.properties")) {
             properties.load(reader);

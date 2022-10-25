@@ -1,6 +1,7 @@
 package no.kristiania.library;
 
-import org.junit.jupiter.api.Disabled;
+import no.kristiania.library.database.Database;
+import no.kristiania.library.database.InMemoryDataSource;
 import org.junit.jupiter.api.Test;
 
 import java.net.HttpURLConnection;
@@ -12,9 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LibraryServerTest {
 
     @Test
-    @Disabled("while fixing bookdao")
     void shouldPostAndGetBooks() throws Exception {
-        var server = new LibraryServer(0);
+        var server = new LibraryServer(0, InMemoryDataSource.createTestDataSource());
         server.start();
 
         var postConnection = (HttpURLConnection) new URL(server.getURL(), "/api/books").openConnection();

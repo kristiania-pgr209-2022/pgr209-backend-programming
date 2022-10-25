@@ -1,5 +1,6 @@
 package no.kristiania.library.database;
 
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 public class JpaBookDao implements BookDao {
     private final EntityManager entityManager;
 
+    @Inject
     public JpaBookDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
