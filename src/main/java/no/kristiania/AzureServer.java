@@ -6,6 +6,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 
 public class AzureServer {
     private final Server server;
@@ -28,5 +29,12 @@ public class AzureServer {
 
     public URL getURL() throws MalformedURLException {
         return server.getURI().toURL();
+    }
+
+    public static void main(String[] args) throws Exception {
+        var port = Optional.ofNullable(System.getenv("HTTP_PLATFORM_PORT"))
+                .map(Integer::parseInt)
+                .orElse(8080);
+        new AzureServer(port).start();
     }
 }
