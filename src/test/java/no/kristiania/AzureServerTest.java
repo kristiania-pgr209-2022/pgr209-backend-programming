@@ -2,7 +2,6 @@ package no.kristiania;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,8 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AzureServerTest {
 
     @Test
-    void shouldServeFrontPage() throws IOException {
-        var server = new AzureServer(8080);
+    void shouldServeFrontPage() throws Exception {
+        var server = new AzureServer(0);
         server.start();
 
         var connection = (HttpURLConnection)server.getURL().openConnection();
