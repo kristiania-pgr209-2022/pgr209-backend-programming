@@ -2,15 +2,22 @@
 
 Goal: Deploy to Azure a webapp that can communinicate with SQL Server
 
-* [ ] pom.xml
-* [ ] LibraryServer -> Jetty
-* [ ] Jersey -> BookEndpoint -> BookDao -> JPA
-* [ ] React app with Vite
-* [ ] Package webapp for local and remote deployment (sourceResource)
-* [ ] Runnable Jar file: maven-jar-plugin mainclass, maven-shade-plugin: package, services, signature
-* [ ] Build React as part of Maven with frontend-maven-plugin, install node, npm install, npm build
-* [ ] Deploy to azure: with Azure Webapp Maven Plugin VERSION 2.7.0
-  * HTTP_PLATFORM_PORT
-  * application.properties
-  * logevents.properties
+## Goal 1: Deploy SOMETHING to Azure
 
+* Run a simple web server with Jetty
+* Package with shade plugin (NB: Not complete)
+* Deploy with Azure plugin
+* Add some logging (in theory)
+
+## Goal 2: Make JPA work
+
+* Add Jersey and JPA
+* Fix shade packaging
+* Setup SQL Server
+* application.properties
+
+## Goal 3: Make React work
+
+* npm create vite@latest
+* frontend-plugin to build React
+* Fix Jetty to server from src/main/resources without locking
