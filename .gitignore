@@ -2,3 +2,4 @@
 target/
 /*.properties
 /src/main/resources/webapp/
+node/
