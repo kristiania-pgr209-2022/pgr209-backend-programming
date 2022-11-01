@@ -17,6 +17,7 @@ public class Database {
         dataSource.setJdbcUrl(properties.getProperty("jdbc.url"));
         dataSource.setUsername(properties.getProperty("jdbc.username"));
         dataSource.setPassword(properties.getProperty("jdbc.password"));
+        dataSource.setConnectionTimeout(2000);
         Flyway.configure().dataSource(dataSource).load().migrate();
         return dataSource;
     }

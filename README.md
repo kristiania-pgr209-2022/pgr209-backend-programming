@@ -31,4 +31,4 @@
 * Add LibraryServerTest and reimplement LibraryServer with BookEndpoint
 * Integrate BookEndpoint with JpaBookDao
 * Deploy to Azure
-* 
+
