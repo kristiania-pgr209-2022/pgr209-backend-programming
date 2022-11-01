@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.kristiania</groupId>
@@ -42,6 +43,41 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>2.7.0</version>
+                <configuration>
+                    <schemaVersion>v2</schemaVersion>
+                    <resourceGroup>${project.groupId}</resourceGroup>
+                    <appName>${project.artifactId}-${user.name}</appName>
+                    <pricingTier>F1</pricingTier>
+                    <region>westeurope</region>
+                    <runtime>
+                        <os>Windows</os>
+                        <javaVersion>Java 17</javaVersion>
+                        <webContainer>Java SE</webContainer>
+                    </runtime>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>${project.build.finalName}.jar</include>
+                                </includes>
+                            </resource>
+                            <resource>
+                                <type>static</type>
+                                <directory>${project.basedir}/src/main/azure</directory>
+                                <includes>
+                                    <include>*.properties</include>
+                                </includes>
+                                <targetPath>/site/wwwroot</targetPath>
+                            </resource>
+                        </resources>
+                    </deployment>
+                </configuration>
             </plugin>
         </plugins>
     </build>
