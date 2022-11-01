@@ -2,6 +2,9 @@ package no.kristiania.library.database;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
+import no.kristiania.library.database.jpa.JpaBookDao;
+import no.kristiania.library.database.jpa.JpaLibraryDao;
+import no.kristiania.library.database.jpa.JpaPhysicalBookDao;
 import org.eclipse.jetty.plus.jndi.Resource;
 
 import javax.naming.NamingException;

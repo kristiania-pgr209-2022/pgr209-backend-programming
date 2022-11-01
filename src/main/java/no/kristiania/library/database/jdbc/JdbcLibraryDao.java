@@ -1,4 +1,7 @@
-package no.kristiania.library.database;
+package no.kristiania.library.database.jdbc;
+
+import no.kristiania.library.database.Library;
+import no.kristiania.library.database.LibraryDao;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;

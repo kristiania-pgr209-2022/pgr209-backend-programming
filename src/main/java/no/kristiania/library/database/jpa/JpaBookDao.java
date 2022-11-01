@@ -1,7 +1,9 @@
-package no.kristiania.library.database;
+package no.kristiania.library.database.jpa;
 
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import no.kristiania.library.database.Book;
+import no.kristiania.library.database.BookDao;
 
 import java.util.List;
 

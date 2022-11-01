@@ -1,6 +1,8 @@
-package no.kristiania.library.database;
+package no.kristiania.library.database.jpa;
 
 import jakarta.persistence.EntityManager;
+import no.kristiania.library.database.Library;
+import no.kristiania.library.database.LibraryDao;
 
 public class JpaLibraryDao implements LibraryDao {
     private final EntityManager entityManager;

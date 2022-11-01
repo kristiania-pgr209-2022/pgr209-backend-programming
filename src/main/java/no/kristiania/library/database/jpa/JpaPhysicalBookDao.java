@@ -1,6 +1,10 @@
-package no.kristiania.library.database;
+package no.kristiania.library.database.jpa;
 
 import jakarta.persistence.EntityManager;
+import no.kristiania.library.database.Book;
+import no.kristiania.library.database.Library;
+import no.kristiania.library.database.PhysicalBook;
+import no.kristiania.library.database.PhysicalBookDao;
 
 import java.util.List;
 import java.util.stream.Collectors;

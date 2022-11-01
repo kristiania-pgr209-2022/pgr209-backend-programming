@@ -1,6 +1,9 @@
 package no.kristiania.library.database;
 
 import jakarta.persistence.EntityManager;
+import no.kristiania.library.database.jpa.JpaBookDao;
+import no.kristiania.library.database.jpa.JpaLibraryDao;
+import no.kristiania.library.database.jpa.JpaPhysicalBookDao;
 
 public class JpaPhysicalBookDaoTest extends AbstractPhysicalBookDaoTest {
 

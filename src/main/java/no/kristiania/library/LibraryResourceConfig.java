@@ -3,7 +3,7 @@ package no.kristiania.library;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import no.kristiania.library.database.BookDao;
-import no.kristiania.library.database.JpaBookDao;
+import no.kristiania.library.database.jpa.JpaBookDao;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
