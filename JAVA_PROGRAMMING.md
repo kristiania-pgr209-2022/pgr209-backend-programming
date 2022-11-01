@@ -805,3 +805,145 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## Deployment to Azure with SQL Server
+
+### Packaging and deploying for Azure
+
+To create a runnable web server, include jetty-webapp as a Maven dependency and from you main class, start the Jetty Server class with a WebAppContext
+
+#### pom.xml
+
+```xml
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>11.0.12</version>
+        </dependency>
+```
+
+### Main class
+
+```java
+public class AzureServer {
+    private final Server server;
+
+    public AzureServer(int port) {
+        server = new Server(port);
+        server.setHandler(createWebAppContext());
+    }
+
+    private WebAppContext createWebAppContext() {
+        var context = new WebAppContext();
+        context.setContextPath("/");
+        context.setBaseResource(Resource.newClassPathResource("/azure-demo-webapp"));
+        return context;
+    }
+
+    public void start() throws Exception {
+        server.start();
+    }
+
+    public URL getURL() throws MalformedURLException {
+        return server.getURI().toURL();
+    }
+
+    public static void main(String[] args) throws Exception {
+        var port = Optional.ofNullable(System.getenv("HTTP_PLATFORM_PORT"))
+                .map(Integer::parseInt)
+                .orElse(8080);
+        new AzureServer(port).start();
+    }
+}
+```
+
+#### To package into an executable JAR, use maven-shade-plugin and maven-jar-plugin
+
+```xml
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>no.kristiania.AzureServer</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!-- TODO: This must be extended later -->
+            </plugin>
+```
+
+#### azure-webapp-plugin
+
+To start working with Azure, you have to log in at https://portal.azure.com and sign up for student benefits.
+
+To deploy to Azure, run `mvn com.microsoft.azure:azure-webapp-maven-plugin:2.7.0:config` to create an initial configuration in `pom.xml`. You should modify this somewhat:
+
+```xml
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>2.7.0</version>
+                <configuration>
+                    <schemaVersion>v2</schemaVersion>
+                    <resourceGroup>${project.groupId}</resourceGroup>
+                    <appName>${project.artifactId}-${user.name}</appName>
+                    <pricingTier>F1</pricingTier>
+                    <region>westeurope</region>
+                    <runtime>
+                        <os>Windows</os>
+                        <javaVersion>Java 17</javaVersion>
+                        <webContainer>Java SE</webContainer>
+                    </runtime>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>${project.build.finalName}.jar</include>
+                                </includes>
+                            </resource>
+                            <resource>
+                                <type>static</type>
+                                <directory>${project.basedir}/src/main/azure</directory>
+                                <includes>
+                                    <include>*.properties</include>
+                                </includes>
+                                <targetPath>/site/wwwroot</targetPath>
+                            </resource>
+                        </resources>
+                    </deployment>
+                </configuration>
+            </plugin>
+```
+
+
+### To use SQL Server (and Jersey) in Azure
+
+TODO:
+
+1. Setup in portal.azure.com, including password, firewall and allow for services
+2. modifications of shade plugin
+3. setup of datasource URL, username and password
+
+### To build a React application with Maven
+
+TODO:
+
+1. Create a React application
+2. Set output to src/main/resources
+3. Add frontend-maven-plugin

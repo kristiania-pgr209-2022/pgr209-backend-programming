@@ -101,6 +101,9 @@ Assignment 2 has been corrected, but not yet updated in Canvas. You will have re
 
 ### Lecture 10: Structuring server logic (04/11 9:15 FAU-310)
 
+* [Commit log from completion of last lecture](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/10)
+* [Commit log from new start](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/10b)
+
 **Assignment 3 is due**
 
 **Exam text is published 31/10**
@@ -121,5 +124,8 @@ The course includes three mandatory assignments. The purpose of these assignment
 
 ### Assignment 2: HTTP (11/10 kl 20:00)
 
+[Assignment text](https://github.com/kristiania-pgr209-2022/pgr203-assignment-2-template)
+
 ### Assignment 3: Deployment (01/11 20:00)
 
+[Assignment text](https://github.com/kristiania-pgr209-2022/pgr203-assignment-3-template)
