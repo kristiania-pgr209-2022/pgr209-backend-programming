@@ -4,3 +4,5 @@ target/
 /src/main/resources/webapp/
 node/
 /dependency-reduced-pom.xml
+/logs/
+/src/local/

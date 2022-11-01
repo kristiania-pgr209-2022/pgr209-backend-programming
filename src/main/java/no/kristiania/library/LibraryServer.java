@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EnumSet;
+import java.util.Optional;
 
 public class LibraryServer {
     private static final Logger logger = LoggerFactory.getLogger(LibraryServer.class);
@@ -74,7 +75,10 @@ public class LibraryServer {
     }
 
     public static void main(String[] args) throws Exception {
-        var server = new LibraryServer(8080, Database.getDataSource());
+        var port = Optional.ofNullable(System.getenv("HTTP_PLATFORM_PORT"))
+                .map(Integer::parseInt)
+                .orElse(8080);
+        var server = new LibraryServer(port, Database.getDataSource());
         server.start();
         logger.info("Server started on {}", server.getURL());
     }
