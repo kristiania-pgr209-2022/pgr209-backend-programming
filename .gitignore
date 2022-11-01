@@ -3,3 +3,4 @@ target/
 /*.properties
 /src/main/resources/webapp/
 node/
+/dependency-reduced-pom.xml

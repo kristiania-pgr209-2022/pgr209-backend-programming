@@ -7,7 +7,6 @@ import org.eclipse.jetty.plus.jndi.Resource;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -16,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -51,10 +51,18 @@ public class LibraryServer {
     }
 
     private org.eclipse.jetty.util.resource.Resource getSourceResource(org.eclipse.jetty.util.resource.Resource baseResource) throws IOException {
-        return org.eclipse.jetty.util.resource.Resource.newResource(baseResource.getFile().toString()
+        var file = baseResource.getFile();
+        if (file == null) {
+            return null;
+        }
+        var sourceDirectory = new File(file.toString()
                 .replace('\\', '/')
-                .replace("target/classes", "src/main/resources")
-        );
+                .replace("target/classes", "src/main/resources"));
+        if (sourceDirectory.exists()) {
+            return org.eclipse.jetty.util.resource.Resource.newResource(sourceDirectory);
+        } else {
+            return null;
+        }
     }
 
     public void start() throws Exception {
