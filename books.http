@@ -1,0 +1,11 @@
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "authorName": "Johannes Brodwall",
+  "title": "The Code Book"
+}
+
+###
+GET http://localhost:8080/api/books
+
