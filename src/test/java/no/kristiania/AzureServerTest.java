@@ -50,8 +50,6 @@ public class AzureServerTest {
                 .contains("Java in a Nutshell");
     }
 
-
-
     private HttpURLConnection openConnection(String path) throws IOException {
         return (HttpURLConnection) new URL(server.getURL(), path).openConnection();
     }

@@ -1,5 +1,6 @@
 package no.kristiania;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -12,17 +13,18 @@ import java.util.List;
 
 @Path("/books")
 public class BooksEndpoint {
-    private static final List<Book> allBooks = new ArrayList<>();
+    @Inject
+    private BookDao bookDao;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void addBook(Book book) {
-        allBooks.add(book);
+        bookDao.save(book);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Book> getAllBooks() {
-        return allBooks;
+        return bookDao.findAll();
     }
 }
