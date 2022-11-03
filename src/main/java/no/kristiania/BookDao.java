@@ -21,6 +21,7 @@ public class BookDao {
     }
 
     public List<Book> findAll() {
-        return null;
+        return entityManager.createQuery("select b from Book b")
+                .getResultList();
     }
 }
