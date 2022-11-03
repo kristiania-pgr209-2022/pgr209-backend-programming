@@ -2,6 +2,8 @@ package no.kristiania;
 
 import jakarta.persistence.EntityManager;
 
+import java.util.List;
+
 public class BookDao {
 
     private final EntityManager entityManager;
@@ -16,5 +18,9 @@ public class BookDao {
 
     public Book retrieve(long id) {
         return entityManager.find(Book.class, id);
+    }
+
+    public List<Book> findAll() {
+        return null;
     }
 }

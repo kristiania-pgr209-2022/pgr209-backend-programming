@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BookDaoTest {
 
     private EntityManager entityManager;
+    private BookDao dao;
 
     @BeforeEach
     void setUp() throws NamingException {
@@ -28,6 +29,7 @@ public class BookDaoTest {
                 .createEntityManagerFactory("library")
                 .createEntityManager();
         entityManager.getTransaction().begin();
+        dao = new BookDao(entityManager);
     }
 
     @AfterEach
@@ -38,7 +40,6 @@ public class BookDaoTest {
     @Test
     void shouldRetrieveSavedBook() {
         var book = sampleBook();
-        var dao = new BookDao(entityManager);
         dao.save(book);
         flush();
         assertThat(dao.retrieve(book.getId()))
@@ -46,7 +47,19 @@ public class BookDaoTest {
                 .hasNoNullFieldsOrProperties()
                 .usingRecursiveComparison()
                 .isEqualTo(book);
+    }
 
+    @Test
+    void shouldListAllBooks() {
+        var book1 = sampleBook();
+        dao.save(book1);
+        var book2 = sampleBook();
+        dao.save(book2);
+        flush();
+
+        assertThat(dao.findAll())
+                .extracting(Book::getId)
+                .contains(book1.getId(), book2.getId());
     }
 
     private Book sampleBook() {
