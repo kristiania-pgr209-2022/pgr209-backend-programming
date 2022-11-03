@@ -8,6 +8,7 @@ import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.util.Map;
 
 class MyResourceConfig extends ResourceConfig {
@@ -16,10 +17,10 @@ class MyResourceConfig extends ResourceConfig {
 
     private final EntityManagerFactory entityManagerFactory;
 
-    public MyResourceConfig() throws NamingException {
+    public MyResourceConfig(DataSource dataSource) throws NamingException {
         super(BooksEndpoint.class);
         setProperties(Map.of("jersey.config.server.wadl.disableWadl", "true"));
-        new Resource("jdbc/dataSource", Database.createDataSource());
+        new Resource("jdbc/dataSource", dataSource);
         entityManagerFactory = Persistence.createEntityManagerFactory("library");
         register(new AbstractBinder() {
             @Override
