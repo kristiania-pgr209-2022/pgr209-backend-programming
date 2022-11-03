@@ -3,6 +3,7 @@ package no.kristiania;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import org.eclipse.jetty.plus.jndi.Resource;
+import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,9 @@ public class BookDaoTest {
 
     @BeforeEach
     void setUp() throws NamingException {
-        new Resource("jdbc/dataSource", new Object());
+        var dataSource = new JdbcDataSource();
+        dataSource.setUrl("jdbc:h2:mem:test");
+        new Resource("jdbc/dataSource", dataSource);
         entityManager = Persistence
                 .createEntityManagerFactory("library")
                 .createEntityManager();
