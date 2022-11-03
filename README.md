@@ -72,7 +72,8 @@ In this lecture, we look at standard frameworks in the Java Enterprise Edition s
 In this lecture, we will deploy a minimal Jetty application with JAX-RS endpoints and a React frontend to Azure Web Services. We will also look at the solution to assignment 1.
 
 * [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/07)
-* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lecture/07)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures
+/07)
 
 ### Lecture 8: Database Access with JDBC (18/10 9:15 FAU-310)
 
@@ -108,9 +109,14 @@ Assignment 2 has been corrected, but not yet updated in Canvas. You will have re
 
 **Exam text is published 31/10**
 
-### Lecture 11: Programmer productivity (11/11 9:15 FAU-310)
+### Lecture 11: Azure SQL Server and JPA (11/11 9:15 FAU-310)
+
+* [Reference implementation](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/reference/11)
+* [Commit log from live programming](https://github.com/kristiania-pgr209-2022/pgr209-backend-programming/commits/lectures/11)
 
 ### Lecture 12: Delivering software (18.11 9:15 FAU-310)
+
+Guest lecture with Police IT leadership on having a career in IT
 
 ### Exam project due: 21.11 kl 09:00
 
