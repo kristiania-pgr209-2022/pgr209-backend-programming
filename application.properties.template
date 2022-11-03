@@ -1,0 +1,3 @@
+dataSource.url=jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true
+dataSource.username=sa
+dataSource.password=*****
