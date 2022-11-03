@@ -58,5 +58,6 @@ public class BookDaoTest {
 
     private void flush() {
         entityManager.flush();
+        entityManager.clear();
     }
 }
