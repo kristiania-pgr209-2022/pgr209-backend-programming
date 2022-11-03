@@ -8,6 +8,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.naming.NamingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class AzureServer {
     private static final Logger logger = LoggerFactory.getLogger(AzureServer.class);
     private final Server server;
 
-    public AzureServer(int port) {
+    public AzureServer(int port) throws NamingException {
         server = new Server(port);
         var context = createWebAppContext();
         context.addServlet(new ServletHolder(new ServletContainer(new MyResourceConfig())), "/api/*");
