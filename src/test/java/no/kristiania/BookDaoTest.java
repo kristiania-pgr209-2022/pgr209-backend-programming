@@ -3,6 +3,7 @@ package no.kristiania;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import org.eclipse.jetty.plus.jndi.Resource;
+import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,9 @@ public class BookDaoTest {
     @BeforeEach
     void setUp() throws NamingException {
         var dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:mem:test");
+        dataSource.setUrl("jdbc:h2:mem:test;MODE=LEGACY;DB_CLOSE_DELAY=-1");
+        var flyway = Flyway.configure().dataSource(dataSource).load();
+        flyway.migrate();
         new Resource("jdbc/dataSource", dataSource);
         entityManager = Persistence
                 .createEntityManagerFactory("library")
