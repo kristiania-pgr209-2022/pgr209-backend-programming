@@ -16,7 +16,7 @@ public class AzureServerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        server = new AzureServer(0, Database.createDataSource());
+        server = new AzureServer(0, InMemoryDataSource.createDataSource());
         server.start();
     }
 
