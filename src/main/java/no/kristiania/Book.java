@@ -3,6 +3,7 @@ package no.kristiania;
 public class Book {
     private String authorName;
     private String title;
+    private Long id;
 
     public String getAuthorName() {
         return authorName;
@@ -18,5 +19,13 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
