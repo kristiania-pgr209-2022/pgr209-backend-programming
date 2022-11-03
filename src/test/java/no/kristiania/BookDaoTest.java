@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import org.eclipse.jetty.plus.jndi.Resource;
 import org.h2.jdbcx.JdbcDataSource;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,12 @@ public class BookDaoTest {
         entityManager = Persistence
                 .createEntityManagerFactory("library")
                 .createEntityManager();
+        entityManager.getTransaction().begin();
+    }
+
+    @AfterEach
+    void tearDown() {
+        entityManager.getTransaction().rollback();
     }
 
     @Test
