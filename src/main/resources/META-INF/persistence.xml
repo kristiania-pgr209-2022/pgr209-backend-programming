@@ -1,5 +1,5 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="library">
-
+        <non-jta-data-source>jdbc/dataSource</non-jta-data-source>
     </persistence-unit>
 </persistence>
