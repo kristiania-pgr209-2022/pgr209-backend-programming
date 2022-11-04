@@ -44,6 +44,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                    </transformers>
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
