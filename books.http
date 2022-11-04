@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/books
+POST {{server}}/api/books
 Content-Type: application/json
 
 {
@@ -7,5 +7,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/api/books
+GET {{server}}/api/books
 
