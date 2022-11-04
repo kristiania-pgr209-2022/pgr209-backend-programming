@@ -75,6 +75,14 @@
                                 </includes>
                                 <targetPath>/</targetPath>
                             </resource>
+                            <resource>
+                                <type>static</type>
+                                <directory>${project.basedir}/src/local/azure</directory>
+                                <includes>
+                                    <include>*.properties</include>
+                                </includes>
+                                <targetPath>/</targetPath>
+                            </resource>
                         </resources>
                     </deployment>
                 </configuration>
