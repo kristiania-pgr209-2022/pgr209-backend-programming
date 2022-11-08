@@ -3,8 +3,8 @@
 The course stands on three important pillars:
 
 * Programmer skills: What does it take to write a working program?
-* Sockets: How do connectings between computers work?
-* JDBC: How do a Java program use a database?
+* HTTP: How do you develop backend logic for web based systems?
+* JDBC/JPA: How do a Java program use a database?
 
 This summary shows all the essential knowledge you should master at the end of the course.
 
@@ -934,11 +934,118 @@ To deploy to Azure, run `mvn com.microsoft.azure:azure-webapp-maven-plugin:2.7.0
 
 ### To use SQL Server (and Jersey) in Azure
 
-TODO:
+#### Create a database server and a database instance in Azure
 
-1. Setup in portal.azure.com, including password, firewall and allow for services
-2. modifications of shade plugin
-3. setup of datasource URL, username and password
+1. Create a SQL database in the [Azure Portal](https://portal.azure.com/#create/Microsoft.SQLDatabase). Make sure to choose settings that brings the cost down to a minimal level
+2. Make sure that the database accepts connections from your IP-address and "Allow Azure services and resources to access this server"
+3. Make sure the database server uses username and password for authentication (not only Active Directory)
+4. Write down the username and password in a file named `application.properties`
+
+#### Accessing databases with JPA, HikariCP, Flyway
+
+Add the following dependencies to your `pom.xml`:
+
+* `com.microsoft.sqlserver:mssql-jdbc:11.2.1.jre17` (Microsoft SQL Server JDBC driver)
+* `jakarta.persistence:jakarta.persistence-api:3.1.0` (JPA interface)
+* `org.eclipse.persistence:eclipselink:3.0.3` (Eclipselink JPA implementation)
+* `org.flywaydb:flyway-core:9.7.0` (Flyway: database migrations)
+* `org.flywaydb:flyway-sqlserver:9.7.0` (Flyway: database migrations - SQL Server variant)
+* `com.zaxxer:HikariCP:5.0.1` (Hikari Connection Pool - a flexible and robust DataSource implementation)
+* `org.eclipse.jetty:jetty-plus:11.0.12` (Jetty Plus - implementation of the JNDI API)
+
+
+#### `src/main/resources/META-INF/persistence.xml`
+
+The following file defines how JPA should connect to the database and which classes JPA should recognize:
+
+```xml
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+    <persistence-unit name="library">
+        <non-jta-data-source>jdbc/dataSource</non-jta-data-source>
+        <class>no.kristiania.Book</class>
+    </persistence-unit>
+</persistence>
+```
+
+Notice the reference to jdbc/dataSource - this needs to be defined by a JNDI (Java Naming and Directory Interface) resource, for which we have chosen Jetty as an implementation.
+
+
+#### `src/main/resources/db/migration/V001__create_table_books.sql`
+
+The following is used by Flyway to setup the database. As the application evolves, we can add additional Vxxx__xxx.sql files with new `CREATE TABLE`, `ALTER TABLE` or even `DROP TABLE` statements.
+
+```sql
+CREATE TABLE books
+(
+    id          int identity primary key,
+    title       varchar(100) not null,
+    author_name varchar(100) not null
+);
+```
+
+#### Entity class Book
+
+```java
+@Entity
+@Table(name = "books")
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    @Column(name = "author_name")
+    private String authorName;
+
+  // getters and setters omitted for brevity
+}
+```
+
+#### Using the JPA, database etc
+
+```java
+public class Demo {
+
+  public static void main(String[] args) throws SQLException {
+    // Register the jdbc/dataSource name references as non-jta-data-source in persistence.xml
+    new org.eclipse.jetty.plus.jndi.Resource("jdbc/dataSource", createDataSource());
+
+    // Reads src/main/resources/META-INF/persistence.xml and returns the `library` resource
+    var entityManagerFactory = Persistence.createEntityManagerFactory("library");
+
+    var entityManager = entityManagerFactory.createEntityManager();
+    
+    var books = entityManager.createQuery("select b from Book b").getResultList();
+    System.out.println(books);
+  }
+
+
+  public static DataSource createDataSource() throws IOException {
+    var props = new Properties();
+    // Read the database url, username and password from a properties file
+    try (var fileInputStream = new FileInputStream("application.properties")) {
+      props.load(fileInputStream);
+    }
+    var dataSource = new HikariDataSource();
+    dataSource.setJdbcUrl(props.getProperty("dataSource.url"));
+    dataSource.setUsername(props.getProperty("dataSource.username"));
+    dataSource.setPassword(props.getProperty("dataSource.password"));
+    dataSource.setConnectionTimeout(2000);
+    
+    // Apply new files from src/main/resources/db/migration to the database
+    var flyway = Flyway.configure().dataSource(dataSource).load();
+    flyway.migrate();
+
+    return dataSource;
+  }
+}
+```
+
+#### TODO: Changes to shade-plugin
+
+#### TODO: Creating a JAX-RS endpoint
+
+#### TODO: Setting up the transaction context
+
 
 ### To build a React application with Maven
 
