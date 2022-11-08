@@ -1,6 +1,8 @@
 package no.kristiania;
 
+import jakarta.servlet.DispatcherType;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -12,6 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.EnumSet;
 import java.util.Optional;
 
 public class AzureServer {
@@ -22,6 +25,7 @@ public class AzureServer {
         server = new Server(port);
         var context = createWebAppContext();
         context.addServlet(new ServletHolder(new ServletContainer(new MyResourceConfig(dataSource))), "/api/*");
+        context.addFilter(new FilterHolder(new EntityManagerFilter()), "/api/*", EnumSet.of(DispatcherType.REQUEST));
         server.setHandler(context);
     }
 
