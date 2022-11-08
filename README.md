@@ -13,7 +13,7 @@ Goal: Deploy to Azure a webapp that can communinicate with SQL Server
 
 * Add Jersey and JPA
 * Fix shade packaging
-* Setup SQL Server
+* Setup Azure SQL Server
 * application.properties
 
 ## Goal 3: Make React work
