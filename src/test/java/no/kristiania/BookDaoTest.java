@@ -2,6 +2,8 @@ package no.kristiania;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class BookDaoTest {
 
     private BookDao bookDao;
@@ -16,5 +18,13 @@ public class BookDaoTest {
         assertThat(bookDao.listAll())
                 .extracting(Book::getId)
                 .contains(book1.getId(), book2.getId());
+    }
+
+    private void flush() {
+
+    }
+
+    private Book sampleBook() {
+        return new Book();
     }
 }
