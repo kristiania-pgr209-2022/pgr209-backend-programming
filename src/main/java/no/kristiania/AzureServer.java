@@ -4,7 +4,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +19,7 @@ public class AzureServer {
     public AzureServer(int port) {
         server = new Server(port);
         var context = createWebAppContext();
-        context.addServlet(new ServletHolder(new ServletContainer(new ResourceConfig(
-                BookEndpoint.class
-        ))), "/api/*");
+        context.addServlet(new ServletHolder(new ServletContainer(new MyResourceConfig())), "/api/*");
         server.setHandler(context);
     }
 
@@ -49,4 +46,5 @@ public class AzureServer {
         server.start();
         logger.info("Started at {}", server.getURL());
     }
+
 }
