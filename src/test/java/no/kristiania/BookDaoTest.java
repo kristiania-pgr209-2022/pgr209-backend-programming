@@ -22,7 +22,7 @@ public class BookDaoTest {
     @BeforeEach
     void setUp() throws NamingException {
         var dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:mem:test");
+        dataSource.setUrl("jdbc:h2:mem:test;MODE=LEGACY;DB_CLOSE_DELAY=-1");
         var flyway = Flyway.configure().dataSource(dataSource).load();
         flyway.migrate();
 
