@@ -1,3 +1,5 @@
 /.idea/
 /target/
 /dependency-reduced-pom.xml
+/application.properties
+/src/local

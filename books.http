@@ -1,0 +1,4 @@
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{"title":  "Java in a Nutshell", "authorName":  "David Flanagan"}
