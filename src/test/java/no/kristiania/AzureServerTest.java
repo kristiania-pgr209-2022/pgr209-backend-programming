@@ -46,7 +46,9 @@ public class AzureServerTest {
                 .isEqualTo(204);
 
         var connection = openConnection("/api/books");
-        assertThat(connection.getResponseCode()).isEqualTo(200);
+        assertThat(connection.getResponseCode())
+                .as(connection.getResponseMessage())
+                .isEqualTo(200);
         assertThat(connection.getInputStream())
                 .asString(UTF_8)
                 .contains("David Flanagan");
