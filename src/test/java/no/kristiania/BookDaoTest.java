@@ -55,6 +55,9 @@ public class BookDaoTest {
     }
 
     private Book sampleBook() {
-        return new Book();
+        var book = new Book();
+        book.setTitle("Some Book Title");
+        book.setAuthorName("Some Author");
+        return book;
     }
 }
