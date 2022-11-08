@@ -835,7 +835,8 @@ public class AzureServer {
     private WebAppContext createWebAppContext() {
         var context = new WebAppContext();
         context.setContextPath("/");
-        context.setBaseResource(Resource.newClassPathResource("/azure-demo-webapp"));
+        context.setBaseResource(Resource.newClassPathResource("/
+ -demo-webapp"));
         return context;
     }
 
@@ -923,7 +924,6 @@ To deploy to Azure, run `mvn com.microsoft.azure:azure-webapp-maven-plugin:2.7.0
                                 <includes>
                                     <include>*.properties</include>
                                 </includes>
-                                <targetPath>/site/wwwroot</targetPath>
                             </resource>
                         </resources>
                     </deployment>
