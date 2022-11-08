@@ -1,0 +1,3 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="library"></persistence-unit>
+</persistence>
