@@ -13,7 +13,7 @@ import java.util.List;
 @Path("/books")
 public class BookEndpoint {
 
-    private final List<Book> bookList = new ArrayList<>();
+    private static final List<Book> bookList = new ArrayList<>();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -22,6 +22,7 @@ public class BookEndpoint {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Book> listBooks() {
         return bookList;
     }
