@@ -43,6 +43,7 @@ public class AzureServerTest {
                 }
                 """.getBytes(UTF_8));
         assertThat(postConnection.getResponseCode())
+                .as(postConnection.getResponseMessage())
                 .isEqualTo(204);
 
         var connection = openConnection("/api/books");
