@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AzureServerTest {
@@ -18,7 +16,7 @@ public class AzureServerTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        server = new AzureServer(0);
+        server = new AzureServer(0, InMemoryDatabase.createDataSource());
         server.start();
     }
 
