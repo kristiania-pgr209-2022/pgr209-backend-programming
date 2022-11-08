@@ -1,9 +1,12 @@
 package no.kristiania;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Book {
+    private Long id;
     private String title;
     private String authorName;
-    private Long id;
 
     public String getTitle() {
         return title;
