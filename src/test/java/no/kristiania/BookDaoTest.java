@@ -2,8 +2,11 @@ package no.kristiania;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
+import org.eclipse.jetty.plus.jndi.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.naming.NamingException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +16,8 @@ public class BookDaoTest {
     private EntityManager entityManager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws NamingException {
+        new Resource("jdbc/dataSource", new Object());
         entityManager = Persistence.createEntityManagerFactory("library")
                 .createEntityManager();
         bookDao = new BookDao(entityManager);
