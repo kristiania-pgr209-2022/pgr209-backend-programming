@@ -1,5 +1,6 @@
 package no.kristiania;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -12,6 +13,7 @@ import java.util.List;
 @Path("/books")
 public class BookEndpoint {
 
+    @Inject
     private BookDao bookDao;
 
     @POST
