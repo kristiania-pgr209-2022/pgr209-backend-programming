@@ -12,10 +12,12 @@ public class BookDao {
     }
 
     public void save(Book book) {
-
+        entityManager.persist(book);
     }
 
     public List<Book> listAll() {
-        return null;
+        return entityManager.createQuery(
+                "select b from Book b"
+        ).getResultList();
     }
 }
