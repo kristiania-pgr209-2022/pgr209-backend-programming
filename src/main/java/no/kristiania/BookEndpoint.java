@@ -7,23 +7,22 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/books")
 public class BookEndpoint {
 
-    private static final List<Book> bookList = new ArrayList<>();
+    private BookDao bookDao;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void addBook(Book book) {
-        bookList.add(book);
+        bookDao.save(book);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Book> listBooks() {
-        return bookList;
+        return bookDao.listAll();
     }
 }
