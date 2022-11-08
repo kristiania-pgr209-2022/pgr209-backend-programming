@@ -1,5 +1,8 @@
 package no.kristiania;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,6 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BookDaoTest {
 
     private BookDao bookDao;
+    private EntityManager entityManager;
+
+    @BeforeEach
+    void setUp() {
+        entityManager = Persistence.createEntityManagerFactory("library")
+                .createEntityManager();
+        bookDao = new BookDao(entityManager);
+    }
 
     @Test
     void shouldListSavedBooks() {
@@ -21,7 +32,7 @@ public class BookDaoTest {
     }
 
     private void flush() {
-
+        entityManager.flush();
     }
 
     private Book sampleBook() {
